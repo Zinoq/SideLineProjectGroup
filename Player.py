@@ -6,3 +6,5 @@ class Player:
 
     def decreaseHealth(self, amount):
         self.HP = self.HP - amount
+
+# this is a new comment
