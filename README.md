@@ -1,2 +1,2 @@
-# FightClubGroupProject
-Voor project 2 Hogeschool Rotterdam.
+# SidelineGroupProject
+Voor project 2 Hogeschool Rotterdam OP2 yr1
