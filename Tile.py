@@ -3,6 +3,9 @@ class Point:
         self.X = x
         self.Y = y
 
+    def __str__(self):
+        return str(self.X) + "," + str(self.Y)
+
 
 class Tile:
     def __init__(self, position, type, color):
@@ -22,7 +25,7 @@ class Tile:
                 self.Height = 40
 
     def __str__(self):
-        return self.Type
+        return self.Position
 
 
 
