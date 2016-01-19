@@ -8,11 +8,12 @@ class Point:
 
 
 class Tile:
-    def __init__(self, position, type, color):
+    def __init__(self, position, type, color, size):
         self.Position = position
         self.Color = color
         self.Width = 40
         self.Height = 40
+        self.Size = size
         if type is not "neutral" and type is not "fight" and type is not "spawn":
             raise Exception("Invalid Type, use \'neutral\', \'fight\' or \'spawn\'")
         else:
