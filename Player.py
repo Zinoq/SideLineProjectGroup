@@ -1,4 +1,5 @@
 from Tile import *
+import random
 
 class Player:
     def __init__(self, health, position, condition, spawnlocation):
@@ -12,4 +13,13 @@ class Player:
 
     def resetLocation(self):
         self.Position = self.Spawnlocation #is a Point
+
+    def rollDice(self):
+        return random.randint(1,6)
+
+
+player = Player(100,Point(2,5),100,Point(0,0)) #testing purposes
+print(player.rollDice())
+
+
 
