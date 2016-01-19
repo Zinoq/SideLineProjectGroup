@@ -13,7 +13,9 @@ BLUE = (0,0,200)
 YELLOW = (225,200,20)
 PINK = (200,100,100)
 
+
 def build_board(size):
+    #
     unit = size/24
     PlayerColors = [RED,GREEN,BLUE,YELLOW]
     TileColors = [LIGHTGRAY,GRAY]
@@ -23,7 +25,7 @@ def build_board(size):
         for j in range(20):
             c += 1
             if i == 0:
-                if j%2 == 1 and j not in [0,1,21]:
+                if j%2 == 1 and j not in [0,1]:
                     if j == 11:
                         board.append(Tile(Point(unit*j,unit),"fight",PINK,unit*2))
                     else:
