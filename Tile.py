@@ -4,7 +4,7 @@ class Point:
         self.Y = y
 
     def __str__(self):
-        return str(self.X) + "," + str(self.Y)
+        return str(self.X) + "," + str(self.Y) #if we want to print the location of a player
 
 
 class Tile:
