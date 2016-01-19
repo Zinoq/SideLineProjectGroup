@@ -6,72 +6,61 @@ from Tile import *
 WHITE = (255,255,255)
 BLACK = (0,0,0)
 GRAY = (100,100,100)
-RED = (255,0,0)
-GREEN = (0,255,0)
-BLUE = (0,0,255)
-YELLOW = (255,255,0)
-PINK = (255,100,100)
+LIGHTGRAY = (200,200,200)
+RED = (200,0,0)
+GREEN = (20,200,10)
+BLUE = (0,0,200)
+YELLOW = (225,200,20)
+PINK = (200,100,100)
 
-PlayerColors = [RED,GREEN,BLUE,YELLOW]
+def build_board(size):
+    unit = size/24
+    PlayerColors = [RED,GREEN,BLUE,YELLOW]
+    TileColors = [LIGHTGRAY,GRAY]
+    c = 0
+    board = []
+    for i in range(4):
+        for j in range(20):
+            c += 1
+            if i == 0:
+                if j%2 == 1 and j not in [0,1,21]:
+                    if j == 11:
+                        board.append(Tile(Point(unit*j,unit),"fight",PINK,unit*2))
+                    else:
+                        board.append(Tile(Point(unit*j,unit),"neutral",TileColors[c%2],unit*2))
+                    c += 1
+                elif j == 0:
+                    board.append(Tile(Point(0,0),"spawn",PlayerColors[i],unit*3))
 
-# replace below with function or loop to build board
-# every other neutral tile is colored a different shade of gray
+            if i == 1:
+                if j%2 == 1 and j not in [0,1]:
+                    if j == 11:
+                        board.append(Tile(Point(unit*j,unit*21),"fight",PINK,unit*2))
+                    else:
+                        board.append(Tile(Point(unit*j,unit*21),"neutral",TileColors[c%2-1],unit*2))
+                    c += 1
+                elif j == 0:
+                    board.append(Tile(Point(unit*21,0),"spawn",PlayerColors[i],unit*3))
+            if i == 2:
+                if j%2 == 1 and j not in [0,1]:
+                    if j == 11:
+                        board.append(Tile(Point(unit,unit*j),"fight",PINK,unit*2))
+                    else:
+                        board.append(Tile(Point(unit,unit*j),"neutral",TileColors[c%2],unit*2))
+                    c += 1
+                elif j == 0:
+                    board.append(Tile(Point(0,unit*21),"spawn",PlayerColors[i],unit*3))
+            if i == 3:
+                if j%2 == 1 and j not in [0,1]:
+                    if j == 11:
+                        board.append(Tile(Point(unit*21,unit*j),"fight",PINK,unit*2))
+                    else:
+                        board.append(Tile(Point(unit*21,unit*j),"neutral",TileColors[c%2-1],unit*2))
+                    c += 1
+                elif j == 0:
+                    board.append(Tile(Point(unit*21,unit*21),"spawn",PlayerColors[i],unit*3))
+    return board
 
-board = [
-    # Neutral Tiles
-
-    # Top
-    Tile(Point(60,20),"neutral",GRAY),
-    Tile(Point(80,20),"neutral",GRAY),
-    Tile(Point(100,20),"neutral",GRAY),
-    Tile(Point(120,20),"neutral",GRAY),
-    Tile(Point(180,20),"neutral",GRAY),
-    Tile(Point(200,20),"neutral",GRAY),
-    Tile(Point(220,20),"neutral",GRAY),
-    Tile(Point(240,20),"neutral",GRAY),
-
-    # Bottom
-    Tile(Point(60,260),"neutral",GRAY),
-    Tile(Point(80,260),"neutral",GRAY),
-    Tile(Point(100,260),"neutral",GRAY),
-    Tile(Point(120,260),"neutral",GRAY),
-    Tile(Point(180,260),"neutral",GRAY),
-    Tile(Point(200,260),"neutral",GRAY),
-    Tile(Point(220,260),"neutral",GRAY),
-    Tile(Point(240,260),"neutral",GRAY),
-
-    # Left
-    Tile(Point(20,60),"neutral",GRAY),
-    Tile(Point(20,80),"neutral",GRAY),
-    Tile(Point(20,100),"neutral",GRAY),
-    Tile(Point(20,120),"neutral",GRAY),
-    Tile(Point(20,180),"neutral",GRAY),
-    Tile(Point(20,200),"neutral",GRAY),
-    Tile(Point(20,220),"neutral",GRAY),
-    Tile(Point(20,240),"neutral",GRAY),
-
-    # Right
-    Tile(Point(260,60),"neutral",GRAY),
-    Tile(Point(260,80),"neutral",GRAY),
-    Tile(Point(260,100),"neutral",GRAY),
-    Tile(Point(260,120),"neutral",GRAY),
-    Tile(Point(260,180),"neutral",GRAY),
-    Tile(Point(260,200),"neutral",GRAY),
-    Tile(Point(260,220),"neutral",GRAY),
-    Tile(Point(260,240),"neutral",GRAY),
-
-    # Fight Tiles
-    Tile(Point(140,20),"fight",PINK),
-    Tile(Point(20,140),"fight",PINK),
-    Tile(Point(260,140),"fight",PINK),
-    Tile(Point(140,260),"fight",PINK),
-
-    # Players Tiles
-    Tile(Point(0,0),"spawn",PlayerColors[0]),
-    Tile(Point(260,0),"spawn",PlayerColors[1]),
-    Tile(Point(0,260),"spawn",PlayerColors[2]),
-    Tile(Point(260,260),"spawn",PlayerColors[3])
-]
 
 # def build_board():
 #     _board = []
@@ -86,18 +75,18 @@ board = [
 def main():
     """ Set up the game and run the main game loop """
     pygame.init()      # Prepare the pygame module for use
-    surface_sz = width = height = 320  # Desired physical surface size, in pixels.
+    surface_sz = width = height = 400   # Desired physical surface size, in pixels.
 
     # Create surface of (width, height), and its window.
     main_surface = pygame.display.set_mode((surface_sz, surface_sz))
 
     # Set up some data to describe a small rectangle and its color
     # <rect> = (x, y, w, h)
+    board = build_board(surface_sz)
     tiles = []
     for tile in board:
         _tile = [(tile.Position.X,tile.Position.Y,tile.Width,tile.Height),tile.Color]
         tiles.append(_tile)
-
 
     while True:
         ev = pygame.event.poll()    # Look for any event
