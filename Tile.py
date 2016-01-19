@@ -12,5 +12,9 @@ class Tile:
         else:
             self.Type = type
 
+    def __str__(self):
+        return self.Type
 
-# a = Tile(Point(2,5),"spawn")
+a = Tile(Point(2,5),"spawn")
+
+print(a)
