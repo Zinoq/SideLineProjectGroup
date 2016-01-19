@@ -86,7 +86,7 @@ board = [
 def main():
     """ Set up the game and run the main game loop """
     pygame.init()      # Prepare the pygame module for use
-    surface_sz = width = height = 480   # Desired physical surface size, in pixels.
+    surface_sz = width = height = 320  # Desired physical surface size, in pixels.
 
     # Create surface of (width, height), and its window.
     main_surface = pygame.display.set_mode((surface_sz, surface_sz))
