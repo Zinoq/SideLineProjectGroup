@@ -18,8 +18,8 @@ class Player:
         return random.randint(1,6)
 
 
-player = Player(100,Point(2,5),100,Point(0,0)) #testing purposes
-print(player.rollDice())
+# player = Player(100,Point(2,5),100,Point(0,0)) #testing purposes
+# print(player.rollDice())
 
 
 
