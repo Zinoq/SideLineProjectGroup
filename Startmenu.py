@@ -73,9 +73,9 @@ def main():
             pygame.draw.rect(screen, brightgreen,(180, 550, 250, 75))
             if pygame.mouse.get_pressed()[0]:
                 screen.blit(bg2,(0,0))
+                pygame.display.flip()
                 time.sleep(2)
                 game()
-
         else:
             pygame.draw.rect(screen, green,(180, 550, 250, 75))
         textSurf, textRect = text_objects("START!", largeText)
