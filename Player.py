@@ -8,6 +8,9 @@ class Player:
         self.Condition = condition
         self.Spawnlocation = spawnlocation #has to be a Point(x,y)
 
+    def moveToTile(self,tile):
+        self.Position = Point(tile.rect.centerx,tile.rect.centery)
+
     def decreaseHealth(self, amount):           #tested, works.
         self.Health = self.Health - amount
 

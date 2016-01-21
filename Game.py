@@ -1,5 +1,6 @@
 import pygame
 from Tile import *
+from Player import *
 
 # A color is a mix of (Red, Green, Blue)
 # <color> = (r, g, b)
@@ -73,9 +74,17 @@ def game():
     # Set up some data to describe a small rectangle and its color
     # <rect> = (x, y, w, h)
     board = build_board(width,height,unit)
+
+    pimg = pygame.transform.scale(pygame.image.load("assets\\fight_text.png"),(int(unit/2), int(unit/2)))
+
+    players = []
     tiles = []
+    i = 0
     for tile in board:
-        _tile = [(tile.Position.X,tile.Position.Y,tile.Width,tile.Height),tile.Color]
+        _tile = [(tile.Position.X,tile.Position.Y,tile.Width,tile.Height),tile.image]
+        if tile.Type == "spawn" and i < 4:
+            players.append(Player(100, Point(tile.rect.centerx,tile.rect.centery), 15, Point(0,0)))
+            i += 1
         tiles.append(_tile)
     while True:
         ev = pygame.event.poll()    # Look for any event
@@ -89,11 +98,12 @@ def game():
         # We draw everything from scratch on each frame.
         # So first fill everything with the background color
         main_surface.fill(WHITE)
-
-        # Overpaint a smaller rectangle on the main surface
         for tile in tiles:
             main_surface.fill(tile[1], tile[0])
+
         main_surface.blit(Tile(Point(X+unit*2,unit*2),"ring",None,unit*12,0).image,(X+unit*2,unit*2))
+        for player in players:
+            main_surface.blit(pimg,(player.Position.X,player.Position.Y))
 
         # Now the surface is ready, tell pygame to display it!
         pygame.display.flip()
