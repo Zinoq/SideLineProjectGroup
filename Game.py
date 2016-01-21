@@ -64,7 +64,7 @@ def build_board(width,height,unit):
     return board
 
 
-def main():
+def game():
     """ Set up the game and run the main game loop """
     pygame.init()      # Prepare the pygame module for use
     # Create surface of (width, height), and its window.
@@ -99,5 +99,3 @@ def main():
         pygame.display.flip()
 
     pygame.quit()     # Once we leave the loop, close the window.
-
-main()
