@@ -8,11 +8,10 @@ WHITE = (255,255,255)
 BLACK = (0,0,0)
 GRAY = (100,100,100)
 LIGHTGRAY = (200,200,200)
-RED = (200,0,0)
-GREEN = (20,200,10)
-BLUE = (0,0,200)
-LIGHTBLUE = (100,100,200)
-YELLOW = (225,200,20)
+RED = (200,80,80)
+GREEN = (80,200,80)
+BLUE = (80,80,200)
+YELLOW = (200,200,80)
 PINK = (200,100,100)
 
 # surface_sz = width = height = 480   # Desired physical surface size, in pixels.
@@ -71,21 +70,27 @@ def game():
     # Create surface of (width, height), and its window.
     main_surface = pygame.display.set_mode((width, height))
 
-    # Set up some data to describe a small rectangle and its color
     # <rect> = (x, y, w, h)
     board = build_board(width,height,unit)
 
-    pimg = pygame.transform.scale(pygame.image.load("assets\\fight_text.png"),(int(unit/2), int(unit/2)))
+    pimg = [
+        pygame.transform.scale(pygame.image.load("assets\\player1.png"),(int(unit/2), int(unit/2))),
+        pygame.transform.scale(pygame.image.load("assets\\player2.png"),(int(unit/2), int(unit/2))),
+        pygame.transform.scale(pygame.image.load("assets\\player3.png"),(int(unit/2), int(unit/2))),
+        pygame.transform.scale(pygame.image.load("assets\\player4.png"),(int(unit/2), int(unit/2)))
+        ]
 
+
+    i = 0
     players = []
     tiles = []
-    i = 0
     for tile in board:
         _tile = [(tile.Position.X,tile.Position.Y,tile.Width,tile.Height),tile.image]
         if tile.Type == "spawn" and i < 4:
-            players.append(Player(100, Point(tile.rect.centerx,tile.rect.centery), 15, Point(0,0)))
+            players.append(Player(100, Point(tile.rect.x+unit/1.4,tile.rect.y+unit/1.4), 15, Point(tile.rect.x+unit/1.4, tile.rect.y+unit/1.4),pimg[i]))
             i += 1
         tiles.append(_tile)
+
     while True:
         ev = pygame.event.poll()    # Look for any event
         if ev.type == pygame.QUIT:  # Window close button clicked?
@@ -98,12 +103,16 @@ def game():
         # We draw everything from scratch on each frame.
         # So first fill everything with the background color
         main_surface.fill(WHITE)
+
+        # Drawing the game's Tiles
         for tile in tiles:
             main_surface.fill(tile[1], tile[0])
-
+        # The big center "tile"
         main_surface.blit(Tile(Point(X+unit*2,unit*2),"ring",None,unit*12,0).image,(X+unit*2,unit*2))
+
+        # Drawing the players on their starting tiles
         for player in players:
-            main_surface.blit(pimg,(player.Position.X,player.Position.Y))
+            main_surface.blit(player.image,(player.Position.X,player.Position.Y))
 
         # Now the surface is ready, tell pygame to display it!
         pygame.display.flip()

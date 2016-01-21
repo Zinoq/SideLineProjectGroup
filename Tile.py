@@ -35,7 +35,7 @@ class Tile:
                     self.Height = size*2
                     self.rect = pygame.Rect(self.Position.X,self.Position.Y,self.Width,self.Height)
             elif type == "ring":
-                self.image = pygame.transform.scale(pygame.image.load("assets\\Boxring.png"),(self.Width,self.Height))
+                self.image = pygame.transform.scale(pygame.image.load("assets\\boxring.png"),(self.Width,self.Height))
                 self.rect = self.image.get_rect()
 
     def __str__(self):

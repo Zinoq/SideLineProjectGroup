@@ -2,11 +2,15 @@ from Tile import *
 import random
 
 class Player:
-    def __init__(self, health, position, condition, spawnlocation):
+    def __init__(self, health, position, condition, spawnlocation, texture):
         self.Health = health
-        self.Position = position
         self.Condition = condition
         self.Spawnlocation = spawnlocation #has to be a Point(x,y)
+        self.image = texture
+
+        self.rect = self.image.get_rect()
+
+        self.Position = position
 
     def moveToTile(self,tile):
         self.Position = Point(tile.rect.centerx,tile.rect.centery)
@@ -24,10 +28,10 @@ class Player:
 #Later we should add a function where we can decide how much player we want, and with that we decide how many players we
 #iniate
 
-Player1 = Player(100, Point(0,0), 15, Point(0,0))
-Player2 = Player(100, Point(260,0), 15, Point(260,0))
-Player3 = Player(100, Point(0,260), 15, Point(0,260))
-Player4 = Player(100, Point(260,260), 15, Point(260,260))
+# Player1 = Player(100, Point(0,0), 15, Point(0,0))
+# Player2 = Player(100, Point(260,0), 15, Point(260,0))
+# Player3 = Player(100, Point(0,260), 15, Point(0,260))
+# Player4 = Player(100, Point(260,260), 15, Point(260,260))
 
 
 
