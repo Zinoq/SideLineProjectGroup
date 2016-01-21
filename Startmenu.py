@@ -36,12 +36,6 @@ class Button:
         screen.blit(textSurf, textRect)
 
 
-    def CheckPressed(self):
-        if pygame.mouse.get_pressed() and pygame.mouse.get_pos() >= self.Size and pygame.mouse.get_pos() <= self.Size:
-            return True
-        else:
-            return False
-
 #Start
 button1 = Button("START!", green, (180, 550, 250, 75),((180+125), (550+(75/2))))
 
@@ -73,9 +67,9 @@ def main():
             pygame.draw.rect(screen, brightgreen,(180, 550, 250, 75))
             if pygame.mouse.get_pressed()[0]:
                 screen.blit(bg2,(0,0))
+                pygame.display.flip()
                 time.sleep(2)
                 game()
-
         else:
             pygame.draw.rect(screen, green,(180, 550, 250, 75))
         textSurf, textRect = text_objects("START!", largeText)
@@ -93,11 +87,6 @@ def main():
         textSurf, textRect = text_objects("EXIT", largeText)
         textRect.center = ((850+125), (550+(75/2)))
         screen.blit(textSurf, textRect)
-
-        if button1.CheckPressed() is True:
-             game()
-        if button2.CheckPressed() is True:
-            exit()
 
         pygame.display.flip()
 
