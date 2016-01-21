@@ -32,7 +32,7 @@ class Tile:
                     self.Width = size
                     self.Height = size*2
             elif type == "ring":
-                self.image = pygame.transform.scale(pygame.image.load("content\\Boxring.png"),(self.Width,self.Height))
+                self.image = pygame.transform.scale(pygame.image.load("assets\\Boxring.png"),(self.Width,self.Height))
 
     def __str__(self):
         return self.Position
