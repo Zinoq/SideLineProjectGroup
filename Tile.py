@@ -1,3 +1,5 @@
+import pygame
+
 class Point:
     def __init__(self, x, y):
         self.X = x
@@ -30,8 +32,7 @@ class Tile:
                     self.Width = size
                     self.Height = size*2
             elif type == "ring":
-                self.Width = size*12
-                self.Height = size*12
+                self.image = pygame.transform.scale(pygame.image.load("content\\Boxring.png"),(self.Width,self.Height))
 
     def __str__(self):
         return self.Position

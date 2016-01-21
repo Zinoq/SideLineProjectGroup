@@ -14,18 +14,24 @@ LIGHTBLUE = (100,100,200)
 YELLOW = (225,200,20)
 PINK = (200,100,100)
 
+# surface_sz = width = height = 480   # Desired physical surface size, in pixels.
+width = 1280
+height = 720
 
-def build_board(width,height):
-    if not width == height:
-        X = (width-height)/2
-    else:
-        X = 0
-    unit = int(height/16)
+# Scherm opdelen in 16 stukken
+if not width == height:
+    X = (width-height)/2
+else:
+    X = 0
+unit = int(height/16)
+
+
+def build_board(width,height,unit):
+    # Doorloopbare lijst aan kleuren voor spelerTiles en normale Tiles
     PlayerColors = [RED,GREEN,BLUE,YELLOW]
     TileColors = [LIGHTGRAY,GRAY]
-    pc = 0
-    xc = 0
-    yc = 0
+    # startwaardes voor het doorlopen van de kleurlijsten
+    pc = xc = yc = 0
     board = []
     for j in range(int(height/unit)):
         for i in range(int(height/unit)):
@@ -35,8 +41,6 @@ def build_board(width,height):
             elif (i == 7 and j == 1) or (i == 7 and j == 14) or (i == 1 and j == 7) or (i == 14 and j == 7):
                 axis = 1 if j == 1 or j == 14 else 2
                 board.append(Tile(Point(X+unit*i,unit*j),"fight",PINK,unit,axis))
-            elif i == 2 and j == 2:
-                board.append(Tile(Point(X+unit*i,unit*j),"ring",BLUE,unit,0))
             elif not (i == 8 and j == 1) or (i == 8 and j == 14) or (i == 1 and j == 8) or (i == 14 and j == 8):
                 if 1<i<14 and (j == 1 or j == 14):
                     if 1<i<7:
@@ -63,24 +67,22 @@ def build_board(width,height):
 def main():
     """ Set up the game and run the main game loop """
     pygame.init()      # Prepare the pygame module for use
-    # surface_sz = width = height = 480   # Desired physical surface size, in pixels.
-    width = 1280
-    height = 720
     # Create surface of (width, height), and its window.
     main_surface = pygame.display.set_mode((width, height))
 
     # Set up some data to describe a small rectangle and its color
     # <rect> = (x, y, w, h)
-    board = build_board(width,height)
+    board = build_board(width,height,unit)
     tiles = []
     for tile in board:
         _tile = [(tile.Position.X,tile.Position.Y,tile.Width,tile.Height),tile.Color]
         tiles.append(_tile)
-
     while True:
         ev = pygame.event.poll()    # Look for any event
         if ev.type == pygame.QUIT:  # Window close button clicked?
             break                   #   ... leave game loop
+        elif ev.type == pygame.KEYDOWN:
+            if ev.key == pygame.K_ESCAPE: break
 
         # Update your game objects and data structures here...
 
@@ -91,6 +93,7 @@ def main():
         # Overpaint a smaller rectangle on the main surface
         for tile in tiles:
             main_surface.fill(tile[1], tile[0])
+        main_surface.blit(Tile(Point(X+unit*2,unit*2),"ring",None,unit*12,0).image,(X+unit*2,unit*2))
 
         # Now the surface is ready, tell pygame to display it!
         pygame.display.flip()
