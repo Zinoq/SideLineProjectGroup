@@ -44,6 +44,8 @@ class Button:
 
 button1 = Button("START!", green, (180, 550, 250, 75),((180+125), (550+(75/2))))
 button2 = Button("EXIT", red,(850, 550, 250, 75), ((850+125), (550+(75/2))))
+unscaled_bg = pygame.image.load("assets\\title1.png")
+bg = pygame.transform.scale(unscaled_bg,size)
 
 def main():
     while True:
@@ -52,7 +54,7 @@ def main():
             break
 
         # pygame.display.flip()
-        screen.fill(white)
+        screen.blit(bg,(0,0))
         mouse = pygame.mouse.get_pos()
         button1.DrawButton()
         button2.DrawButton()
@@ -60,6 +62,9 @@ def main():
 
         if 180+250 > mouse[0] > 180 and 550+75 > mouse [1] > 550:
             pygame.draw.rect(screen, brightgreen,(180, 550, 250, 75))
+            if pygame.mouse.get_pressed()[0]:
+                game()
+
         else:
             pygame.draw.rect(screen, green,(180, 550, 250, 75))
         textSurf, textRect = text_objects("START!", largeText)
@@ -68,6 +73,8 @@ def main():
 
         if 850+250 > mouse[0] > 850 and 550+75 > mouse[1] > 550:
             pygame.draw.rect(screen, brightred,(850, 550, 250, 75))
+            if pygame.mouse.get_pressed()[0]:
+                exit()
         else:
             pygame.draw.rect(screen, red,(850, 550, 250, 75))
         textSurf, textRect = text_objects("EXIT", largeText)
