@@ -50,7 +50,7 @@ def main():
         button1.DrawButton()
         button2.DrawButton()
         screen.blit(bg,(0,0))
-        pygame.display.flip()
+
 
         #Start button
         if button1.Rect.collidepoint(mouse):
