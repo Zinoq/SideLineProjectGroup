@@ -2,11 +2,12 @@ from Tile import *
 import random
 
 class Player:
-    def __init__(self, health, position, condition, spawnlocation, texture):
+    def __init__(self, health, position, condition, spawnlocation, texture, is_human):
         self.Health = health
         self.Condition = condition
         self.Spawnlocation = spawnlocation #has to be a Point(x,y)
         self.image = texture
+        self.IsHuman = is_human
 
         self.rect = self.image.get_rect()
 
