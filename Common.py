@@ -5,6 +5,9 @@ from Player import Player
 # surface_sz = width = height = 480   # Desired physical surface size, in pixels.
 width = 1280
 height = 720
+size = width, height
+smallText = pygame.font.Font(None, 25)
+largeText = pygame.font.Font(None, 50)
 
 # Scherm opdelen in 16 stukken
 if not width == height:
