@@ -9,6 +9,8 @@ height = 720
 size = width, height
 smallText = pygame.font.Font(None, 25)
 largeText = pygame.font.Font(None, 50)
+screen = pygame.display.set_mode(size)
+
 
 # Scherm opdelen in 16 stukken
 if not width == height:

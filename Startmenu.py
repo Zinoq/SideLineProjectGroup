@@ -2,6 +2,7 @@ __author__ = 'Tristan & Zino'
 import pygame
 import time
 from Game import game
+from Button import Button
 from Common import *
 
 numberOfPlayers = 0
@@ -9,24 +10,6 @@ numberOfPlayers = 0
 
 
 pygame.init()
-screen = pygame.display.set_mode(size)
-
-class Button:
-    def __init__(self, text, color, size, center):
-        self.Text = text
-        self.Color = color
-        self.Size = size
-        self.Center = center
-        self.Rect = pygame.Rect(self.Size)
-
-    def DrawButton(self, color=None):
-        if color is not None:
-            self.Color = color
-        pygame.draw.rect(screen, self.Color, self.Size)
-        textSurf, textRect = text_objects(self.Text, largeText)
-        textRect.center = (self.Center)
-        screen.blit(textSurf, textRect)
-
 
 #Start
 button1 = Button("START!", GREEN, (180, 550, 250, 75),((180+125), (550+(75/2))))
