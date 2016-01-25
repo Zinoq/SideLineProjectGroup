@@ -2,6 +2,7 @@ import pygame
 from Tile import *
 from Player import *
 from Common import *
+from Button import *
 
 
 def game():

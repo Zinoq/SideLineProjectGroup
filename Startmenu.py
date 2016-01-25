@@ -7,8 +7,6 @@ from Common import *
 
 numberOfPlayers = 0
 
-
-
 pygame.init()
 
 #Start
