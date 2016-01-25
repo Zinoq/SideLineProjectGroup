@@ -9,9 +9,6 @@ numberOfPlayers = 0
 
 
 pygame.init()
-size = width, height
-smallText = pygame.font.Font(None, 25)
-largeText = pygame.font.Font(None, 50)
 screen = pygame.display.set_mode(size)
 
 class Button:
