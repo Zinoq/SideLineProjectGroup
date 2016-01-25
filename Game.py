@@ -18,7 +18,7 @@ def game():
         if ev.type == pygame.QUIT:  # Window close button clicked?
             exit()                   #   ... leave game loop
         elif ev.type == pygame.KEYDOWN:
-            if ev.key == pygame.K_ESCAPE: exit()
+            if ev.key == pygame.K_ESCAPE: break
 
         # Update your game objects and data structures here...
 

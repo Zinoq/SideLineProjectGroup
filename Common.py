@@ -55,7 +55,7 @@ def build_board():
         for i in range(int(height/unit)):
             if (i == 0 and j == 0) or (i == 14 and j == 0) or (i == 0 and j == 14) or (i == 14 and j == 14):
                 tiles.append(Tile(Point(X+unit*i,unit*j),"spawn",PlayerColors[pc],unit*2,0))
-                players.append(Player(100, Point(X+unit*i+unit/1.4,unit*j+unit/1.4), 15, Point(X+unit*i+unit/1.4, unit*j+unit/1.4),pimg[pc]))
+                players.append(Player(100, Point(X+unit*i+unit/1.4,unit*j+unit/1.4), 15, Point(X+unit*i+unit/1.4, unit*j+unit/1.4),pimg[pc], True))
                 pc += 1
             elif (i == 7 and j == 1) or (i == 7 and j == 14) or (i == 1 and j == 7) or (i == 14 and j == 7):
                 axis = 1 if j == 1 or j == 14 else 2
