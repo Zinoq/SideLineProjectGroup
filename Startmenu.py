@@ -68,7 +68,7 @@ def drawScreen2():
                 numberOfPlayers = 2
                 game()
         else:
-             pygame.draw.rect(screen, WHITE,180, 250, 550, 75)
+            pygame.draw.rect(screen, WHITE,180, 250, 550, 75)
             textSurf, textRect = text_objects("EXIT", largeText)
             textRect.center = ((850+125), (550+(75/2)))
             screen.blit(textSurf, textRect)
@@ -97,9 +97,8 @@ def drawScreen2():
             textSurf, textRect = text_objects("EXIT", largeText)
             textRect.center = ((850+125), (550+(75/2)))
             screen.blit(textSurf, textRect)
-    
+
         pygame.display.flip()
-        pygame.event.wait()
 
 
 
