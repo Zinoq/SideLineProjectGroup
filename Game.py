@@ -4,6 +4,9 @@ from Player import *
 from Common import *
 from Button import *
 
+# Exitbutton
+button7 = Button("EXIT", RED,(850, 550, 250, 75), ((850+125), (550+(75/2))))
+
 
 def game():
     """ Set up the game and run the main game loop """
@@ -36,6 +39,9 @@ def game():
         # Drawing the players on their starting tiles
         for player in players:
             main_surface.blit(player.image,(player.Position.X,player.Position.Y))
+        button7.DrawButton()
+
+
 
         # Now the surface is ready, tell pygame to display it!
         pygame.display.flip()
