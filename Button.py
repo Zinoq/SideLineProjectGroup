@@ -11,9 +11,10 @@ class Button:
         self.Rect = pygame.Rect(self.Size)
 
     def DrawButton(self, color=None):
-        if color is not None:
-            self.Color = color
-        pygame.draw.rect(screen, self.Color, self.Size)
-        textSurf, textRect = text_objects(self.Text, largeText)
-        textRect.center = (self.Center)
-        screen.blit(textSurf, textRect)
+        while True:
+            if color is not None:
+                self.Color = color
+            pygame.draw.rect(screen, self.Color, self.Size)
+            textSurf, textRect = text_objects(self.Text, largeText)
+            textRect.center = (self.Center)
+            screen.blit(textSurf, textRect)

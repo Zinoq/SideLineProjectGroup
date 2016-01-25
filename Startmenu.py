@@ -54,16 +54,25 @@ def main():
 
         #Start button
         if button1.Rect.collidepoint(mouse):
-            button1.DrawButton(BRIGHTGREEN)
+            pygame.draw.rect(screen, BRIGHTGREEN, button1.Size)
+            textSurf, textRect = text_objects("Start", largeText)
+            textRect.center = button1.Center
+            screen.blit(textSurf, textRect)
             if pygame.mouse.get_pressed()[0]:
                 screen.blit(bg2,(0,0))
                 drawScreen2()
         else:
-            button1.DrawButton()
+            pygame.draw.rect(screen, GREEN , button1.Size)
+            textSurf, textRect = text_objects("Start", largeText)
+            textRect.center = button1.Center
+            screen.blit(textSurf, textRect)
 
         #Exit button
         if button2.Rect.collidepoint(mouse):
             pygame.draw.rect(screen, BRIGHTRED, button2.Size)
+            textSurf, textRect = text_objects("EXIT", largeText)
+            textRect.center = button2.Center
+            screen.blit(textSurf, textRect)
             if pygame.mouse.get_pressed()[0]:
                 exit()
         else:
