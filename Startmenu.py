@@ -54,32 +54,20 @@ def main():
 
         #Start button
         if button1.Rect.collidepoint(mouse):
-            pygame.draw.rect(screen, BRIGHTGREEN, button1.Size)
-            textSurf, textRect = text_objects("Start", largeText)
-            textRect.center = button1.Center
-            screen.blit(textSurf, textRect)
+            button1.DrawButton(BRIGHTGREEN)
             if pygame.mouse.get_pressed()[0]:
                 screen.blit(bg2,(0,0))
                 drawScreen2()
         else:
-            pygame.draw.rect(screen, GREEN , button1.Size)
-            textSurf, textRect = text_objects("Start", largeText)
-            textRect.center = button1.Center
-            screen.blit(textSurf, textRect)
+            button1.DrawButton(GREEN)
 
         #Exit button
         if button2.Rect.collidepoint(mouse):
-            pygame.draw.rect(screen, BRIGHTRED, button2.Size)
-            textSurf, textRect = text_objects("EXIT", largeText)
-            textRect.center = button2.Center
-            screen.blit(textSurf, textRect)
+            button2.DrawButton(BRIGHTRED)
             if pygame.mouse.get_pressed()[0]:
                 exit()
         else:
-            pygame.draw.rect(screen, RED, button2.Size)
-            textSurf, textRect = text_objects("EXIT", largeText)
-            textRect.center = button2.Center
-            screen.blit(textSurf, textRect)
+            button2.DrawButton(RED)
 
         pygame.display.flip()
 
@@ -103,31 +91,39 @@ def drawScreen2():
 
         #1 Player forever alone
         if button3.Rect.collidepoint(mouse):
-            button3.DrawButton()
+            button3.DrawButton(PINK)
             if pygame.mouse.get_pressed()[0]:
                 numberOfPlayers = 2
                 game()
+        else:
+            button3.DrawButton(RED)
 
         #2 PLayer
         if button4.Rect.collidepoint(mouse):
-            button4.DrawButton()
+            button4.DrawButton(PINK)
             if pygame.mouse.get_pressed()[0]:
                 numberOfPlayers = 2
                 game()
+        else:
+            button4.DrawButton(RED)
 
         #3 Player
         if button5.Rect.collidepoint(mouse):
-            button5.DrawButton()
+            button5.DrawButton(PINK)
             if pygame.mouse.get_pressed()[0]:
                 numberOfPlayers = 3
                 game()
+        else:
+            button5.DrawButton(RED)
 
         #4 Players
         if button6.Rect.collidepoint(mouse):
-            button6.DrawButton()
+            button6.DrawButton(PINK)
             if pygame.mouse.get_pressed()[0]:
                 numberOfPlayers = 4
                 game()
+        else:
+            button6.DrawButton(RED)
 
         pygame.display.flip()
 
