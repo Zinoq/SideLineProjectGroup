@@ -5,7 +5,8 @@ from Common import *
 from Button import *
 
 # Exitbutton
-button7 = Button("EXIT", RED,(850, 550, 250, 75), ((850+125), (550+(75/2))))
+button7 = Button("EXIT", RED,(1020, 640, 250, 75), ((1020+125), (640+(75/2))))
+
 
 
 def game():
@@ -39,7 +40,19 @@ def game():
         # Drawing the players on their starting tiles
         for player in players:
             main_surface.blit(player.image,(player.Position.X,player.Position.Y))
+
+        mouse = pygame.mouse.get_pos()
         button7.DrawButton()
+        pygame.event.get()
+
+        if button7.Rect.collidepoint(mouse):
+            button7.DrawButton(BRIGHTRED)
+            if pygame.mouse.get_pressed()[0]:
+                exit()
+        else:
+            button7.DrawButton(RED)
+
+
 
 
 
