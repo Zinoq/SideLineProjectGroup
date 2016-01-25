@@ -2,6 +2,7 @@ import pygame
 from Tile import Tile,Point
 from Player import Player
 
+pygame.init()
 # surface_sz = width = height = 480   # Desired physical surface size, in pixels.
 width = 1280
 height = 720
