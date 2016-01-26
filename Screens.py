@@ -67,7 +67,7 @@ class title2:
             else:
                 button3.DrawButton(screen,RED)
 
-            #2 PLayer
+            #2 PLayers
             if button4.Rect.collidepoint(mouse):
                 button4.DrawButton(screen,PINK)
                 if pygame.mouse.get_pressed()[0]:
@@ -76,7 +76,7 @@ class title2:
             else:
                 button4.DrawButton(screen,RED)
 
-            #3 Player
+            #3 Players
             if button5.Rect.collidepoint(mouse):
                 button5.DrawButton(screen,PINK)
                 if pygame.mouse.get_pressed()[0]:
@@ -85,7 +85,7 @@ class title2:
             else:
                 button5.DrawButton(screen,RED)
 
-            #4 Players
+            #4 Playerss
             if button6.Rect.collidepoint(mouse):
                 button6.DrawButton(screen,PINK)
                 if pygame.mouse.get_pressed()[0]:
