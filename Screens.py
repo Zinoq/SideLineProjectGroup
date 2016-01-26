@@ -9,8 +9,6 @@ class title1:
             if ev.type == pygame.QUIT:
                 break
 
-            mouse = pygame.mouse.get_pos()
-
             button1.DrawButton(screen)
             button2.DrawButton(screen)
             screen.blit(bg,(0,0))
@@ -41,9 +39,6 @@ class title2:
             ev = pygame.event.poll()
             if ev.type == pygame.QUIT:
                 exit()
-
-
-            mouse = pygame.mouse.get_pos()
 
             screen.blit(bg2,(0,0))
             button3.DrawButton(screen)
@@ -124,7 +119,6 @@ class game:
             for player in players:
                 main_surface.blit(player.image,(player.Position.X,player.Position.Y))
 
-            mouse = pygame.mouse.get_pos()
             button7.DrawButton(main_surface)
             pygame.event.get()
 
