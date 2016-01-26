@@ -45,9 +45,6 @@ def game():
         button7.DrawButton()
         pygame.event.get()
 
-
-
-
         if button7.Rect.collidepoint(mouse):
             button7.DrawButton(BRIGHTRED)
             if pygame.mouse.get_pressed()[0]:
