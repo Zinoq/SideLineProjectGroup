@@ -81,6 +81,9 @@ button6 = Button("4 PLAYERS", WHITE, (515, 350, 250, 75), ((515+125), (350+(75/2
 # Exitbutton game
 button7 = Button("EXIT", RED,(1020, 640, 250, 75), ((1020+125), (640+(75/2))))
 
+# Roll dice
+button8 = Button("Roll Dice", WHITE,(10,640,250,75),((10+125),(640+(75/2))))
+
 
 def build_board():
     # startwaardes voor het doorlopen van de kleurlijsten

@@ -8,7 +8,9 @@ class title1:
             ev = pygame.event.poll()
             if ev.type == pygame.QUIT:
                 break
-
+            if ev.type == pygame.KEYDOWN:
+                if ev.key == pygame.K_ESCAPE:
+                    exit()
             mouse = pygame.mouse.get_pos()
 
             button1.DrawButton(screen)
@@ -35,12 +37,16 @@ class title1:
 
             pygame.display.flip()
 
+
 class title2:
     def run(self):
         while True:
             ev = pygame.event.poll()
             if ev.type == pygame.QUIT:
                 exit()
+            elif ev.type == pygame.KEYDOWN:
+                if ev.key == pygame.K_ESCAPE:
+                    switchScreen(title1())
 
 
             mouse = pygame.mouse.get_pos()
@@ -91,6 +97,7 @@ class title2:
 
             pygame.display.flip()
 
+
 class game:
     def run(self):
         """ Set up the game and run the main game loop """
@@ -106,7 +113,8 @@ class game:
             if ev.type == pygame.QUIT:  # Window close button clicked?
                 exit()                   #   ... leave game loop
             elif ev.type == pygame.KEYDOWN:
-                if ev.key == pygame.K_ESCAPE: break
+                if ev.key == pygame.K_ESCAPE:
+                    switchScreen(title1())
 
             # Update your game objects and data structures here...
 
