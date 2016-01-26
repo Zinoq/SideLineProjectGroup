@@ -35,6 +35,14 @@ class title1:
             else:
                 button2.DrawButton(screen,RED)
 
+            #Instructions button
+            if button12.Rect.collidepoint(mouse):
+                button12.DrawButton(screen, BRIGHTBLUE)
+                if pygame.mouse.get_pressed()[0]:
+                    switchScreen(title2())
+            else:
+                button12.DrawButton(screen, BLUE)
+
             pygame.display.flip()
 
 class title2:
@@ -56,7 +64,6 @@ class title2:
             button5.DrawButton(screen) #
             button6.DrawButton(screen) # Button 1 Player
             pygame.display.flip()
-            Button.Color = WHITE
 
             #1 Player forever alone
             if button3.Rect.collidepoint(mouse):

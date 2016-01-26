@@ -42,6 +42,7 @@ BRIGHTGREEN = (0,255,0)
 BLUE = (80,80,200)
 YELLOW = (200,200,80)
 PINK = (200,100,100)
+BRIGHTBLUE = (51,153,255)
 
 # Doorloopbare lijst aan kleuren voor spelerTiles en normale Tiles
 PlayerColors = [RED,GREEN,BLUE,YELLOW]
@@ -86,7 +87,7 @@ button7 = Button("EXIT", RED,(1020, 640, 250, 75), ((1020+125), (640+(75/2))))
 button8 = Button("Roll Dice", WHITE,(10,640,250,75),((10+125),(640+(75/2))))
 
 #Instructions
-button9 = Button("INSTRUCTIONS", PINK,(10, 640, 250, 75), ((10+125), (640+(75/2))))
+button12 = Button("INSTRUCTIONS", PINK,(490, 550, 300, 75), ((490+150), (550+(75/2)))) #changed size
 
 
 def build_board():
