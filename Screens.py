@@ -143,8 +143,9 @@ class game:
             if button7.Rect.collidepoint(mouse):
                 button7.DrawButton(main_surface,BRIGHTRED)
                 if pygame.mouse.get_pressed()[0]:
-                    button10.DrawButton(main_surface, GREEN)
                     button9.DrawButton(main_surface, WHITE)
+                    button10.DrawButton(main_surface, GREEN)
+                    button11.DrawButton(main_surface, RED)
 
 
 
