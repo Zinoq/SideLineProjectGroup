@@ -1,4 +1,5 @@
 import pygame
+from Common import *
 
 class Instructions:
     def run(self):
@@ -13,3 +14,11 @@ class Instructions:
             mouse = pygame.mouse.get_pos()
 
             pygame.Surface.fill(WHITE)
+
+            # Display some text
+            textColor = BLUE
+            font = pygame.font.Font(None, 36)
+            text = font.render("Hello There", 1, (10, 10, 10))
+            textSurf, textRect = text_objects(text, largeText,textColor)
+            textRect.center = (screen.Center)
+            screen.blit(textSurf, textRect)
