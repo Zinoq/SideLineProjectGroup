@@ -1,5 +1,9 @@
-import pygame
 from Common import *
+
+width = 1280
+height = 720
+size = width, height
+pygame.init()
 
 class Instructions:
     def run(self):

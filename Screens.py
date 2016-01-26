@@ -38,7 +38,7 @@ class title1:
             if button12.Rect.collidepoint(mouse):
                 button12.DrawButton(screen, BRIGHTBLUE)
                 if pygame.mouse.get_pressed()[0]:
-                    switchScreen(title2())
+                    switchScreen(Instructions())
             else:
                 button12.DrawButton(screen, BLUE)
 
