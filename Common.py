@@ -1,17 +1,17 @@
 import pygame
-from Tile import Tile,Point
-from Player import Player
-pygame.init()
+import time
+from Tile import *
+from Player import *
+from Button import *
 
 pygame.init()
+
 # surface_sz = width = height = 480   # Desired physical surface size, in pixels.
 width = 1280
 height = 720
 size = width, height
-smallText = pygame.font.Font(None, 25)
-largeText = pygame.font.Font(None, 50)
 screen = pygame.display.set_mode(size)
-
+numberOfPlayers = 0
 
 # Scherm opdelen in 16 stukken
 if not width == height:
@@ -19,6 +19,14 @@ if not width == height:
 else:
     X = 0
 unit = int(height/16)
+
+#Background 1
+unscaled_bg = pygame.image.load("assets\\title1.png")
+bg = pygame.transform.scale(unscaled_bg,size)
+
+#Background 2
+unscaled_bg2 = pygame.image.load("assets\\title2.png")
+bg2 = pygame.transform.scale(unscaled_bg2,size)
 
 # A color is a mix of (Red, Green, Blue)
 # <color> = (r, g, b)
@@ -38,7 +46,7 @@ PINK = (200,100,100)
 PlayerColors = [RED,GREEN,BLUE,YELLOW]
 TileColors = [LIGHTGRAY,GRAY]
 
-
+# Spelerplaatjes in doorloopbare lijst
 pimg = player_images = [
         pygame.transform.scale(pygame.image.load("assets\\player1.png"),(int(unit/2), int(unit/2))),
         pygame.transform.scale(pygame.image.load("assets\\player2.png"),(int(unit/2), int(unit/2))),
@@ -48,6 +56,30 @@ pimg = player_images = [
 
 players = init_players = []
 tiles = init_tiles = []
+
+# Alle Buttons:
+# TITLE SCREEN
+#Start
+button1 = Button("START!", GREEN, (180, 550, 250, 75),((180+125), (550+(75/2))))
+
+#Exit
+button2 = Button("EXIT", RED,(850, 550, 250, 75), ((850+125), (550+(75/2))))
+
+#1 Player
+button3 = Button("1 PLAYER", WHITE, (180, 250, 250, 75),((180+125), (250+(75/2))))
+
+#2 Players
+button4 = Button("2 PLAYERS", WHITE, (515, 250, 250, 75),((515+125), (250+(75/2))))
+
+#3 Players
+button5 = Button("3 PLAYERS", WHITE, (850, 250, 250, 75),((850+125), (250+(75/2))))
+
+#4 Players
+button6 = Button("4 PLAYERS", WHITE, (515, 350, 250, 75), ((515+125), (350+(75/2))))
+
+# GAME SCREEN
+# Exitbutton game
+button7 = Button("EXIT", RED,(1020, 640, 250, 75), ((1020+125), (640+(75/2))))
 
 
 def build_board():
@@ -89,6 +121,5 @@ def build_board():
     return board, players
 
 
-def text_objects(text,font):
-    textSurface = font.render(text, True, BLACK)
-    return textSurface, textSurface.get_rect()
+def switchScreen(screen):
+    screen.run()

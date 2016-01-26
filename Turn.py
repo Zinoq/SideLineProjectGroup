@@ -1,4 +1,4 @@
-from Game import *
+from Screens import *
 
 def changeTurn():
     o = 1
