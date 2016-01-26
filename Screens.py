@@ -37,7 +37,6 @@ class title1:
 
             pygame.display.flip()
 
-
 class title2:
     def run(self):
         while True:
@@ -96,7 +95,6 @@ class title2:
                 button6.DrawButton(screen,RED)
 
             pygame.display.flip()
-
 
 class game:
     def run(self):

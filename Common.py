@@ -11,6 +11,7 @@ width = 1280
 height = 720
 size = width, height
 screen = pygame.display.set_mode(size)
+mouse = pygame.mouse.get_pos()
 numberOfPlayers = 0
 
 # Scherm opdelen in 16 stukken
