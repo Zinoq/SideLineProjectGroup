@@ -115,7 +115,7 @@ class game:
         while True:
             ev = pygame.event.poll()    # Look for any event
             if ev.type == pygame.QUIT:  # Window close button clicked?
-                exit()                   #   ... leave game loop
+                exit()                 #   ... leave game loop
             elif ev.type == pygame.KEYDOWN:
                 if ev.key == pygame.K_ESCAPE:
                     switchScreen(title1())
