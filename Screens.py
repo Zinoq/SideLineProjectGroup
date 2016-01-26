@@ -1,6 +1,5 @@
 from Common import *
 
-
 class title1:
     def run(self):
         screen = pygame.display.set_mode(size)
@@ -144,7 +143,12 @@ class game:
             if button7.Rect.collidepoint(mouse):
                 button7.DrawButton(main_surface,BRIGHTRED)
                 if pygame.mouse.get_pressed()[0]:
-                    switchScreen(title1())
+                    button10.DrawButton(main_surface, GREEN)
+                    button9.DrawButton(main_surface, WHITE)
+
+
+
+                        #switchScreen(title1())
             else:
                 button7.DrawButton(main_surface,RED)
 

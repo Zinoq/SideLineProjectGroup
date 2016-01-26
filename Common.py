@@ -86,6 +86,15 @@ button7 = Button("EXIT", RED,(1020, 640, 250, 75), ((1020+125), (640+(75/2))))
 # Roll dice
 button8 = Button("Roll Dice", WHITE,(10,640,250,75),((10+125),(640+(75/2))))
 
+# Pop-up screen
+button9 = Button("Are you sure you want to quit?", WHITE, (340, 235, 600, 250), ((340+300), (150+125)))
+
+# Keep playing
+button10 = Button("Keep playing", GREEN,(350,300,200,50),((350+50),(300+25)))
+
+# Exit anyway
+button11 = Button("Exit", GREEN,(10,640,250,75),((10+125),(640+(75/2))))
+
 #Instructions
 button12 = Button("INSTRUCTIONS", PINK,(490, 550, 300, 75), ((490+150), (550+(75/2)))) #changed size
 
