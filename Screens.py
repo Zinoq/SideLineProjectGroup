@@ -143,9 +143,18 @@ class game:
             if button7.Rect.collidepoint(mouse):
                 button7.DrawButton(main_surface,BRIGHTRED)
                 if pygame.mouse.get_pressed()[0]:
-                    button9.DrawButton(main_surface, WHITE)
-                    button10.DrawButton(main_surface, GREEN)
-                    button11.DrawButton(main_surface, RED)
+                    displayConfirmation = True
+
+                    if displayConfirmation:
+                        button9.DrawButton(main_surface, WHITE)
+                        button10.DrawButton(main_surface, GREEN)
+                        if button10.Rect.collidepoint(mouse):
+                            button10.DrawButton(main_surface,BRIGHTGREEN)
+                            if pygame.mouse.get_pressed()[0]:
+                        button11.DrawButton(main_surface, RED)
+                        pygame.display.flip()
+                        # time.sleep(5)
+                        # displayit= False
 
 
 
