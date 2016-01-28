@@ -1,6 +1,5 @@
 from Common import *
 
-
 class title1:
     def run(self):
         screen = pygame.display.set_mode(size)
@@ -108,6 +107,7 @@ class game:
         pygame.init()      # Prepare the pygame module for use
         # Create surface of (width, height), and its window.
         main_surface = pygame.display.set_mode((width, height))
+
         # <rect> = (x, y, w, h)
         board, tiles, players = build_board()
 
@@ -116,7 +116,6 @@ class game:
         current_player = players[0]
 
         while True:
-            mouse = pygame.mouse.get_pos()
             ev = pygame.event.poll()    # Look for any event
             if ev.type == pygame.QUIT:  # Window close button clicked?
                 exit()                 #   ... leave game loop
@@ -154,43 +153,29 @@ class game:
                 pnr = player
                 main_surface.blit(players[pnr].image,(players[pnr].Position.X,players[pnr].Position.Y))
 
-            # button7.DrawButton(main_surface)
+            button7.DrawButton(main_surface)
             button8.DrawButton(main_surface)
-
             if button7.Rect.collidepoint(mouse):
                 button7.DrawButton(main_surface,BRIGHTRED)
                 if pygame.mouse.get_pressed()[0]:
-                    confirmationScreen()
-
+                    displayConfirmation = True
             else:
                 button7.DrawButton(main_surface,RED)
 
-            #
-            # if button8.Rect.collidepoint(mouse):
-            #     button8.DrawButton(main_surface,WHITE)
-            #     if pygame.mouse.get_pressed()[0]:
-            #         rolling_dice = True
-
-            # if button7.Rect.collidepoint(mouse):
-            #     button7.DrawButton(main_surface,BRIGHTRED)
-            #     if pygame.mouse.get_pressed()[0]:
-            #         displayConfirmation = True
-            #
-            #         if displayConfirmation:
-            #             button9.DrawButton(main_surface, WHITE)
-            #             button10.DrawButton(main_surface, GREEN)
-            #             if button10.Rect.collidepoint(mouse):
-            #                 button10.DrawButton(main_surface,BRIGHTGREEN)
-            #                 if pygame.mouse.get_pressed()[0]:
-            #                     button11.DrawButton(main_surface, RED)
-            #                     pygame.display.flip()
-            # else:
-            #     button7.DrawButton(main_surface,RED)
-
-            pygame.display.flip()
-            # time.sleep(5)
-
-
+            while displayConfirmation:
+                mouse = pygame.mouse.get_pos()
+                button9.DrawButton(main_surface, WHITE)
+                button10.DrawButton(main_surface, GREEN)
+                button11.DrawButton(main_surface, RED)
+                if button10.Rect.collidepoint(mouse):
+                    button10.DrawButton(main_surface,BRIGHTGREEN)
+                    if pygame.mouse.get_pressed()[0]:
+                        displayConfirmation = False
+                if button11.Rect.collidepoint(mouse):
+                    button11.DrawButton(main_surface,BRIGHTRED)
+                    if pygame.mouse.get_pressed()[0]:
+                        switchScreen(title1())
+                pygame.display.flip()
 
 
 class Instructions:
