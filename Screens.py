@@ -103,6 +103,7 @@ class title2:
 
             pygame.display.flip()
 
+
 class game:
     def run(self):
         """ Set up the game and run the main game loop """
@@ -159,7 +160,6 @@ class game:
             button7.DrawButton(main_surface)
             button8.DrawButton(main_surface)
 
-            # displayConfirmation = 0
             if button7.Rect.collidepoint(mouse):
                 button7.DrawButton(main_surface,BRIGHTRED)
                 if pygame.mouse.get_pressed()[0]:
@@ -180,12 +180,8 @@ class game:
                 if button11.Rect.collidepoint(mouse):
                     button11.DrawButton(main_surface,BRIGHTRED)
                     if pygame.mouse.get_pressed(button11.Rect)[0]:
-                        displayConfirmation += 1
-                if displayConfirmation == 2:
-                    displayConfirmation -= 2
-                    switchScreen(title1())
+                       switchScreen(title1())
             pygame.display.flip()
-
 
 class Instructions:
     def run(self):
