@@ -1,5 +1,6 @@
 from Common import *
 
+
 class title1:
     def run(self):
         screen = pygame.display.set_mode(size)
@@ -116,6 +117,7 @@ class game:
         current_player = players[0]
 
         while True:
+            mouse = pygame.mouse.get_pos()
             ev = pygame.event.poll()    # Look for any event
             if ev.type == pygame.QUIT:  # Window close button clicked?
                 exit()                 #   ... leave game loop
@@ -155,6 +157,7 @@ class game:
 
             button7.DrawButton(main_surface)
             button8.DrawButton(main_surface)
+
             if button7.Rect.collidepoint(mouse):
                 button7.DrawButton(main_surface,BRIGHTRED)
                 if pygame.mouse.get_pressed()[0]:
