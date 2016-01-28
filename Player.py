@@ -9,9 +9,7 @@ class Player:
         self.CurrentTile = self.SpawnTile
         self.image = texture
         self.IsHuman = is_human
-
         self.rect = self.image.get_rect()
-
         self.Position = position
 
     def moveToTile(self,tile):
@@ -21,7 +19,7 @@ class Player:
         self.Health = self.Health - amount
 
     def resetLocation(self):
-        self.Position = self.Spawnlocation      #is a Point, tested and works
+        self.Position = self.SpawnTile      #is a Point, tested and works
 
     def rollDice(self):                         #tested, works
         return random.randint(1,6)
