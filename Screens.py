@@ -1,12 +1,13 @@
 from Common import *
 
+
 class title1:
     def run(self):
         screen = pygame.display.set_mode(size)
         while True:
             ev = pygame.event.poll()
             if ev.type == pygame.QUIT:
-                break
+                exit()
             if ev.type == pygame.KEYDOWN:
                 if ev.key == pygame.K_ESCAPE:
                     exit()
@@ -110,7 +111,11 @@ class game:
         main_surface = pygame.display.set_mode((width, height))
 
         # <rect> = (x, y, w, h)
-        board, players = build_board()
+        board, tiles, players = build_board()
+
+        rolling_dice = False
+        current_turn = 0
+        current_player = players[0]
 
         while True:
             ev = pygame.event.poll()    # Look for any event
@@ -121,6 +126,19 @@ class game:
                     switchScreen(title1())
 
             # Update your game objects and data structures here...
+            if rolling_dice:
+                current_tile = tiles[current_player.CurrentTile]
+                new_tile = tiles.index(current_tile) + current_player.rollDice()
+                if new_tile > 47:
+                    new_tile -= 47
+                elif new_tile < 0:
+                    new_tile += 47
+                current_player.moveToTile(tiles[new_tile])
+
+                rolling_dice = False
+                current_turn += 1
+                current_player = players[current_turn%4]
+
 
             # We draw everything from scratch on each frame.
             # So first fill everything with the background color
@@ -134,34 +152,36 @@ class game:
 
             # Drawing the players on their starting tiles
             for player in players:
-                main_surface.blit(player.image,(player.Position.X,player.Position.Y))
+                pnr = player
+                main_surface.blit(players[pnr].image,(players[pnr].Position.X,players[pnr].Position.Y))
 
-            mouse = pygame.mouse.get_pos()
-            button7.DrawButton(main_surface)
-            pygame.event.get()
+            # button7.DrawButton(main_surface)
+            # button8.DrawButton(main_surface)
+            #
+            # if button7.Rect.collidepoint(mouse):
+            #     button7.DrawButton(main_surface,BRIGHTRED)
+            #     if pygame.mouse.get_pressed()[0]:
+            #         displayConfirmation = True
+            #
+            #         if displayConfirmation:
+            #             button9.DrawButton(main_surface, WHITE)
+            #             button10.DrawButton(main_surface, GREEN)
+            #             if button10.Rect.collidepoint(mouse):
+            #                 button10.DrawButton(main_surface,BRIGHTGREEN)
+            #                 if pygame.mouse.get_pressed()[0]:
+            #                     button11.DrawButton(main_surface, RED)
+            #             #switchScreen(title1())
+            # else:
+            #     button7.DrawButton(main_surface,RED)
+            #
+            # if button8.Rect.collidepoint(mouse):
+            #     button8.DrawButton(main_surface,WHITE)
+            #     if pygame.mouse.get_pressed()[0]:
+            #         rolling_dice = True
 
-            if button7.Rect.collidepoint(mouse):
-                button7.DrawButton(main_surface,BRIGHTRED)
-                if pygame.mouse.get_pressed()[0]:
-                    displayConfirmation = True
-
-                    if displayConfirmation:
-                        button9.DrawButton(main_surface, WHITE)
-                        button10.DrawButton(main_surface, GREEN)
-                        if button10.Rect.collidepoint(mouse):
-                            button10.DrawButton(main_surface,BRIGHTGREEN)
-                            if pygame.mouse.get_pressed()[0]:
-                        button11.DrawButton(main_surface, RED)
-                        pygame.display.flip()
-                        # time.sleep(5)
-                        # displayit= False
-
-
-
-
-                        #switchScreen(title1())
-            else:
-                button7.DrawButton(main_surface,RED)
+            pygame.display.flip()
+            # time.sleep(5)
+            # displayit= False
 
 class Instructions:
     def run(self):

@@ -57,8 +57,6 @@ pimg = player_images = [
         pygame.transform.scale(pygame.image.load("assets\\player4.png"),(int(unit/2), int(unit/2)))
         ]
 
-players = init_players = []
-tiles = init_tiles = []
 
 # Alle Buttons:
 # TITLE SCREEN
@@ -102,41 +100,48 @@ button12 = Button("INSTRUCTIONS", PINK,(490, 550, 300, 75), ((490+150), (550+(75
 
 def build_board():
     # startwaardes voor het doorlopen van de kleurlijsten
-    pc = xc = yc = 0
+    pc = xc = yc = fc = 0
+    players = {}
+    tiles = {}
     board = []
     for j in range(int(height/unit)):
         for i in range(int(height/unit)):
+            currenttile = pc+xc+yc
             if (i == 0 and j == 0) or (i == 14 and j == 0) or (i == 0 and j == 14) or (i == 14 and j == 14):
-                tiles.append(Tile(Point(X+unit*i,unit*j),"spawn",PlayerColors[pc],unit*2,0))
-                players.append(Player(100, Point(X+unit*i+unit/1.4,unit*j+unit/1.4), 15, Point(X+unit*i+unit/1.4, unit*j+unit/1.4),pimg[pc], True))
+                tiles[pc*12] = (Tile(Point(X+unit*i,unit*j),"spawn",PlayerColors[pc],unit*2,0))
+                players[pc] = (Player(100, Point(X+unit*i+unit/1.4,unit*j+unit/1.4), 15, Point(X+unit*i+unit/1.4, unit*j+unit/1.4),pimg[pc], True))
                 pc += 1
             elif (i == 7 and j == 1) or (i == 7 and j == 14) or (i == 1 and j == 7) or (i == 14 and j == 7):
                 axis = 1 if j == 1 or j == 14 else 2
-                tiles.append(Tile(Point(X+unit*i,unit*j),"fight",PINK,unit,axis))
+                tiles[pc+xc+yc-1] = (Tile(Point(X+unit*i,unit*j),"fight",PINK,unit,axis))
+                if axis == 1:
+                    xc += 1
+                else:
+                    yc += 1
             elif not (i == 8 and j == 1) or (i == 8 and j == 14) or (i == 1 and j == 8) or (i == 14 and j == 8):
                 if 1<i<14 and (j == 1 or j == 14):
                     if 1<i<7:
-                        tiles.append(Tile(Point(X+unit*i,unit*j),"neutral",TileColors[xc%2],unit,0))
+                        tiles[pc+xc+yc-1] = (Tile(Point(X+unit*i,unit*j),"neutral",TileColors[xc%2],unit,0))
                         xc += 1
                     elif 8<i<14:
-                        tiles.append(Tile(Point(X+unit*i,unit*j),"neutral",TileColors[xc%2-1],unit,0))
+                        tiles[pc+xc+yc-1] = (Tile(Point(X+unit*i,unit*j),"neutral",TileColors[xc%2-1],unit,0))
                         xc += 1
                 if 1<j<14 and (i == 1 or i == 14):
                     if i == 1:
                         if 1<j<7:
-                            tiles.append(Tile(Point(X+unit*i,unit*j),"neutral",TileColors[yc%2],unit,0))
+                            tiles[pc+xc+yc-1] = (Tile(Point(X+unit*i,unit*j),"neutral",TileColors[yc%2],unit,0))
                         elif 8<j<14:
-                            tiles.append(Tile(Point(X+unit*i,unit*j),"neutral",TileColors[yc%2-1],unit,0))
+                            tiles[pc+xc+yc-1] = (Tile(Point(X+unit*i,unit*j),"neutral",TileColors[yc%2-1],unit,0))
                     if i == 14:
                         if 1<j<7:
-                            tiles.append(Tile(Point(X+unit*i,unit*j),"neutral",TileColors[yc%2],unit,0))
+                            tiles[pc+xc+yc-1] = (Tile(Point(X+unit*i,unit*j),"neutral",TileColors[yc%2],unit,0))
                         elif 8<j<14:
-                            tiles.append(Tile(Point(X+unit*i,unit*j),"neutral",TileColors[yc%2-1],unit,0))
+                            tiles[pc+xc+yc-1] = (Tile(Point(X+unit*i,unit*j),"neutral",TileColors[yc%2-1],unit,0))
                         yc += 1
     for tile in tiles:
-        board.append([(tile.Position.X,tile.Position.Y,tile.Width,tile.Height),tile.image])
+        board.append([(tiles[tile].Position.X,tiles[tile].Position.Y,tiles[tile].Width,tiles[tile].Height),tiles[tile].image])
 
-    return board, players
+    return board, tiles, players
 
 
 def switchScreen(screen):
