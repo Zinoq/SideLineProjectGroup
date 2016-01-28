@@ -1,5 +1,7 @@
 from Common import *
 
+pygame.display.set_caption("Survivor")
+
 class title1:
     def run(self):
         screen = pygame.display.set_mode(size)
@@ -101,7 +103,6 @@ class title2:
 
             pygame.display.flip()
 
-
 class game:
     def run(self):
         """ Set up the game and run the main game loop """
@@ -184,6 +185,7 @@ class game:
                     displayConfirmation -= 2
                 pygame.display.flip()
 
+
 class Instructions:
     def run(self):
         screen = pygame.display.set_mode(size)
@@ -227,16 +229,16 @@ class Instructions:
                 textPosition = ((10), (30 + (20 * i)))
                 screen.blit(textSurf, textPosition)
 
-            button1.DrawButton(screen, GREEN)
-            button2.DrawButton(screen, RED)
+            button13.DrawButton(screen, GREEN)
+            button14.DrawButton(screen, RED)
 
-            if button1.Rect.collidepoint(mouse):
-                button1.DrawButton(screen, BRIGHTGREEN)
+            if button13.Rect.collidepoint(mouse):
+                button13.DrawButton(screen, BRIGHTGREEN)
                 if pygame.mouse.get_pressed()[0]:
                     switchScreen(title2())
 
-            if button2.Rect.collidepoint(mouse):
-                button2.DrawButton(screen, BRIGHTRED)
+            if button14.Rect.collidepoint(mouse):
+                button14.DrawButton(screen, BRIGHTRED)
                 if pygame.mouse.get_pressed()[0]:
                     switchScreen(title1())
 

@@ -23,7 +23,7 @@ else:
 unit = int(height/16)
 
 #Background 1
-unscaled_bg = pygame.image.load("assets\\title1.png")
+unscaled_bg = pygame.image.load("assets\\title3.png")
 bg = pygame.transform.scale(unscaled_bg,size)
 
 #Background 2
@@ -61,11 +61,15 @@ pimg = player_images = [
 # Alle Buttons:
 # TITLE SCREEN
 #Start
-button1 = Button("START!", GREEN, (180, 550, 250, 75),((180+125), (550+(75/2))))
+button1 = Button("START!", GREEN, (180, 300, 250, 75),((180+125), (300+(75/2))))
 
 #Exit
-button2 = Button("EXIT", RED,(850, 550, 250, 75), ((850+125), (550+(75/2))))
+button2 = Button("EXIT", RED,(850, 300, 250, 75), ((850+125), (300+(75/2))))
 
+#Instructions
+button12 = Button("INSTRUCTIONS", PINK,(490, 300, 300, 75), ((490+150), (300+(75/2)))) #changed size
+
+#Player amount selection screen
 #1 Player
 button3 = Button("1 PLAYER", WHITE, (180, 250, 250, 75),((180+125), (250+(75/2))))
 
@@ -94,8 +98,13 @@ button10 = Button("Keep playing", GREEN,(350,425,250,50),((350+125),(425+25)))
 # Exit anyway
 button11 = Button("Quit", RED,(680,425,250,50),((680+125),(425+25)))
 
-#Instructions
-button12 = Button("INSTRUCTIONS", PINK,(490, 550, 300, 75), ((490+150), (550+(75/2)))) #changed size
+#instructionscreen
+#start
+button13 = Button("START!", GREEN, (180, 550, 250, 75),((180+125), (550+(75/2))))
+
+#back
+button14 = Button("BACK", RED,(850, 550, 250, 75), ((850+125), (550+(75/2))))
+
 
 
 def build_board():
