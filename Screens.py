@@ -16,7 +16,6 @@ class title1:
             button2.DrawButton(screen)
             screen.blit(bg,(0,0))
 
-
             #Start button
             if button1.Rect.collidepoint(mouse):
                 button1.DrawButton(screen,BRIGHTGREEN)
@@ -91,7 +90,7 @@ class title2:
             else:
                 button5.DrawButton(screen,RED)
 
-            #4 Playerss
+            #4 Players
             if button6.Rect.collidepoint(mouse):
                 button6.DrawButton(screen,PINK)
                 if pygame.mouse.get_pressed()[0]:
@@ -154,8 +153,8 @@ class game:
                 pnr = player
                 main_surface.blit(players[pnr].image,(players[pnr].Position.X,players[pnr].Position.Y))
 
-            # button7.DrawButton(main_surface)
-            # button8.DrawButton(main_surface)
+            button7.DrawButton(main_surface)
+            button8.DrawButton(main_surface)
             #
             # if button7.Rect.collidepoint(mouse):
             #     button7.DrawButton(main_surface,BRIGHTRED)
@@ -178,6 +177,8 @@ class game:
             #     if pygame.mouse.get_pressed()[0]:
             #         rolling_dice = True
 
+            # displayConfirmation = False
+
             if button7.Rect.collidepoint(mouse):
                 button7.DrawButton(main_surface,BRIGHTRED)
                 if pygame.mouse.get_pressed()[0]:
@@ -191,14 +192,11 @@ class game:
                             if pygame.mouse.get_pressed()[0]:
                                 button11.DrawButton(main_surface, RED)
                                 pygame.display.flip()
-
-                        #switchScreen(title1())
             else:
                 button7.DrawButton(main_surface,RED)
 
             pygame.display.flip()
             # time.sleep(5)
-            # displayit= False
 
 class Instructions:
     def run(self):
