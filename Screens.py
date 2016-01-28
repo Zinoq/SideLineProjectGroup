@@ -116,6 +116,9 @@ class game:
         rolling_dice = False
         current_turn = 0
         current_player = players[0]
+        text = "Current player is "+str(players[0])
+        textposition = (10,10)
+
         displayConfirmation = 0
         while True:
             mouse = pygame.mouse.get_pos()
