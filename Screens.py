@@ -115,7 +115,7 @@ class game:
         # <rect> = (x, y, w, h)
         board, tiles, players = build_board()
 
-        button8.DrawButton(main_surface, BLUE)
+
 
         def turn():  # TODO further improvement once the board is fixed by mr. Lucas Pekelharing
             rolling_dice = True
@@ -126,11 +126,14 @@ class game:
                     button8.DrawButton(main_surface, BRIGHTBLUE)
                     if pygame.mouse.get_pressed()[0]:
                         a = current_player.rollDice()
+                        textColor = BLACK
+                        textSurf, textRect = text_objects("You rolled: " + str(a), smallText, textColor)
+                        textPosition = (10,600)
+                        screen.blit(textSurf, textPosition)
                         current_player.moveToTile(current_player.CurrentTile + a)
                         current_turn += 1
                         if current_turn >= 5:
                             current_turn = 0
-            turn()
 
         displayConfirmation = 0
         while True:
@@ -143,22 +146,24 @@ class game:
                     switchScreen(title1())
 
             # Update your game objects and data structures here...
-            if rolling_dice:
-                current_tile = tiles[current_player.CurrentTile]
-                new_tile = tiles.index(current_tile) + current_player.rollDice()
-                if new_tile > 47:
-                    new_tile -= 47
-                elif new_tile < 0:
-                    new_tile += 47
-                current_player.moveToTile(tiles[new_tile])
+            # if rolling_dice:
+            #     current_tile = tiles[current_player.CurrentTile]
+            #     new_tile = tiles.index(current_tile) + current_player.rollDice()
+            #     if new_tile > 47:
+            #         new_tile -= 47
+            #     elif new_tile < 0:
+            #         new_tile += 47
+            #     current_player.moveToTile(tiles[new_tile])
 
-                rolling_dice = False
-                current_turn += 1
-                current_player = players[current_turn % 4]
+                # rolling_dice = False
+                # current_turn += 1
+                # current_player = players[current_turn % 4]
 
             # We draw everything from scratch on each frame.
             # So first fill everything with the background color
             main_surface.fill(WHITE)
+
+            button8.DrawButton(main_surface, BLUE)
 
             # Drawing the game's Tiles
             for tile in board:
