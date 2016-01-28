@@ -118,6 +118,7 @@ class game:
 
         displayConfirmation = 0
         while True:
+            mouse = pygame.mouse.get_pos()
             ev = pygame.event.poll()    # Look for any event
             if ev.type == pygame.QUIT:  # Window close button clicked?
                 exit()                 #   ... leave game loop
@@ -139,7 +140,7 @@ class game:
                 current_turn += 1
                 current_player = players[current_turn%4]
 
-            mouse = pygame.mouse.get_pos()
+
             # We draw everything from scratch on each frame.
             # So first fill everything with the background color
             main_surface.fill(WHITE)
@@ -157,6 +158,7 @@ class game:
 
             button7.DrawButton(main_surface)
             button8.DrawButton(main_surface)
+
             if button7.Rect.collidepoint(mouse):
                 button7.DrawButton(main_surface,BRIGHTRED)
                 if pygame.mouse.get_pressed()[0]:
@@ -220,13 +222,13 @@ class Instructions:
             # Display some text
             textColor = BLACK
 
-            for i in range(0, len(text)):
+            for i in range(0, len(text)): #this prints out the tekst list in a readable order
                 textSurf, textRect = text_objects(text[i], smallText, textColor)
                 textPosition = ((10), (30 + (20 * i)))
                 screen.blit(textSurf, textPosition)
 
-                button1.DrawButton(screen, GREEN)
-                button2.DrawButton(screen, RED)
+            button1.DrawButton(screen, GREEN)
+            button2.DrawButton(screen, RED)
 
             if button1.Rect.collidepoint(mouse):
                 button1.DrawButton(screen, BRIGHTGREEN)
