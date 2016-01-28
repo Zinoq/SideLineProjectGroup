@@ -132,7 +132,7 @@ class game:
                         screen.blit(textSurf, textPosition)
                         current_player.moveToTile(current_player.CurrentTile + a)
                         current_turn += 1
-                        if current_turn >= 5:
+                        if current_turn >= 4:
                             current_turn = 0
 
         displayConfirmation = 0
