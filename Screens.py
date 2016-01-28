@@ -217,7 +217,6 @@ class Instructions:
                     switchScreen(title1())
             mouse = pygame.mouse.get_pos()
 
-
             pygame.Surface.fill(screen, WHITE)
 
             # Display some text
