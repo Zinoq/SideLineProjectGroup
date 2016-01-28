@@ -116,8 +116,7 @@ class game:
         rolling_dice = False
         current_turn = 0
         current_player = players[0]
-        text = "Current player is "+str(players[0])
-        textposition = (10,10)
+
 
         displayConfirmation = 0
         while True:
@@ -158,6 +157,11 @@ class game:
             for player in players:
                 pnr = player
                 main_surface.blit(players[pnr].image,(players[pnr].Position.X,players[pnr].Position.Y))
+
+            textColor = BLACK
+            textSurf, textRect = text_objects("Current player is "+str(players[0].Name), smallText, textColor)
+            textPosition = (10,10)
+            screen.blit(textSurf, textPosition)
 
             button7.DrawButton(main_surface)
             button8.DrawButton(main_surface)
