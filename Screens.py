@@ -90,7 +90,7 @@ class title2:
             else:
                 button5.DrawButton(screen,RED)
 
-            #4 Playerss
+            #4 Players
             if button6.Rect.collidepoint(mouse):
                 button6.DrawButton(screen,PINK)
                 if pygame.mouse.get_pressed()[0]:
@@ -100,6 +100,7 @@ class title2:
                 button6.DrawButton(screen,RED)
 
             pygame.display.flip()
+
 
 class game:
     def run(self):
@@ -115,7 +116,7 @@ class game:
         current_turn = 0
         current_player = players[0]
 
-        displayConfirmation = False
+        displayConfirmation = 0
         while True:
             ev = pygame.event.poll()    # Look for any event
             if ev.type == pygame.QUIT:  # Window close button clicked?
@@ -159,11 +160,11 @@ class game:
             if button7.Rect.collidepoint(mouse):
                 button7.DrawButton(main_surface,BRIGHTRED)
                 if pygame.mouse.get_pressed()[0]:
-                    displayConfirmation = True
+                    displayConfirmation += 1
             else:
                 button7.DrawButton(main_surface,RED)
 
-            while displayConfirmation:
+            while displayConfirmation == 1 or 2:
                 mouse = pygame.mouse.get_pos()
                 button9.DrawButton(main_surface, WHITE)
                 button10.DrawButton(main_surface, GREEN)
@@ -171,13 +172,15 @@ class game:
                 if button10.Rect.collidepoint(mouse):
                     button10.DrawButton(main_surface,BRIGHTGREEN)
                     if pygame.mouse.get_pressed()[0]:
-                        displayConfirmation = False
+                        displayConfirmation -= 1
                 if button11.Rect.collidepoint(mouse):
                     button11.DrawButton(main_surface,BRIGHTRED)
                     if pygame.mouse.get_pressed()[0]:
-                        switchScreen(title1())
+                        displayConfirmation += 1
+                if displayConfirmation == 2:
+                    switchScreen(title1())
+                    displayConfirmation -= 2
                 pygame.display.flip()
-            pygame.display.flip()
 
 class Instructions:
     def run(self):
