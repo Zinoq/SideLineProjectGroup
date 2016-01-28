@@ -151,13 +151,8 @@ class game:
                         if button10.Rect.collidepoint(mouse):
                             button10.DrawButton(main_surface,BRIGHTGREEN)
                             if pygame.mouse.get_pressed()[0]:
-                        button11.DrawButton(main_surface, RED)
-                        pygame.display.flip()
-                        # time.sleep(5)
-                        # displayit= False
-
-
-
+                                button11.DrawButton(main_surface, RED)
+                                pygame.display.flip()
 
                         #switchScreen(title1())
             else:
@@ -172,17 +167,42 @@ class Instructions:
                 break
             if ev.type == pygame.KEYDOWN:
                 if ev.key == pygame.K_ESCAPE:
-                    exit()
+                    switchScreen(title1())
             mouse = pygame.mouse.get_pos()
 
             pygame.Surface.fill(screen, WHITE)
 
             # Display some text
-            textColor = BLUE
-            text = "Kappa123"
-            textSurf, textRect = text_objects(text, largeText,textColor)
-            textPosition = ((100), (100))
-            screen.blit(textSurf, textPosition)
+            textColor = BLACK
+            text = [
+                    "Diegene die het hoogst gooit begint met het spel. \n",
+                    "Elke speler heeft zijn eigen hoek (3 vakjes) en start vanaf die hoek met de klok mee.\n",
+                    "Elke speler begint met 100 Levenspunten en 15 Conditiepunten.\n",
+                    "Elke speler heeft een Scorekaart van zijn Character en een bijpassende pion\n",
+                    "Er wordt gedobbeld om voort te bewegen over het bordspel.\n",
+                    "Wanneer een speler op een vakje ‘Fight’ terechtkomt moet deze vechten tegen de Superfighter ongeacht of er een speler ook op dat vakje staat.\n",
+                    "De Superfighter wordt bepaald door een Superfighter-kaart van de stapel op het bordspel te pakken. Leg deze hierna weer onderaan de stapel.\n",
+                    "Dobbelen geeft, aan de hand van de Scorekaart, een schade aan met de bijbehorende Conditiepunten.\n",
+                    "Wanneer men geen Conditiepunten meer heeft kan er géén schade aan de tegenstander worden gedaan!\n",
+                    "Wanneer er gevochten moet worden en beide spelers geen Conditiepunten hebben ontvangt de verdediger 15 schade.\n",
+                    "De hoogste schade - de laagste schade = schade aan de speler met de laagste schade.\n",
+                    "Wanneer 2 spelers op hetzelfde vak komen wordt er tegen elkaar gevochten.\n",
+                    "Meer dan 2 spelers op één vak? Dan kiest de diegene die als laatste op het vak terecht is gekomen een tegenstander die ook op het vak staat.\n",
+                    "Wanneer je beide op een ‘Fight!’ vak terechtkomt wordt er alleen gevochten met de Superfighter en niet met elkaar.\n",
+                    "Je ontvangt 15 Conditiepunten als je langs je eigen hoek komt(max = 15 Conditiepunten).\n",
+                    "Je ontvangt 10 Levenspunten als je op je eigen hoek komt.\n",
+                    "Wanneer een hoek leeg is wordt er -10 Levenspunten gerekend. Met 2 of 3 spelers heb je dus een lege hoek.\n",
+                    "Ook wanneer iemand af is heb je een lege hoek.\n",
+                    "Verwijder je pion wanneer je geen Levenspunten meer hebt. Je hebt verloren.\n"
+                    ]
+
+            for i in range(0, len(text)):
+                textSurf, textRect = text_objects(text[i], smallText, textColor)
+                textPosition = ((10), (30 + (15 * i)))
+                screen.blit(textSurf, textPosition)
+
+                button1.DrawButton(screen, GREEN)
+                button2.DrawButton(screen, RED)
 
             # Now the surface is ready, tell pygame to display it!
             pygame.display.flip()
