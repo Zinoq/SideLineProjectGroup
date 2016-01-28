@@ -103,7 +103,6 @@ class title2:
 
             pygame.display.flip()
 
-
 class game:
     def run(self):
         """ Set up the game and run the main game loop """
@@ -160,14 +159,16 @@ class game:
             button7.DrawButton(main_surface)
             button8.DrawButton(main_surface)
 
+            # EXIT BUTTON
             if button7.Rect.collidepoint(mouse):
                 button7.DrawButton(main_surface,BRIGHTRED)
                 if pygame.mouse.get_pressed()[0]:
                     displayConfirmation = 1
-
             else:
                 button7.DrawButton(main_surface,RED)
-            pygame.event.wait()
+
+            pygame.event.wait() #fixes it immediately appearing for 0.1sec and then quitting
+            #EXIT CONFIRMATION
             if displayConfirmation == 1 or displayConfirmation == 2:
                 mouse = pygame.mouse.get_pos()
                 button9.DrawButton(main_surface, WHITE)
@@ -182,6 +183,7 @@ class game:
                     if pygame.mouse.get_pressed(button11.Rect)[0]:
                        switchScreen(title1())
             pygame.display.flip()
+
 
 class Instructions:
     def run(self):
