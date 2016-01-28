@@ -71,7 +71,7 @@ class title2:
                 button3.DrawButton(screen, PINK)
                 if pygame.mouse.get_pressed()[0]:
                     numberOfPlayers = 2
-                    switchScreen(game())
+                    switchScreen(game(),numberOfPlayers)
             else:
                 button3.DrawButton(screen, RED)
 
@@ -80,7 +80,7 @@ class title2:
                 button4.DrawButton(screen, PINK)
                 if pygame.mouse.get_pressed()[0]:
                     numberOfPlayers = 2
-                    switchScreen(game())
+                    switchScreen(game(),numberOfPlayers)
             else:
                 button4.DrawButton(screen, RED)
 
@@ -89,7 +89,7 @@ class title2:
                 button5.DrawButton(screen, PINK)
                 if pygame.mouse.get_pressed()[0]:
                     numberOfPlayers = 3
-                    switchScreen(game())
+                    switchScreen(game(),numberOfPlayers)
             else:
                 button5.DrawButton(screen, RED)
 
@@ -98,7 +98,7 @@ class title2:
                 button6.DrawButton(screen, PINK)
                 if pygame.mouse.get_pressed()[0]:
                     numberOfPlayers = 4
-                    switchScreen(game())
+                    switchScreen(game(),numberOfPlayers)
             else:
                 button6.DrawButton(screen, RED)
 
@@ -106,21 +106,20 @@ class title2:
 
 
 class game:
-    def run(self):
+    def run(self,numberOfPlayers):
         """ Set up the game and run the main game loop """
         pygame.init()  # Prepare the pygame module for use
         # Create surface of (width, height), and its window.
         main_surface = pygame.display.set_mode((width, height))
 
         # <rect> = (x, y, w, h)
-        board, tiles, players = build_board()
+        board, startTiles = build_board()
+        players = playerInit(numberOfPlayers,startTiles)
+        current_turn = 0
 
-
-
-        def turn():  # TODO further improvement once the board is fixed by mr. Lucas Pekelharing
+        def turn(current_turn):  # TODO further improvement once the board is fixed by mr. Lucas Pekelharing
             rolling_dice = True
-            current_turn = 0
-            current_player = players[current_turn]
+            current_player = players[current_turn%4]
             if rolling_dice:
                 if button8.Rect.collidepoint(mouse):
                     button8.DrawButton(main_surface, BRIGHTBLUE)
@@ -130,10 +129,12 @@ class game:
                         textSurf, textRect = text_objects("You rolled: " + str(a), smallText, textColor)
                         textPosition = (10,600)
                         screen.blit(textSurf, textPosition)
-                        current_player.moveToTile(current_player.CurrentTile + a)
+                        current_player.moveToTile(findNewTile(current_player.Tile,board,a))
                         current_turn += 1
-                        if current_turn >= 4:
-                            current_turn = 0
+            return current_turn
+                        # if current_turn >= 4:
+                        #     current_turn = 0
+
 
         displayConfirmation = 0
         while True:
@@ -146,18 +147,7 @@ class game:
                     switchScreen(title1())
 
             # Update your game objects and data structures here...
-            # if rolling_dice:
-            #     current_tile = tiles[current_player.CurrentTile]
-            #     new_tile = tiles.index(current_tile) + current_player.rollDice()
-            #     if new_tile > 47:
-            #         new_tile -= 47
-            #     elif new_tile < 0:
-            #         new_tile += 47
-            #     current_player.moveToTile(tiles[new_tile])
-
-                # rolling_dice = False
-                # current_turn += 1
-                # current_player = players[current_turn % 4]
+            current_turn = turn(current_turn)
 
             # We draw everything from scratch on each frame.
             # So first fill everything with the background color
@@ -167,15 +157,14 @@ class game:
 
             # Drawing the game's Tiles
             for tile in board:
-                main_surface.fill(tile[1], tile[0])
+                tile.draw(main_surface)
             # The big center "tile"
-            main_surface.blit(Tile(Point(X + unit * 2, unit * 2), "ring", None, unit * 12, 0).image,
-                              (X + unit * 2, unit * 2))
+            main_surface.blit(Tile(Point(offset + unit * 2, unit * 2), "ring", None, unit * 12, 0).image,
+                              (offset + unit * 2, unit * 2))
 
             # Drawing the players on their starting tiles
             for player in players:
-                pnr = player
-                main_surface.blit(players[pnr].image, (players[pnr].Position.X, players[pnr].Position.Y))
+                player.draw(screen)
 
             textColor = BLACK
             textSurf, textRect = text_objects("Current player is " + str(players[0].Name), smallText, textColor)

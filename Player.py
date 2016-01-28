@@ -6,15 +6,18 @@ class Player:
         self.Health = health
         self.Condition = condition
         self.SpawnTile = spawntile #has to be a Point(x,y)
-        self.CurrentTile = self.SpawnTile
+        self.Tile = self.SpawnTile
         self.image = texture
         self.IsHuman = is_human
         self.rect = self.image.get_rect()
         self.Position = position
         self.Name = name
 
+    def draw(self,screen):
+        screen.blit(self.image,(self.Tile.rect.centerx- self.rect.w/2, self.Tile.rect.centery- self.rect.h/2))
+
     def moveToTile(self,tile):
-        self.Position = Point(tile.rect.centerx,tile.rect.centery)
+        self.Tile = tile
 
     def decreaseHealth(self, amount):           #tested, works.
         self.Health = self.Health - amount
