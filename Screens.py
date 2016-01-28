@@ -59,19 +59,19 @@ class title2:
 
             mouse = pygame.mouse.get_pos()
 
-            screen.blit(bg2, (0, 0))
+            screen.blit(bg, (0, 0))
             button3.DrawButton(screen)
             button4.DrawButton(screen)
             button5.DrawButton(screen)  #
             button6.DrawButton(screen)  # Button 1 Player
-            pygame.display.flip()
 
             # 1 Player forever alone
             if button3.Rect.collidepoint(mouse):
                 button3.DrawButton(screen, PINK)
                 if pygame.mouse.get_pressed()[0]:
-                    numberOfPlayers = 2
+                    numberOfPlayers = 1
                     switchScreen(game(),numberOfPlayers)
+                    # switchScreen(whostarts(),numberOfPlayers)
             else:
                 button3.DrawButton(screen, RED)
 
@@ -81,6 +81,7 @@ class title2:
                 if pygame.mouse.get_pressed()[0]:
                     numberOfPlayers = 2
                     switchScreen(game(),numberOfPlayers)
+                    # switchScreen(whostarts(),numberOfPlayers)
             else:
                 button4.DrawButton(screen, RED)
 
@@ -90,6 +91,7 @@ class title2:
                 if pygame.mouse.get_pressed()[0]:
                     numberOfPlayers = 3
                     switchScreen(game(),numberOfPlayers)
+                    # switchScreen(whostarts(),numberOfPlayers)
             else:
                 button5.DrawButton(screen, RED)
 
@@ -99,25 +101,73 @@ class title2:
                 if pygame.mouse.get_pressed()[0]:
                     numberOfPlayers = 4
                     switchScreen(game(),numberOfPlayers)
+                    # switchScreen(whostarts(),numberOfPlayers)
             else:
                 button6.DrawButton(screen, RED)
 
             pygame.display.flip()
 
+class whostarts:
+    def run(self,numberOfPlayers):
+        pygame.init()
+        screen = pygame.display.set_mode((width,height))
+        typingName = None
+        buttons = [button15,button16,button17,button18]
+        playerNames = {0 : "",1 : "",2 : "",3 : ""}
+        while True:
+            screen.fill(WHITE)
+            mouse = pygame.mouse.get_pos()
+
+            for i in range(len(buttons)):
+                buttons[i].DrawButton(screen)
+                screen.blit(pimg[i],buttons[i].Size)
+                if i < numberOfPlayers:
+                    if buttons[i].Rect.collidepoint(mouse):
+                        buttons[i].DrawButton(screen, buttons[i].lighten())
+                        if pygame.mouse.get_pressed()[0]:
+                            typingName = i
+                    else:
+                        buttons[i].DrawButton(screen, buttons[i].initColor)
+
+            button19.DrawButton(screen,GREEN,BLACK)
+            if button19.Rect.collidepoint(mouse):
+                button19.DrawButton(screen, button19.lighten())
+                if pygame.mouse.get_pressed()[0]:
+                    switchScreen(game(),numberOfPlayers,playerNames)
+                else:
+                    button19.DrawButton(screen, button19.initColor)
+
+            if typingName is not None:
+                for event in pygame.event.get():
+                    if event.type == pygame.KEYDOWN:
+                        if event.unicode.isalpha():
+                            playerNames[typingName] += event.unicode
+                        elif event.key == pygame.K_BACKSPACE:
+                            if len(playerNames[typingName])>0:
+                                playerNames[typingName] = playerNames[typingName][:-1]
+                        elif event.key == pygame.K_RETURN:
+                            typingName = None
+                textSurf, textRect = text_objects(playerNames[typingName], smallText, BLACK)
+                textPosition = (buttons[typingName].Rect.centerx,buttons[typingName].Rect.centery+40)
+                screen.blit(textSurf,textPosition)
+
+            pygame.display.flip()
+
 
 class game:
-    def run(self,numberOfPlayers):
+    def run(self,numberOfPlayers,playerNames = None):
         """ Set up the game and run the main game loop """
         pygame.init()  # Prepare the pygame module for use
         # Create surface of (width, height), and its window.
         main_surface = pygame.display.set_mode((width, height))
 
-        # <rect> = (x, y, w, h)
         board, startTiles = build_board()
-        players = playerInit(numberOfPlayers,startTiles)
+        players = playerInit(numberOfPlayers,startTiles,playerNames)
+
+        # <rect> = (x, y, w, h)
         current_turn = 0
 
-        def turn(current_turn):  # TODO further improvement once the board is fixed by mr. Lucas Pekelharing
+        def turn(current_turn):
             rolling_dice = True
             current_player = players[current_turn%4]
             if rolling_dice:
@@ -132,9 +182,6 @@ class game:
                         current_player.moveToTile(findNewTile(current_player.Tile,board,a))
                         current_turn += 1
             return current_turn
-                        # if current_turn >= 4:
-                        #     current_turn = 0
-
 
         displayConfirmation = 0
         while True:
@@ -167,9 +214,16 @@ class game:
                 player.draw(screen)
 
             textColor = BLACK
-            textSurf, textRect = text_objects("Current player is " + str(players[0].Name), smallText, textColor)
-            textPosition = (10, 10)
-            screen.blit(textSurf, textPosition)
+            text1Surf, text1Rect = text_objects("Current player is ", smallText, textColor)
+            text1Position = (10, 10)
+            text2Surf, text2Rect = text_objects(str(players[current_turn%4].Name), smallText, textColor)
+            text2Position = (10,30)
+            text3Surf, text3Rect = text_objects("Turn %s" %current_turn, smallText, textColor)
+            text3Position = (10,50)
+            screen.blit(text1Surf, text1Position)
+            screen.blit(text2Surf, text2Position)
+            screen.blit(text3Surf, text3Position)
+
 
             button7.DrawButton(main_surface)
 

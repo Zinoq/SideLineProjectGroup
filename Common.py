@@ -61,13 +61,13 @@ pimg = player_images = [
 # Alle Buttons:
 # TITLE SCREEN
 #Start
-button1 = Button("START!", GREEN, (180, 300, 250, 75),((180+125), (300+(75/2))))
+button1 = Button("START!", GREEN, (180, 350, 250, 75),((180+125), (350+(75/2))))
 
 #Exit
-button2 = Button("EXIT", RED,(850, 300, 250, 75), ((850+125), (300+(75/2))))
+button2 = Button("EXIT", RED,(850, 350, 250, 75), ((850+125), (350+(75/2))))
 
 #Instructions
-button12 = Button("INSTRUCTIONS", PINK,(490, 300, 300, 75), ((490+150), (300+(75/2)))) #changed size
+button12 = Button("INSTRUCTIONS", PINK,(490, 350, 300, 75), ((490+150), (350+(75/2)))) #changed size
 
 #Player amount selection screen
 #1 Player
@@ -105,6 +105,12 @@ button13 = Button("START!", GREEN, (180, 550, 250, 75),((180+125), (550+(75/2)))
 #back
 button14 = Button("BACK", RED,(850, 550, 250, 75), ((850+125), (550+(75/2))))
 
+# PlayerOrder screen
+button15 = Button("", PlayerColors[0],(width/12*2,height/5,width/12*2,250),((width/12*3)+175,(height/3*2)+125))
+button16 = Button("", PlayerColors[1],(width/12*4,height/5,width/12*2,250),((width/12*5)+175,(height/3*2)+125))
+button17 = Button("", PlayerColors[2],(width/12*6,height/5,width/12*2,250),((width/12*7)+175,(height/3*2)+125))
+button18 = Button("", PlayerColors[3],(width/12*8,height/5,width/12*2,250),((width/12*9)+175,(height/3*2)+125))
+button19 = Button("START!", GREEN,(width/12*7,height/5*4,250,75),((width/12*7)+125,(height/5*4)+37))
 
 
 def build_board():
@@ -153,9 +159,18 @@ def playerInit(humans,startTiles,names = None): #give names as a list, in order 
     if names is None:
         while pnr < 4:
             if pnr < humans:
-                players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],True,"Human Player %s" % (pnr+1)))
+                players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],True,"Player %s" % (pnr+1)))
             else:
-                players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],False,"CPU Player %s" % (pnr+1)))
+                players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],False,"Player %s" % (pnr+1)))
+            pnr += 1
+    else:
+        while pnr < 4:
+            if names[pnr] == "":
+                names[pnr] = "Player %s" % (pnr+1)
+            if pnr < humans:
+                players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],True, names[pnr]))
+            else:
+                players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],False,names[pnr]))
             pnr += 1
     return players
 
@@ -178,7 +193,7 @@ def findNewTile(current,board,n):
             else:
                 X2 = X1-n
                 Y2 = Y1
-        if 0<Y1<13:
+        elif 0<Y1<13:
             if X1 == 0:
                 if Y1+n >= 13:
                     Y2 = 13
@@ -209,7 +224,7 @@ def findNewTile(current,board,n):
             else:
                 X2 = X1-n
                 Y2 = Y1
-        if 0<Y1<13:
+        elif 0<Y1<13:
             if X1 == 0:
                 if Y1-n <= 0:
                     Y2 = 0
@@ -235,8 +250,11 @@ def findNewTile(current,board,n):
             return tile
 
 
-def switchScreen(screen,optionalArg = None):
-    if optionalArg is None:
+def switchScreen(screen,optArg1 = None,optArg2 = None):
+    if optArg1 is None:
         screen.run()
     else:
-        screen.run(optionalArg)
+        if optArg2 is None:
+            screen.run(optArg1)
+        else:
+            screen.run(optArg1,optArg2)

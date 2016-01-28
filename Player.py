@@ -11,7 +11,10 @@ class Player:
         self.IsHuman = is_human
         self.rect = self.image.get_rect()
         self.Position = position
-        self.Name = name
+        if self.IsHuman:
+            self.Name = "[Human] " + name
+        else:
+            self.Name = "[CPU] " + name
 
     def draw(self,screen):
         screen.blit(self.image,(self.Tile.rect.centerx- self.rect.w/2, self.Tile.rect.centery- self.rect.h/2))
