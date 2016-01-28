@@ -16,7 +16,6 @@ class title1:
             button2.DrawButton(screen)
             screen.blit(bg,(0,0))
 
-
             #Start button
             if button1.Rect.collidepoint(mouse):
                 button1.DrawButton(screen,BRIGHTGREEN)
@@ -203,25 +202,11 @@ class game:
 
             pygame.display.flip()
             # time.sleep(5)
-            # displayit= False
 
 class Instructions:
     def run(self):
         screen = pygame.display.set_mode(size)
-        while True:
-            ev = pygame.event.poll()
-            if ev.type == pygame.QUIT:
-                break
-            if ev.type == pygame.KEYDOWN:
-                if ev.key == pygame.K_ESCAPE:
-                    switchScreen(title1())
-            mouse = pygame.mouse.get_pos()
-
-            pygame.Surface.fill(screen, WHITE)
-
-            # Display some text
-            textColor = BLACK
-            text = [
+        text = [
                     "Diegene die het hoogst gooit begint met het spel.",
                     "Elke speler heeft zijn eigen hoek (3 vakjes) en start vanaf die hoek met de klok mee.",
                     "Elke speler begint met 100 Levenspunten en 15 Conditiepunten.",
@@ -242,6 +227,19 @@ class Instructions:
                     "Ook wanneer iemand af is heb je een lege hoek.",
                     "Verwijder je pion wanneer je geen Levenspunten meer hebt. Je hebt verloren."
                     ]
+        while True:
+            ev = pygame.event.poll()
+            if ev.type == pygame.QUIT:
+                exit()
+            if ev.type == pygame.KEYDOWN:
+                if ev.key == pygame.K_ESCAPE:
+                    switchScreen(title1())
+            mouse = pygame.mouse.get_pos()
+
+            pygame.Surface.fill(screen, WHITE)
+
+            # Display some text
+            textColor = BLACK
 
             for i in range(0, len(text)):
                 textSurf, textRect = text_objects(text[i], smallText, textColor)
