@@ -204,7 +204,7 @@ class game:
                         if current_player.Health < 1:
                             die(current_player)
 
-                        current_turn += 1 #Next player
+                        current_turn += 1 #Next player starts
             return current_turn
 
         def superFight(p1): #TODO
