@@ -37,16 +37,21 @@ BLACK = (0,0,0)
 GRAY = (100,100,100)
 LIGHTGRAY = (200,200,200)
 RED = (200,80,80)
+DARKRED = (160,80,80)
 BRIGHTRED = (255,0,0)
 GREEN = (80,200,80)
+DARKGREEN = (80,160,80)
 BRIGHTGREEN = (0,255,0)
 BLUE = (80,80,200)
+DARKBLUE = (80,80,160)
 YELLOW = (200,200,80)
+DARKYELLOW = (160,160,80)
 PINK = (200,100,100)
 BRIGHTBLUE = (51,153,255)
 
 # Doorloopbare lijst aan kleuren voor spelerTiles en normale Tiles
 PlayerColors = [RED,GREEN,BLUE,YELLOW]
+PlayerColors2 = [DARKRED,DARKGREEN,DARKBLUE,DARKYELLOW]
 TileColors = [LIGHTGRAY,GRAY]
 
 # Spelerplaatjes in doorloopbare lijst
@@ -120,10 +125,19 @@ def build_board():
     tc = 1
     for j in range(16):
         for i in range(16):
-            if (j == 0 and i == 0) or (j == 0 and i == 14) or (j == 14 and i == 0) or (j == 14 and i == 14):
-              board.append(Tile(Point(i,j),"spawn",PlayerColors[pc],unit,offset))
-              startTiles.append(Tile(Point(i,j),"spawn",PlayerColors[pc],unit,offset))
-              pc += 1
+            if (0<=j<=2 or 13<=j<=14) and (0<=i<=2 or 13<=i<=14):
+                if (j == 0 and i == 0) or (j == 0 and i == 14) or (j == 14 and i == 0) or (j == 14 and i == 14):
+                    board.append(Tile(Point(i,j),"spawn",PlayerColors[pc],unit,offset))
+                    startTiles.append(Tile(Point(i,j),"spawn",PlayerColors[pc],unit,offset))
+                    pc += 1
+                elif (j == 1 and i == 2) or (j == 2 and i == 1):
+                    board.append(Tile(Point(i,j),"spawn2", PlayerColors2[0],unit,offset))
+                elif (j == 13 and i == 1) or (j == 14 and i == 2):
+                    board.append(Tile(Point(i,j),"spawn2", PlayerColors2[2],unit,offset))
+                elif (j == 1 and i == 13) or (j == 2 and i == 14):
+                    board.append(Tile(Point(i,j),"spawn2", PlayerColors2[1],unit,offset))
+                elif (j == 13 and i == 14) or (j == 14 and i == 13):
+                    board.append(Tile(Point(i,j),"spawn2", PlayerColors2[3],unit,offset))
             elif (j == 1 and i == 7) or (j == 14 and i == 7):
                 board.append(Tile(Point(i,j),"fight",PINK,unit,offset,0))
             elif (j == 7 and i == 1) or (j == 7 and i == 14):

@@ -26,6 +26,8 @@ class Tile:
                 self.Position.X += 1
             if self.Position.Y == 0:
                 self.Position.Y += 1
+        elif type == "spawn2":
+            self.rect = pygame.Rect(self.Offset+self.Position.X*self.Size,self.Position.Y*self.Size,self.Width,self.Height)
         elif type == "fight":
             if axis == 0: # 0: along X, 1: along Y
                 self.Width = size*2

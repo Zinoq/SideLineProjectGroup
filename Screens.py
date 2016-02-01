@@ -178,11 +178,11 @@ class game:
                         a = current_player.rollDice()
                         textColor = BLACK
                         textSurf, textRect = text_objects("You rolled: " + str(a), smallText, textColor)
-                        textPosition = (10,300)
-                        screen.blit(textSurf, textPosition)
+                        textPosition = (10,400)
                         current_player.moveToTile(findNewTile(current_player.Tile,board,a))
                         current_turn += 1
-            return current_turn
+                        return current_turn, textSurf, textPosition
+            return current_turn, None, None
 
         displayConfirmation = 0
         while True:
@@ -195,7 +195,9 @@ class game:
                     switchScreen(title1())
 
             # Update your game objects and data structures here...
-            current_turn = turn(current_turn)
+            current_turn,textSurf,textPosition = turn(current_turn)
+            if textSurf is not None and textPosition is not None:
+                screen.blit(textSurf,textPosition)
 
             # We draw everything from scratch on each frame.
             # So first fill everything with the background color

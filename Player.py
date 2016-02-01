@@ -1,4 +1,3 @@
-from Tile import *
 import random
 
 class Player:
