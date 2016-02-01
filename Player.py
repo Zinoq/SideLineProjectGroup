@@ -2,7 +2,7 @@ from Tile import *
 import random
 
 class Player:
-    def __init__(self, health, position, condition, spawntile, texture, is_human, name):
+    def __init__(self, health, position, condition, spawntile, texture, is_human, name,pnr):
         self.Health = health
         self.Condition = condition
         self.SpawnTile = spawntile #has to be a Point(x,y)
@@ -11,6 +11,7 @@ class Player:
         self.IsHuman = is_human
         self.rect = self.image.get_rect()
         self.Position = position
+        self.Pnr = pnr
         if self.IsHuman:
             self.Name = "[Human] " + name
         else:

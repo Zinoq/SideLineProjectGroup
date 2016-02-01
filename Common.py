@@ -52,9 +52,9 @@ TileColors = [LIGHTGRAY,GRAY]
 # Spelerplaatjes in doorloopbare lijst
 pimg = player_images = [
         pygame.transform.scale(pygame.image.load("assets\\player1.png"),(int(unit/2), int(unit/2))),
-        pygame.transform.scale(pygame.image.load("assets\\player4.png"),(int(unit/2), int(unit/2))),
         pygame.transform.scale(pygame.image.load("assets\\player2.png"),(int(unit/2), int(unit/2))),
-        pygame.transform.scale(pygame.image.load("assets\\player3.png"),(int(unit/2), int(unit/2)))
+        pygame.transform.scale(pygame.image.load("assets\\player3.png"),(int(unit/2), int(unit/2))),
+        pygame.transform.scale(pygame.image.load("assets\\player4.png"),(int(unit/2), int(unit/2)))
         ]
 
 
@@ -153,24 +153,45 @@ def build_board():
                 tc += 1
     return board, startTiles
 
+
 def playerInit(humans,startTiles,names = None): #give names as a list, in order of players
     players = []
     pnr = 0
     if names is None:
         while pnr < 4:
             if pnr < humans:
-                players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],True,"Player %s" % (pnr+1)))
+                if pnr == 2:
+                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],True,"Player %s" % (4),4))
+                elif pnr == 3:
+                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],True,"Player %s" % (3),3))
+                else:
+                    players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],True,"Player %s" % (pnr+1),pnr+1))
             else:
-                players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],False,"Player %s" % (pnr+1)))
+                if pnr == 2:
+                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],False,"Player %s" % (4),4))
+                elif pnr == 3:
+                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],False,"Player %s" % (3),3))
+                else:
+                    players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],False,"Player %s" % (pnr+1),pnr+1))
             pnr += 1
     else:
         while pnr < 4:
             if names[pnr] == "":
                 names[pnr] = "Player %s" % (pnr+1)
             if pnr < humans:
-                players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],True, names[pnr]))
+                if pnr == 2:
+                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],True,names[3],4))
+                elif pnr == 3:
+                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],True,names[2],3))
+                else:
+                    players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],True,names[pnr],pnr+1))
             else:
-                players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],False,names[pnr]))
+                if pnr == 2:
+                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],False,names[3],4))
+                elif pnr == 3:
+                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],False,names[2],3))
+                else:
+                    players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],False,names[pnr],pnr+1))
             pnr += 1
     return players
 
