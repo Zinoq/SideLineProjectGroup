@@ -178,62 +178,31 @@ def playerInit(humans,startTiles,names = None): #give names as a list, in order 
 def findNewTile(current,board,n):
     X1 = current.Position.X - 1
     Y1 = current.Position.Y - 1
-    if n < 0:
-        if Y1 == 0:
-            if X1+n <= 0:
-                X2 = 0
-                Y2 = 0 - (n + X1)
-            else:
+    if n > 0:
+        if Y1 == 0: # upper line
+            if X1+n >= 13: # hit upper-right corner, moving right then down
+                X2 = 13
+                Y2 = n - (13 - X1)
+            else: # moving right
                 X2 = X1+n
                 Y2 = Y1
-        elif Y1 == 13:
-            if X1-n >= 13:
-                X2 = 13
-                Y2 = 13 - (n-(X1-13))
-            else:
-                X2 = X1-n
-                Y2 = Y1
-        elif 0<Y1<13:
-            if X1 == 0:
-                if Y1+n >= 13:
-                    Y2 = 13
-                    X2 = n - (13-Y1)
-                else:
-                    Y2 = Y1+n
-                    X2 = X1
-            elif X1 == 13:
-                if Y1-n <= 0:
-                    Y2 = 0
-                    X2 = 13 - (n - Y1)
-                else:
-                    Y2 = Y1-n
-                    X2 = X1
-
-    elif n > 0:
-        if Y1 == 0:
-            if X1+n >= 13:
-                X2 = 13
-                Y2 = n - (13- X1)
-            else:
-                X2 = X1+n
-                Y2 = Y1
-        elif Y1 == 13:
-            if X1-n <= 0:
+        elif Y1 == 13: # lower line
+            if X1-n <= 0:  # hit lower-left corner, moving left then up
                 X2 = 0
                 Y2 = 13 - (n-X1)
-            else:
+            else: # moving left
                 X2 = X1-n
                 Y2 = Y1
-        elif 0<Y1<13:
-            if X1 == 0:
-                if Y1-n <= 0:
+        elif 0<Y1<13: # sides
+            if X1 == 0: # left side
+                if Y1-n <= 0: # hit upper-left corner, moving up then right
                     Y2 = 0
                     X2 = n-Y1
-                else:
+                else: # moving up
                     Y2 = Y1-n
                     X2 = X1
-            elif X1 == 13:
-                if Y1+n >= 13:
+            elif X1 == 13: # right side
+                if Y1+n >= 13: # hit lower-right corner, moving down then left
                     Y2 = 13
                     X2 = 13 - (n - (13-Y1))
                 else:
@@ -241,9 +210,9 @@ def findNewTile(current,board,n):
                     X2 = X1
     else: # if user somehow gets a 0 roll
         X2,Y2 = X1,Y1
-    if X2 != 7:
+    if X2 != 7: # fight tiles zijn 2 lang, spelers kunnen alleen op de eerste van de 2 coordinaten staan
         X2 += 1
-    if Y2 != 7:
+    if Y2 != 7: # same here
         Y2 += 1
     for tile in board:
         if tile.Position.X == X2 and tile.Position.Y == Y2:
