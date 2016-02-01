@@ -1,6 +1,6 @@
 from Common import *
 
-pygame.display.set_caption("Survivor")
+pygame.display.set_caption("Super Fight Punch")
 
 
 class title1:
@@ -178,11 +178,47 @@ class game:
                         a = current_player.rollDice()
                         textColor = BLACK
                         textSurf, textRect = text_objects("You rolled: " + str(a), smallText, textColor)
-                        textPosition = (10,300)
+                        textPosition = (10,30)
                         screen.blit(textSurf, textPosition)
                         current_player.moveToTile(findNewTile(current_player.Tile,board,a))
-                        current_turn += 1
+
+                        #start checking if actions should happen based on current tile or passed tiles
+                        if current_player.Tile == current_player.SpawnTile:
+                            current_player.Health += 15
+                            if current_player.Health > 100:
+                                current_player.Health = 100
+
+                        if current_player.Tile.Type is "fight":
+                            superFight(current_player)
+
+                        if current_player.Tile.Type is "spawn" and not current_player.Tile.SpawnTile:
+                            if current_player.Tile.Image == RED: #Red spawn tile = Player 1
+                                normalFight(current_player, players[0])
+                            elif current_player.Tile.Image == GREEN: #Green spawn tile = Player 2
+                                normalFight(current_player, players[1])
+                            elif current_player.Tile.Image == YELLOW: #Yellow spawn tile = PLayer 3
+                                normalFight(current_player, players[2])
+                            elif current_player.Tile.Image == BLUE: #Blue spawn tile = Player 4
+                                normalFight(current_player, players[3])
+
+                        if current_player.Health < 1:
+                            die(current_player)
+
+                        current_turn += 1 #Next player
             return current_turn
+
+        def superFight(p1): #TODO
+            opponent = SuperFighters[random.randint(0, len(SuperFighters))]
+            opponent.A = p1.rollDice()
+            if opponent.Damage > p1.dmg: #player needs a damage attribute
+                pass
+
+
+        def normalFight(p1, p2): #TODO
+            pass
+
+        def die(p1): #TODO
+            pass
 
         displayConfirmation = 0
         while True:
