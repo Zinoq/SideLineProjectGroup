@@ -33,7 +33,8 @@ class Player:
     def rollDice(self):                         #tested, works
         return random.randint(1,6)
 
-    def calculateDamage(self, number): #id 1 = Mike Tysen, 2 = Badr Heri, 3 = Rocky Belboa, 4 = Menny Pecquiao
+    def calculateDamage(self, number): #number is result of rolling the dice
+        #id 1 = Mike Tysen, 2 = Badr Heri, 3 = Rocky Belboa, 4 = Menny Pecquiao
         if self.Condition > 0:
             if self.Id is 1:
                 choice = {
@@ -47,6 +48,10 @@ class Player:
                     5: {1:[10, -2], 2:[20, -5], 3:[30, -8]},
                     6: {1:[8, -3], 2:[13, -4], 3:[17, -5]}
                 }
+                self.Condition += choice[number][*][1]
+                if self.Condition > 0:
+                    return choice[number][*][0] #select damage of selected
+
             elif self.Id is 2:
                 choice = {
                     1: {1:[5, -2], 2:[11, -3], 3:[15, -5]},
@@ -56,6 +61,10 @@ class Player:
                     5: {1:[8, -3], 2:[13, -4], 3:[17,-5]},
                     6: {1:[10, -2], 2:[20, -5], 3:[30, -8]}
                 }
+                self.Condition += choice[number][*][1]
+                if self.Condition > 0:
+                    return choice[number][*][0] #select damage of selected
+
             elif self.Id is 3:
                 choice = {
                     1: {1:[10, -2], 2:[20, -5], 3:[30, -8]},
@@ -65,6 +74,10 @@ class Player:
                     5: {1:[7, -2], 2:[12, -3], 3:[16,-4]},
                     6: {1:[2, -1], 2:[4, -2], 3:[6, -3]}
                 }
+                self.Condition += choice[number][*][1]
+                if self.Condition > 0:
+                    return choice[number][*][0] #select damage of selected
+
             elif self.Id is 4:
                 choice = {
                     1: {1:[8, -3], 2:[13, -4], 3:[17, -5]},
@@ -74,6 +87,9 @@ class Player:
                     5: {1:[2, -1], 2:[4, -2], 3:[6, -3]},
                     6: {1:[7, -2], 2:[12, -3], 3:[16, -4]}
                 }
+                self.Condition += choice[number][*][1]
+                if self.Condition > 0:
+                    return choice[number][*][0] #select damage of selected
         else:
             self.Damage = 0
 
