@@ -191,7 +191,7 @@ class game:
                         if current_player.Tile.Type is "fight":
                             superFight(current_player)
 
-                        if current_player.Tile.Type is "spawn" and not current_player.Tile.SpawnTile:
+                        if current_player.Tile.Type is "spawn" and not current_player.SpawnTile:
                             if current_player.Tile.Image == RED: #Red spawn tile = Player 1
                                 normalFight(current_player, players[0])
                             elif current_player.Tile.Image == GREEN: #Green spawn tile = Player 2
@@ -208,9 +208,9 @@ class game:
             return current_turn
 
         def superFight(p1): #TODO
-            opponent = SuperFighters[random.randint(0, len(SuperFighters))]
+            opponent = SuperFighters[random.randint(0, len(SuperFighters)-1)]
             opponent.A = p1.rollDice()
-            if opponent.Damage > p1.dmg: #player needs a damage attribute
+            if opponent.Damage > p1.Damage: #player needs a damage attribute
                 pass
 
 
@@ -231,9 +231,7 @@ class game:
                     switchScreen(title1())
 
             # Update your game objects and data structures here...
-            current_turn,textSurf,textPosition = turn(current_turn)
-            if textSurf is not None and textPosition is not None:
-                screen.blit(textSurf,textPosition)
+            current_turn = turn(current_turn)
 
             # We draw everything from scratch on each frame.
             # So first fill everything with the background color
