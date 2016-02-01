@@ -107,6 +107,7 @@ class title2:
 
             pygame.display.flip()
 
+
 class whostarts:
     def run(self,numberOfPlayers):
         pygame.init()
@@ -177,7 +178,7 @@ class game:
                         a = current_player.rollDice()
                         textColor = BLACK
                         textSurf, textRect = text_objects("You rolled: " + str(a), smallText, textColor)
-                        textPosition = (10,600)
+                        textPosition = (10,300)
                         screen.blit(textSurf, textPosition)
                         current_player.moveToTile(findNewTile(current_player.Tile,board,a))
                         current_turn += 1
