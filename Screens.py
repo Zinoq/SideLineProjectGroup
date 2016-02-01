@@ -177,8 +177,8 @@ class game:
                     if pygame.mouse.get_pressed()[0]:
                         a = current_player.rollDice()
                         textColor = BLACK
-                        textSurf, textRect = text_objects("You rolled: " + str(a), smallText, textColor)
-                        textPosition = (10,400)
+                        textSurf, textRect = text_objects(("You rolled: %s" % a), smallText, textColor)
+                        textPosition = (10,70)
                         current_player.moveToTile(findNewTile(current_player.Tile,board,a))
                         current_turn += 1
                         return current_turn, textSurf, textPosition

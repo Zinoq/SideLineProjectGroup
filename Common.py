@@ -197,16 +197,16 @@ def playerInit(humans,startTiles,names = None): #give names as a list, in order 
         while pnr < 4:
             if pnr < humans:
                 if pnr == 2:
-                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],True,"Player %s" % (4),4))
+                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],True,"Player %s" % (3),3))
                 elif pnr == 3:
-                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],True,"Player %s" % (3),3))
+                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],True,"Player %s" % (4),4))
                 else:
                     players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],True,"Player %s" % (pnr+1),pnr+1))
             else:
                 if pnr == 2:
-                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],False,"Player %s" % (4),4))
+                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],False,"Player %s" % (3),3))
                 elif pnr == 3:
-                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],False,"Player %s" % (3),3))
+                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],False,"Player %s" % (4),4))
                 else:
                     players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],False,"Player %s" % (pnr+1),pnr+1))
             pnr += 1
@@ -216,16 +216,16 @@ def playerInit(humans,startTiles,names = None): #give names as a list, in order 
                 names[pnr] = "Player %s" % (pnr+1)
             if pnr < humans:
                 if pnr == 2:
-                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],True,names[3],4))
+                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],True,names[3],3))
                 elif pnr == 3:
-                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],True,names[2],3))
+                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],True,names[2],4))
                 else:
                     players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],True,names[pnr],pnr+1))
             else:
                 if pnr == 2:
-                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],False,names[3],4))
+                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],False,names[3],3))
                 elif pnr == 3:
-                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],False,names[2],3))
+                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],False,names[2],4))
                 else:
                     players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],False,names[pnr],pnr+1))
             pnr += 1
