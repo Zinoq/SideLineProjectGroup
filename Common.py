@@ -132,11 +132,14 @@ button13 = Button("START!", GREEN, (180, 550, 250, 75),((180+125), (550+(75/2)))
 button14 = Button("BACK", RED,(850, 550, 250, 75), ((850+125), (550+(75/2))))
 
 # PlayerOrder screen
-button15 = Button("", PlayerColors[0],(width/12*2,height/5,width/12*2,250),((width/12*3)+175,(height/3*2)+125))
-button16 = Button("", PlayerColors[1],(width/12*4,height/5,width/12*2,250),((width/12*5)+175,(height/3*2)+125))
-button17 = Button("", PlayerColors[2],(width/12*6,height/5,width/12*2,250),((width/12*7)+175,(height/3*2)+125))
-button18 = Button("", PlayerColors[3],(width/12*8,height/5,width/12*2,250),((width/12*9)+175,(height/3*2)+125))
-button19 = Button("START!", GREEN,(width/12*7,height/5*4,250,75),((width/12*7)+125,(height/5*4)+37))
+button15 = Button("", PlayerColors[0],(width/2-width/3,height/5,width/6,height/5),((width/12*3)+175,(height/3*2)+125))
+button16 = Button("", PlayerColors[1],(width/2-width/6,height/5,width/5.9,height/5),((width/12*5)+175,(height/3*2)+125))
+button17 = Button("", PlayerColors[3],(width/2,height/5,width/6,height/5),((width/12*7)+175,(height/3*2)+125))
+button18 = Button("", PlayerColors[2],(width/2+width/6,height/5,width/6,height/5),((width/12*9)+175,(height/3*2)+125))
+button19 = Button("START!", GREEN,(width/2-150,height/5*4,300,75),((width/2-150)+150,(height/5*4)+37))
+
+#SuperfightScreen
+# button25 = Button("", WHITE, (20, 500, 500, 500), ((20+250),(500+(500/2))))
 
 #ingame instructions button
 button20 = Button("Instructions", BLUE,(1020, 550, 250, 75), ((1020+125), (550+(75/2))))

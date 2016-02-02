@@ -33,6 +33,6 @@ class Button:
             pygame.draw.rect(screen, self.Color, self.Size)
         else:
             pygame.draw.rect(screen, color, self.Size)
-        textSurf, textRect = text_objects(self.Text, largeText,textColor)
-        textRect.center = (self.Center)
-        screen.blit(textSurf, textRect)
+            textSurf, textRect = text_objects(self.Text, largeText,textColor)
+            textRect.center = (self.Center)
+            screen.blit(textSurf, textRect)

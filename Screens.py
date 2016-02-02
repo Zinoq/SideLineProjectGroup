@@ -111,12 +111,12 @@ class title2:
 
 class whostarts:
     def run(self,numberOfPlayers):
-        pygame.init()
-        screen = pygame.display.set_mode((width,height))
         typingName = None
         buttons = [button15,button16,button17,button18]
         selected = [False,False,False,False]
-        playerNames = {0 : "",1 : "",2 : "",3 : ""}
+        playerNames = {0 : "",1 : "",3 : "",2 : ""}
+        switching = False
+        counter = 1
 
         def choosestarter(players):
             highest = {}
@@ -149,14 +149,19 @@ class whostarts:
             for i in range(len(buttons)):
                 if selected[i]: buttons[i].DrawButton(screen,buttons[i].lighten())
                 else: buttons[i].DrawButton(screen,buttons[i].initColor)
-                screen.blit(pimg[i],buttons[i].Size)
+                if i == 2:
+                    screen.blit(pimg[3],buttons[i].Size)
+                elif i == 3:
+                    screen.blit(pimg[2],buttons[i].Size)
+                else:
+                    screen.blit(pimg[i],buttons[i].Size)
 
             button19.DrawButton(screen,GREEN,BLACK)
-            if button19.Rect.collidepoint(mouse):
+            if button19.Rect.collidepoint(mouse) and not switching:
                 button19.DrawButton(screen, button19.lighten())
                 if pygame.mouse.get_pressed()[0]:
                     starting_player = choosestarter(playerNames)
-                    switchScreen(game(),numberOfPlayers,starting_player,playerNames)
+                    switching = True
                 else:
                     button19.DrawButton(screen, button19.initColor)
 
@@ -178,15 +183,36 @@ class whostarts:
                     playerNames[typingName] += str(chr(inKey))
 
             for name in playerNames:
-                if name != "":
+                if playerNames[name] != "":
                     textSurf, textRect = text_objects(playerNames[name], smallText, BLACK)
-                    textPosition = (buttons[name].Rect.centerx-textRect.w/2,buttons[name].Rect.centery-40)
+                    textPosition = (buttons[name].Rect.centerx-textRect.w/2,buttons[name].Rect.centery)
                     screen.blit(textSurf,textPosition)
+                textSurf, textRect = text_objects("Player %s" % (name+1), smallText, BLACK)
+                textPosition = (buttons[name].Rect.centerx-textRect.w/2,buttons[name].Rect.centery-40)
+                screen.blit(textSurf,textPosition)
 
             textColor = BLACK
-            textSurf, textRect = text_objects("ENTER A NAME, OR NOT", largeText, textColor)
+            textSurf, textRect = text_objects("ENTER A NAME, OR DON'T", largeText, textColor)
             textPosition = (width/2-textRect.w/2,height/12)
+            text2Surf, text2Rect = text_objects("Press enter after typing your name.", smallText, textColor)
+            text2Position = (width/2-textRect.w/3,height/12*11)
             screen.blit(textSurf, textPosition)
+            screen.blit(text2Surf, text2Position)
+
+            if switching:
+                counter -= 1
+                if counter == 0:
+                    text3Surf, text3Rect = text_objects(" First Player ", largeText, textColor)
+                    text3Position = (buttons[starting_player].Rect.x,buttons[starting_player].Rect.centery+height/3)
+                    screen.blit(text3Surf,text3Position)
+                    pygame.display.flip()
+                    time.sleep(2)
+                    switchScreen(game(),numberOfPlayers,starting_player,playerNames)
+                else:
+                    text3Surf, text3Rect = text_objects(" First Player ", largeText, textColor)
+                    text3Position = (buttons[random.randint(0,3)].Rect.x,buttons[random.randint(0,3)].Rect.centery+height/3)
+                    screen.blit(text3Surf,text3Position)
+                    time.sleep(0.1)
 
             pygame.display.flip()
 
@@ -194,9 +220,9 @@ class whostarts:
 class game:
     def run(self,numberOfPlayers,starting_player,playerNames = None):
         """ Set up the game and run the main game loop """
-        pygame.init()  # Prepare the pygame module for use
+        # Prepare the pygame module for use
         # Create surface of (width, height), and its window.
-        main_surface = pygame.display.set_mode((width, height))
+        main_surface = screen
 
         board, startTiles = build_board()
         players = playerInit(numberOfPlayers,startTiles,playerNames)
@@ -204,62 +230,79 @@ class game:
         # <rect> = (x, y, w, h)
         current_turn = 0
         playerindex = starting_player
-        instructions = 0
+        showRolled = False
 
+        # current_player = players[playerindex%(len(players))]
         def turn(current_turn,playerindex):
             rolling_dice = True
             current_player = players[playerindex%4]
-            if rolling_dice:
-                if button8.Rect.collidepoint(mouse):
-                    button8.DrawButton(main_surface, BRIGHTBLUE)
-                    if pygame.mouse.get_pressed()[0]:
-                        a = current_player.rollDice()
-                        current_player.moveToTile(findNewTile(board,a,current_player))
+            if current_player.Health >= 1:
+                if rolling_dice:
+                    if button8.Rect.collidepoint(mouse):
+                        button8.DrawButton(main_surface, BRIGHTBLUE)
+                        if pygame.mouse.get_pressed()[0]:
+                            a = current_player.rollDice()
+                            current_player.moveToTile(findNewTile(board,a,current_player))
 
-                        #start checking if actions should happen based on current tile or passed tiles
-                        if current_player.Tile == current_player.SpawnTile:
-                            current_player.Health += 15
-                            if current_player.Health > 100:
-                                current_player.Health = 100
+                            #start checking if actions should happen based on current tile or passed tiles
+                            if current_player.Tile == current_player.SpawnTile:
+                                current_player.Health += 15
+                                if current_player.Health > 100:
+                                    current_player.Health = 0
 
-                        if current_player.Tile.Type is "fight":
-                            superFight(current_player)
+                            if current_player.Tile.Type is "fight":
+                                superFight(current_player)
 
-                        if current_player.Tile.Type is "spawn" and not current_player.SpawnTile:
-                            if current_player.Tile.Image == RED: #Red spawn tile = Player 1
-                                normalFight(current_player, players[0])
-                            elif current_player.Tile.Image == GREEN: #Green spawn tile = Player 2
-                                normalFight(current_player, players[1])
-                            elif current_player.Tile.Image == YELLOW: #Yellow spawn tile = PLayer 3
-                                normalFight(current_player, players[2])
-                            elif current_player.Tile.Image == BLUE: #Blue spawn tile = Player 4
-                                normalFight(current_player, players[3])
+                            if current_player.Tile.Type is "spawn" and not current_player.SpawnTile:
+                                if current_player.Tile.Image == RED: #Red spawn tile = Player 1
+                                    normalFight(current_player, players[0])
+                                elif current_player.Tile.Image == GREEN: #Green spawn tile = Player 2
+                                    normalFight(current_player, players[1])
+                                elif current_player.Tile.Image == YELLOW: #Yellow spawn tile = PLayer 3
+                                    normalFight(current_player, players[2])
+                                elif current_player.Tile.Image == BLUE: #Blue spawn tile = Player 4
+                                    normalFight(current_player, players[3])
 
-                        if current_player.Health < 1:
-                            die(current_player)
 
-                        current_turn += 1 #Next player starts
-                        playerindex += 1
+
+                            current_turn += 1 #Next player starts
+                            playerindex += 1
+                        else:
+                            a = None
                     else:
+                        button8.DrawButton(main_surface, BLUE)
                         a = None
-                else:
-                    button8.DrawButton(main_surface, BLUE)
-                    a = None
+            else: #if the player is dead
+                current_turn += 1
+                playerindex += 1
+                a = None
+
             return current_turn, playerindex, a
-            return current_turn, playerindex, None, None
 
         def superFight(p1): #TODO
+            #Should make it display that attack of superfighter got blocked TODO
+            #Take off Condition Points TODO
             opponent = SuperFighters[random.randint(0, len(SuperFighters)-1)]
             opponent.A = p1.rollDice()
+            dmg = 5 #p1.calculateDamage(p1.rollDice())
             if opponent.Damage > p1.Damage: #player needs a damage attribute
+                p1.Health = p1.Health - (opponent.Damage - dmg)
+            else: #if player does more damage than superfighter, the attacks gets blocked therefor no damage will be taken
                 pass
 
-
         def normalFight(p1, p2): #TODO
-            pass
+            #display a fancy button which shows the 'fight' TODO
+            #Take off Condition Points TODO
+            numb = random.randint(1,6)
+            damageP1 = p1.calculateDamage(numb)
+            damageP2 = p2.calculateDamage(numb)
+            if damageP1 > damageP2:
+                p2.Health = p2.Health - (damageP1 - damageP2)
+            elif damageP2 > damageP1:
+                p1.Health = p1.Health - (damageP2 - damageP1)
+            else:
+                pass
 
-        def die(p1): #TODO
-            pass
 
         displayConfirmation = 0
         while True:
@@ -272,8 +315,11 @@ class game:
                     switchScreen(title1())
             main_surface.fill(WHITE)
             # Update your game objects and data structures here...
-            current_turn, playerindex,Rolled = turn(current_turn,playerindex)
-            if Rolled is not None:
+            current_turn, playerindex, playerroll = turn(current_turn,playerindex)
+            if playerroll is not None:
+                Rolled = playerroll
+                showRolled = True
+            if showRolled:
                 textColor = BLACK
                 textSurf, textRect = text_objects("The last player: %s" % players[playerindex%4].Name, smallText, textColor)
                 textPosition = (10,height-120)
@@ -282,9 +328,6 @@ class game:
                 textSurf, textRect = text_objects("Rolled: " + str(Rolled), smallText, textColor)
                 textPosition = (10,height-100)
                 main_surface.blit(textSurf, textPosition)
-
-
-
             # Drawing the game's Tiles
             for tile in board:
                 tile.draw(main_surface)
@@ -324,18 +367,22 @@ class game:
             text7v2Surf, text7v2Rect = text_objects("%s Health; %s Condition" %(players[3].Health, players[3].Condition), smallText, textColor)
             text7v2Position = (10, 270)
 
-
-            screen.blit(text1Surf, text1Position)
-            screen.blit(text2Surf, text2Position)
-            screen.blit(text3Surf, text3Position)
-            screen.blit(text4Surf, text4Position)
-            screen.blit(text4v2Surf, text4v2Position)
-            screen.blit(text5Surf, text5Position)
-            screen.blit(text5v2Surf, text5v2Position)
-            screen.blit(text6Surf, text6Position)
-            screen.blit(text6v2Surf, text6v2Position)
-            screen.blit(text7Surf, text7Position)
-            screen.blit(text7v2Surf, text7v2Position)
+            try:
+                screen.blit(text1Surf, text1Position)
+                screen.blit(text2Surf, text2Position)
+                screen.blit(text3Surf, text3Position)
+                screen.blit(text4Surf, text4Position)
+                screen.blit(text4v2Surf, text4v2Position)
+                screen.blit(text5Surf, text5Position)
+                screen.blit(text5v2Surf, text5v2Position)
+                screen.blit(text6Surf, text6Position)
+                screen.blit(text6v2Surf, text6v2Position)
+                screen.blit(text7Surf, text7Position)
+                screen.blit(text7v2Surf, text7v2Position)
+            except IndexError:
+                text8Surf, text8Rect = text_objects("%s Health; %s Condition" %(0, 0), smallText, textColor)
+                text8Position = (10, 290)
+                screen.blit(text8Surf, text8Position)
 
 
 
