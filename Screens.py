@@ -70,8 +70,8 @@ class title2:
                 button3.DrawButton(screen, PINK)
                 if pygame.mouse.get_pressed()[0]:
                     numberOfPlayers = 1
-                    switchScreen(game(),numberOfPlayers)
-                    # switchScreen(whostarts(),numberOfPlayers)
+                    # switchScreen(game(),numberOfPlayers)
+                    switchScreen(whostarts(),numberOfPlayers)
             else:
                 button3.DrawButton(screen, RED)
 
@@ -80,8 +80,8 @@ class title2:
                 button4.DrawButton(screen, PINK)
                 if pygame.mouse.get_pressed()[0]:
                     numberOfPlayers = 2
-                    switchScreen(game(),numberOfPlayers)
-                    # switchScreen(whostarts(),numberOfPlayers)
+                    # switchScreen(game(),numberOfPlayers)
+                    switchScreen(whostarts(),numberOfPlayers)
             else:
                 button4.DrawButton(screen, RED)
 
@@ -90,8 +90,8 @@ class title2:
                 button5.DrawButton(screen, PINK)
                 if pygame.mouse.get_pressed()[0]:
                     numberOfPlayers = 3
-                    switchScreen(game(),numberOfPlayers)
-                    # switchScreen(whostarts(),numberOfPlayers)
+                    # switchScreen(game(),numberOfPlayers)
+                    switchScreen(whostarts(),numberOfPlayers)
             else:
                 button5.DrawButton(screen, RED)
 
@@ -100,8 +100,8 @@ class title2:
                 button6.DrawButton(screen, PINK)
                 if pygame.mouse.get_pressed()[0]:
                     numberOfPlayers = 4
-                    switchScreen(game(),numberOfPlayers)
-                    # switchScreen(whostarts(),numberOfPlayers)
+                    # switchScreen(game(),numberOfPlayers)
+                    switchScreen(whostarts(),numberOfPlayers)
             else:
                 button6.DrawButton(screen, RED)
 
@@ -114,49 +114,79 @@ class whostarts:
         screen = pygame.display.set_mode((width,height))
         typingName = None
         buttons = [button15,button16,button17,button18]
+        selected = [False,False,False,False]
         playerNames = {0 : "",1 : "",2 : "",3 : ""}
+
+        def choosestarter(players):
+            highest = {}
+            while True:
+                for i in range(len(players)):
+                    highest[i] = random.randint(1,6)
+                newh = sorted(highest.items(), key=lambda x: (-x[1], x[0]))
+                if not newh[0][1] == newh[1][1]:
+                    return newh[0][0] # returns 0/3 (the player that starts))
+
+
+
         while True:
-            screen.fill(WHITE)
             mouse = pygame.mouse.get_pos()
+            ev = pygame.event.poll()  # Look for any event
+            if ev.type == pygame.QUIT:  # Window close button clicked?
+                exit()  # ... leave game loop
+            elif ev.type == pygame.KEYDOWN:
+                if ev.key == pygame.K_ESCAPE:
+                    switchScreen(title1())
+            screen.fill(WHITE)
 
             for i in range(len(buttons)):
-                buttons[i].DrawButton(screen)
-                screen.blit(pimg[i],buttons[i].Size)
-                if i < numberOfPlayers:
+                if not True in selected:
                     if buttons[i].Rect.collidepoint(mouse):
-                        buttons[i].DrawButton(screen, buttons[i].lighten())
                         if pygame.mouse.get_pressed()[0]:
+                            selected[i] = True
                             typingName = i
-                    else:
-                        buttons[i].DrawButton(screen, buttons[i].initColor)
+
+            for i in range(len(buttons)):
+                if selected[i]: buttons[i].DrawButton(screen,buttons[i].lighten())
+                else: buttons[i].DrawButton(screen,buttons[i].initColor)
+                screen.blit(pimg[i],buttons[i].Size)
 
             button19.DrawButton(screen,GREEN,BLACK)
             if button19.Rect.collidepoint(mouse):
                 button19.DrawButton(screen, button19.lighten())
                 if pygame.mouse.get_pressed()[0]:
-                    switchScreen(game(),numberOfPlayers,playerNames)
+                    starting_player = choosestarter(playerNames)
+                    switchScreen(game(),numberOfPlayers,starting_player,playerNames)
                 else:
                     button19.DrawButton(screen, button19.initColor)
 
             if typingName is not None:
-                for event in pygame.event.get():
+                while 1:
+                    event = pygame.event.poll()
                     if event.type == pygame.KEYDOWN:
-                        if event.unicode.isalpha():
-                            playerNames[typingName] += event.unicode
-                        elif event.key == pygame.K_BACKSPACE:
-                            if len(playerNames[typingName])>0:
-                                playerNames[typingName] = playerNames[typingName][:-1]
-                        elif event.key == pygame.K_RETURN:
-                            typingName = None
-                textSurf, textRect = text_objects(playerNames[typingName], smallText, BLACK)
-                textPosition = (buttons[typingName].Rect.centerx,buttons[typingName].Rect.centery+40)
-                screen.blit(textSurf,textPosition)
+                        inKey = event.key
+                        break
+                    else:
+                        pass
+
+                if inKey == pygame.K_BACKSPACE:
+                    playerNames[typingName] = playerNames[typingName][:-1]
+                elif inKey == pygame.K_RETURN:
+                    selected[typingName] = False
+                    typingName = None
+                elif inKey <= 127 and len(playerNames[typingName]) <= 16:
+                    playerNames[typingName] += str(chr(inKey))
+
+            for name in playerNames:
+                if name != "":
+                    textSurf, textRect = text_objects(playerNames[name], smallText, BLACK)
+                    textPosition = (buttons[name].Rect.centerx-textRect.w/2,buttons[name].Rect.centery-40)
+                    screen.blit(textSurf,textPosition)
 
             pygame.display.flip()
 
 
 class game:
-    def run(self,numberOfPlayers,playerNames = None):
+    def run(self,numberOfPlayers,starting_player,playerNames = None):
         """ Set up the game and run the main game loop """
         pygame.init()  # Prepare the pygame module for use
         # Create surface of (width, height), and its window.
@@ -167,10 +197,11 @@ class game:
 
         # <rect> = (x, y, w, h)
         current_turn = 0
+        playerindex = starting_player
 
-        def turn(current_turn):
+        def turn(current_turn,playerindex):
             rolling_dice = True
-            current_player = players[current_turn%4]
+            current_player = players[playerindex%4]
             if rolling_dice:
                 if button8.Rect.collidepoint(mouse):
                     button8.DrawButton(main_surface, BRIGHTBLUE)
@@ -179,10 +210,11 @@ class game:
                         textColor = BLACK
                         textSurf, textRect = text_objects(("You rolled: %s" % a), smallText, textColor)
                         textPosition = (10,70)
-                        current_player.moveToTile(findNewTile(current_player.Tile,board,a))
+                        current_player.moveToTile(findNewTile(board,a,current_player))
                         current_turn += 1
+                        playerindex += 1
                         return current_turn, textSurf, textPosition
-            return current_turn, None, None
+            return current_turn, playerindex, None, None
 
         displayConfirmation = 0
         while True:
@@ -193,15 +225,11 @@ class game:
             elif ev.type == pygame.KEYDOWN:
                 if ev.key == pygame.K_ESCAPE:
                     switchScreen(title1())
-
+            main_surface.fill(WHITE)
             # Update your game objects and data structures here...
-            current_turn,textSurf,textPosition = turn(current_turn)
+            current_turn, playerindex, textSurf, textPosition = turn(current_turn,playerindex)
             if textSurf is not None and textPosition is not None:
                 screen.blit(textSurf,textPosition)
-
-            # We draw everything from scratch on each frame.
-            # So first fill everything with the background color
-            main_surface.fill(WHITE)
 
             button8.DrawButton(main_surface, BLUE)
 
