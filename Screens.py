@@ -303,7 +303,7 @@ class game:
             else:
                 pass
 
-
+        instructions = 0
         displayConfirmation = 0
         while True:
             mouse = pygame.mouse.get_pos()
