@@ -114,8 +114,8 @@ button14 = Button("BACK", RED,(850, 550, 250, 75), ((850+125), (550+(75/2))))
 # PlayerOrder screen
 button15 = Button("", PlayerColors[0],(width/2-width/3,height/5,width/6,height/5),((width/12*3)+175,(height/3*2)+125))
 button16 = Button("", PlayerColors[1],(width/2-width/6,height/5,width/5.9,height/5),((width/12*5)+175,(height/3*2)+125))
-button17 = Button("", PlayerColors[2],(width/2,height/5,width/6,height/5),((width/12*7)+175,(height/3*2)+125))
-button18 = Button("", PlayerColors[3],(width/2+width/6,height/5,width/6,height/5),((width/12*9)+175,(height/3*2)+125))
+button17 = Button("", PlayerColors[3],(width/2,height/5,width/6,height/5),((width/12*7)+175,(height/3*2)+125))
+button18 = Button("", PlayerColors[2],(width/2+width/6,height/5,width/6,height/5),((width/12*9)+175,(height/3*2)+125))
 button19 = Button("START!", GREEN,(width/2-150,height/5*4,300,75),((width/2-150)+150,(height/5*4)+37))
 
 #CARDS, SuperFighters

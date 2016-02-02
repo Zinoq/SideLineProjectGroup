@@ -111,12 +111,10 @@ class title2:
 
 class whostarts:
     def run(self,numberOfPlayers):
-        pygame.init()
-        screen = pygame.display.set_mode((width,height))
         typingName = None
         buttons = [button15,button16,button17,button18]
         selected = [False,False,False,False]
-        playerNames = {0 : "",1 : "",2 : "",3 : ""}
+        playerNames = {0 : "",1 : "",3 : "",2 : ""}
         switching = False
         counter = 30
 
@@ -151,7 +149,12 @@ class whostarts:
             for i in range(len(buttons)):
                 if selected[i]: buttons[i].DrawButton(screen,buttons[i].lighten())
                 else: buttons[i].DrawButton(screen,buttons[i].initColor)
-                screen.blit(pimg[i],buttons[i].Size)
+                if i == 2:
+                    screen.blit(pimg[3],buttons[i].Size)
+                elif i == 3:
+                    screen.blit(pimg[2],buttons[i].Size)
+                else:
+                    screen.blit(pimg[i],buttons[i].Size)
 
             button19.DrawButton(screen,GREEN,BLACK)
             if button19.Rect.collidepoint(mouse) and not switching:
@@ -211,16 +214,15 @@ class whostarts:
                     screen.blit(text3Surf,text3Position)
                     time.sleep(0.1)
 
-
             pygame.display.flip()
 
 
 class game:
     def run(self,numberOfPlayers,starting_player,playerNames = None):
         """ Set up the game and run the main game loop """
-        pygame.init()  # Prepare the pygame module for use
+        # Prepare the pygame module for use
         # Create surface of (width, height), and its window.
-        main_surface = pygame.display.set_mode((width, height))
+        main_surface = screen
 
         board, startTiles = build_board()
         players = playerInit(numberOfPlayers,startTiles,playerNames)
