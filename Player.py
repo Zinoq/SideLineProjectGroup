@@ -1,7 +1,7 @@
 import random
 
 class Player:
-    def __init__(self, health, position, condition, spawntile, texture, is_human, name,pnr, id):
+    def __init__(self, health, position, condition, spawntile, texture, is_human, name, pnr):
         self.Health = health
         self.Condition = condition
         self.SpawnTile = spawntile #has to be a Point(x,y)
@@ -15,7 +15,6 @@ class Player:
             self.Name = "[Human] " + name
         else:
             self.Name = "[CPU] " + name
-        self.Id = id
         self.Damage = 0
 
     def draw(self,screen):
@@ -36,7 +35,7 @@ class Player:
     def calculateDamage(self, number): #number is result of rolling the dice
         #id 1 = Mike Tysen, 2 = Badr Heri, 3 = Rocky Belboa, 4 = Menny Pecquiao
         if self.Condition > 0:
-            if self.Id is 1:
+            if self.Pnr is 1:
                 choice = {
                     #ontleden van de aankomende code gaat als volgt:
                     #het eerste nummer is het nummer dat je dobbelt, en dan kan je 1 van de drie keuzes
@@ -52,7 +51,7 @@ class Player:
                 # if self.Condition > 0:
                 #     return choice[number][*][0] #select damage of selected
 
-            elif self.Id is 2:
+            elif self.Pnr is 2:
                 choice = {
                     1: {1:[5, -2], 2:[11, -3], 3:[15, -5]},
                     2: {1:[3, -1], 2:[9, -2], 3:[19, -3]},
@@ -65,7 +64,7 @@ class Player:
                 # if self.Condition > 0:
                 #     return choice[number][*][0] #select damage of selected
 
-            elif self.Id is 3:
+            elif self.Pnr is 3:
                 choice = {
                     1: {1:[10, -2], 2:[20, -5], 3:[30, -8]},
                     2: {1:[8, -3], 2:[13, -4], 3:[17, -5]},
@@ -78,7 +77,7 @@ class Player:
                 # if self.Condition > 0:
                 #     return choice[number][*][0] #select damage of selected
 
-            elif self.Id is 4:
+            elif self.Pnr is 4:
                 choice = {
                     1: {1:[8, -3], 2:[13, -4], 3:[17, -5]},
                     2: {1:[10, -2], 2:[20, -5], 3:[30, -8]},
