@@ -116,7 +116,7 @@ class whostarts:
         selected = [False,False,False,False]
         playerNames = {0 : "",1 : "",3 : "",2 : ""}
         switching = False
-        counter = 30
+        counter = 1
 
         def choosestarter(players):
             highest = {}
@@ -232,7 +232,7 @@ class game:
         playerindex = starting_player
         showRolled = False
 
-        current_player = players[playerindex%(len(players))]
+        # current_player = players[playerindex%(len(players))]
         def turn(current_turn,playerindex):
             rolling_dice = True
             current_player = players[playerindex%4]
@@ -263,7 +263,7 @@ class game:
                                 normalFight(current_player, players[3])
 
                         if current_player.Health < 1:
-                            players.remove(current_player)
+                            pass
 
                         current_turn += 1 #Next player starts
                         playerindex += 1
@@ -284,7 +284,17 @@ class game:
                 pass #Should make it display that attack of superfighter got blocked #TODO
 
         def normalFight(p1, p2): #TODO
-            pass
+            #display a fancy button which shows the 'fight' TODO
+            numb = random.randint(1,6)
+            damageP1 = p1.calculateDamage(numb)
+            damageP2 = p2.calculateDamage(numb)
+            if damageP1 > damageP2:
+                p2.Health = p2.Health - (damageP1 - damageP2)
+            elif damageP2 > damageP1:
+                p1.Health = p1.Health - (damageP2 - damageP1)
+            else:
+                pass
+
 
         displayConfirmation = 0
         while True:
