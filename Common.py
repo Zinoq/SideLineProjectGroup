@@ -119,7 +119,7 @@ button18 = Button("", PlayerColors[2],(width/2+width/6,height/5,width/6,height/5
 button19 = Button("START!", GREEN,(width/2-150,height/5*4,300,75),((width/2-150)+150,(height/5*4)+37))
 
 #SuperfightScreen
-button25 = Button("", WHITE, (20, 640, 500, 500), ((20+250),(640+(500/2))))
+# button25 = Button("", WHITE, (20, 500, 500, 500), ((20+250),(500+(500/2))))
 
 #CARDS, SuperFighters
 SuperFighters = [

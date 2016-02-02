@@ -2,8 +2,6 @@ from Common import *
 
 pygame.display.set_caption("Super Fight Punch")
 
-
-
 class title1:
     def run(self):
         screen = pygame.display.set_mode(size)
@@ -236,55 +234,63 @@ class game:
         def turn(current_turn,playerindex):
             rolling_dice = True
             current_player = players[playerindex%4]
-            if rolling_dice:
-                if button8.Rect.collidepoint(mouse):
-                    button8.DrawButton(main_surface, BRIGHTBLUE)
-                    if pygame.mouse.get_pressed()[0]:
-                        a = current_player.rollDice()
-                        current_player.moveToTile(findNewTile(board,a,current_player))
+            if current_player.Health >= 1:
+                if rolling_dice:
+                    if button8.Rect.collidepoint(mouse):
+                        button8.DrawButton(main_surface, BRIGHTBLUE)
+                        if pygame.mouse.get_pressed()[0]:
+                            a = current_player.rollDice()
+                            current_player.moveToTile(findNewTile(board,a,current_player))
 
-                        #start checking if actions should happen based on current tile or passed tiles
-                        if current_player.Tile == current_player.SpawnTile:
-                            current_player.Health += 15
-                            if current_player.Health > 100:
-                                current_player.Health = 0
+                            #start checking if actions should happen based on current tile or passed tiles
+                            if current_player.Tile == current_player.SpawnTile:
+                                current_player.Health += 15
+                                if current_player.Health > 100:
+                                    current_player.Health = 0
 
-                        if current_player.Tile.Type is "fight":
-                            superFight(current_player)
+                            if current_player.Tile.Type is "fight":
+                                superFight(current_player)
 
-                        if current_player.Tile.Type is "spawn" and not current_player.SpawnTile:
-                            if current_player.Tile.Image == RED: #Red spawn tile = Player 1
-                                normalFight(current_player, players[0])
-                            elif current_player.Tile.Image == GREEN: #Green spawn tile = Player 2
-                                normalFight(current_player, players[1])
-                            elif current_player.Tile.Image == YELLOW: #Yellow spawn tile = PLayer 3
-                                normalFight(current_player, players[2])
-                            elif current_player.Tile.Image == BLUE: #Blue spawn tile = Player 4
-                                normalFight(current_player, players[3])
+                            if current_player.Tile.Type is "spawn" and not current_player.SpawnTile:
+                                if current_player.Tile.Image == RED: #Red spawn tile = Player 1
+                                    normalFight(current_player, players[0])
+                                elif current_player.Tile.Image == GREEN: #Green spawn tile = Player 2
+                                    normalFight(current_player, players[1])
+                                elif current_player.Tile.Image == YELLOW: #Yellow spawn tile = PLayer 3
+                                    normalFight(current_player, players[2])
+                                elif current_player.Tile.Image == BLUE: #Blue spawn tile = Player 4
+                                    normalFight(current_player, players[3])
 
-                        if current_player.Health < 1:
-                            pass
 
-                        current_turn += 1 #Next player starts
-                        playerindex += 1
+
+                            current_turn += 1 #Next player starts
+                            playerindex += 1
+                        else:
+                            a = None
                     else:
+                        button8.DrawButton(main_surface, BLUE)
                         a = None
-                else:
-                    button8.DrawButton(main_surface, BLUE)
-                    a = None
+            else: #if the player is dead
+                current_turn += 1
+                playerindex += 1
+                a = None
+
             return current_turn, playerindex, a
 
         def superFight(p1): #TODO
+            #Should make it display that attack of superfighter got blocked TODO
+            #Take off Condition Points TODO
             opponent = SuperFighters[random.randint(0, len(SuperFighters)-1)]
             opponent.A = p1.rollDice()
             dmg = 5 #p1.calculateDamage(p1.rollDice())
             if opponent.Damage > p1.Damage: #player needs a damage attribute
                 p1.Health = p1.Health - (opponent.Damage - dmg)
             else: #if player does more damage than superfighter, the attacks gets blocked therefor no damage will be taken
-                pass #Should make it display that attack of superfighter got blocked #TODO
+                pass
 
         def normalFight(p1, p2): #TODO
             #display a fancy button which shows the 'fight' TODO
+            #Take off Condition Points TODO
             numb = random.randint(1,6)
             damageP1 = p1.calculateDamage(numb)
             damageP2 = p2.calculateDamage(numb)
@@ -320,9 +326,6 @@ class game:
                 textSurf, textRect = text_objects("Rolled: " + str(Rolled), smallText, textColor)
                 textPosition = (10,height-100)
                 main_surface.blit(textSurf, textPosition)
-
-
-
             # Drawing the game's Tiles
             for tile in board:
                 tile.draw(main_surface)
