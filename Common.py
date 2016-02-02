@@ -118,6 +118,9 @@ button17 = Button("", PlayerColors[2],(width/12*6,height/5,width/12*2,250),((wid
 button18 = Button("", PlayerColors[3],(width/12*8,height/5,width/12*2,250),((width/12*9)+175,(height/3*2)+125))
 button19 = Button("START!", GREEN,(width/12*7,height/5*4,250,75),((width/12*7)+125,(height/5*4)+37))
 
+#SuperfightScreen
+button25 = Button("", WHITE, (20, 640, 500, 500), ((20+250),(640+(500/2))))
+
 #CARDS, SuperFighters
 SuperFighters = [
     Card("Agua Man", 12, 15, 9, 7, 7, 13),
