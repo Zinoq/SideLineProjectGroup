@@ -119,24 +119,25 @@ button18 = Button("", PlayerColors[3],(width/12*8,height/5,width/12*2,250),((wid
 button19 = Button("START!", GREEN,(width/12*7,height/5*4,250,75),((width/12*7)+125,(height/5*4)+37))
 
 #CARDS, SuperFighters
-card1 = Card("Agua Man", 12, 15, 9, 7, 7, 13)
-card2 = Card("Bruce Hee", 20, 15, 5, 7, 8, 26)
-card3 = Card("Chack Norris", 15, 28, 27, 25, 29, 30)
-card4 = Card("Dexter", 9, 8, 7, 15, 13, 9)
-card5 = Card("Ernold Schwarzenegger", 25, 25, 20, 15, 15, 10)
-card6 = Card("Jackie Chen", 12, 10, 15, 9, 10, 25)
-card7 = Card("James Bend", 25, 15, 15, 7, 20, 25)
-card8 = Card("Jason Statham", 15, 17, 19, 21, 23, 26)
-card9 = Card("Jet Ri", 10, 30, 12, 25, 14, 23)
-card10 = Card("John Cena", 10, 6, 25, 7, 8, 11)
-card11 = Card("Pariz Hilten", 12, 8, 7, 15, 13, 9)
-card13 = Card("Steve Seagal", 10, 15, 12, 11, 25, 20)
-card14 = Card("Super Merio", 10, 10, 30, 30, 15, 15)
-card15 = Card("Terry Crews", 10, 15, 25, 20, 15, 10)
-card16 = Card("The Roch", 13, 28, 30, 17, 10, 7)
-card17 = Card("Vin Dieser", 20, 25, 30, 25, 20, 15)
-card18 = Card("Wesley Sniper", 10, 12, 14, 16, 14, 12)
-
+SuperFighters = [
+    Card("Agua Man", 12, 15, 9, 7, 7, 13),
+    Card("Bruce Hee", 20, 15, 5, 7, 8, 26),
+    Card("Chack Norris", 15, 28, 27, 25, 29, 30),
+    Card("Dexter", 9, 8, 7, 15, 13, 9),
+    Card("Ernold Schwarzenegger", 25, 25, 20, 15, 15, 10),
+    Card("Jackie Chen", 12, 10, 15, 9, 10, 25),
+    Card("James Bend", 25, 15, 15, 7, 20, 25),
+    Card("Jason Statham", 15, 17, 19, 21, 23, 26),
+    Card("Jet Ri", 10, 30, 12, 25, 14, 23),
+    Card("John Cena", 10, 6, 25, 7, 8, 11),
+    Card("Pariz Hilten", 12, 8, 7, 15, 13, 9),
+    Card("Steve Seagal", 10, 15, 12, 11, 25, 20),
+    Card("Super Merio", 10, 10, 30, 30, 15, 15),
+    Card("Terry Crews", 10, 15, 25, 20, 15, 10),
+    Card("The Roch", 13, 28, 30, 17, 10, 7),
+    Card("Vin Dieser", 20, 25, 30, 25, 20, 15),
+    Card("Wesley Sniper", 10, 12, 14, 16, 14, 12)
+]
 
 
 
