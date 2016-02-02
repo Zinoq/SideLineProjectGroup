@@ -182,6 +182,11 @@ class whostarts:
                     textPosition = (buttons[name].Rect.centerx-textRect.w/2,buttons[name].Rect.centery-40)
                     screen.blit(textSurf,textPosition)
 
+            textColor = BLACK
+            textSurf, textRect = text_objects("ENTER A NAME, OR NOT", largeText, textColor)
+            textPosition = (width/2-textRect.w/2,height/12)
+            screen.blit(textSurf, textPosition)
+
             pygame.display.flip()
 
 
@@ -207,11 +212,7 @@ class game:
                     button8.DrawButton(main_surface, BRIGHTBLUE)
                     if pygame.mouse.get_pressed()[0]:
                         a = current_player.rollDice()
-                        textColor = BLACK
-                        textSurf, textRect = text_objects("You rolled: " + str(a), smallText, textColor)
-                        textPosition = (10,30)
-                        screen.blit(textSurf, textPosition)
-                        current_player.moveToTile(findNewTile(current_player.Tile,board,a))
+                        current_player.moveToTile(findNewTile(board,a,current_player))
 
                         #start checking if actions should happen based on current tile or passed tiles
                         if current_player.Tile == current_player.SpawnTile:
@@ -237,7 +238,11 @@ class game:
 
                         current_turn += 1 #Next player starts
                         playerindex += 1
-            return current_turn, playerindex, None, None
+                    else:
+                        a = None
+                else:
+                    a = None
+            return current_turn, playerindex, a
 
         def superFight(p1): #TODO
             opponent = SuperFighters[random.randint(0, len(SuperFighters)-1)]
@@ -263,9 +268,16 @@ class game:
                     switchScreen(title1())
             main_surface.fill(WHITE)
             # Update your game objects and data structures here...
-            current_turn, playerindex, textSurf, textPosition = turn(current_turn,playerindex)
-            if textSurf is not None and textPosition is not None:
-                screen.blit(textSurf,textPosition)
+            current_turn, playerindex,Rolled = turn(current_turn,playerindex)
+            if Rolled is not None:
+                textColor = BLACK
+                textSurf, textRect = text_objects("The last player: %s" % players[playerindex%4].Name, smallText, textColor)
+                textPosition = (10,height-120)
+                main_surface.blit(textSurf, textPosition)
+                textColor = BLACK
+                textSurf, textRect = text_objects("Rolled: " + str(Rolled), smallText, textColor)
+                textPosition = (10,height-100)
+                main_surface.blit(textSurf, textPosition)
 
             button8.DrawButton(main_surface, BLUE)
 
@@ -283,9 +295,9 @@ class game:
             textColor = BLACK
             text1Surf, text1Rect = text_objects("Current player is ", smallText, textColor)
             text1Position = (10, 10)
-            text2Surf, text2Rect = text_objects(str(players[current_turn%4].Name), smallText, textColor)
+            text2Surf, text2Rect = text_objects(str(players[playerindex%4].Name), smallText, textColor)
             text2Position = (10,30)
-            text3Surf, text3Rect = text_objects("Turn %s" %current_turn, smallText, textColor)
+            text3Surf, text3Rect = text_objects("Turn %s" % current_turn, smallText, textColor)
             text3Position = (10,50)
             screen.blit(text1Surf, text1Position)
             screen.blit(text2Surf, text2Position)
