@@ -225,18 +225,18 @@ def playerInit(humans,startTiles,names = None): #give names as a list, in order 
         while pnr < 4:
             if pnr < humans:
                 if pnr == 2:
-                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],True,"Player %s" % (4),4, pnr))
+                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],True,"Player %s" % (3),3))
                 elif pnr == 3:
-                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],True,"Player %s" % (3),3, pnr))
+                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],True,"Player %s" % (4),4))
                 else:
-                    players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],True,"Player %s" % (pnr+1),pnr+1, pnr))
+                    players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],True,"Player %s" % (pnr+1),pnr+1))
             else:
                 if pnr == 2:
-                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],False,"Player %s" % (4),4, pnr))
+                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],False,"Player %s" % (3),3))
                 elif pnr == 3:
-                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],False,"Player %s" % (3),3, pnr))
+                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],False,"Player %s" % (4),4))
                 else:
-                    players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],False,"Player %s" % (pnr+1),pnr+1, pnr))
+                    players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],False,"Player %s" % (pnr+1),pnr+1))
             pnr += 1
     else:
         while pnr < 4:
@@ -244,28 +244,31 @@ def playerInit(humans,startTiles,names = None): #give names as a list, in order 
                 names[pnr] = "Player %s" % (pnr+1)
             if pnr < humans:
                 if pnr == 2:
-                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],True,names[3],4, pnr))
+                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],True,names[2],3))
                 elif pnr == 3:
-                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],True,names[2],3, pnr))
+                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],True,names[3],4))
                 else:
-                    players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],True,names[pnr],pnr+1, pnr))
+                    players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],True,names[pnr],pnr+1))
             else:
                 if pnr == 2:
-                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],False,names[3],4, pnr))
+                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],False,names[2],3))
                 elif pnr == 3:
-                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],False,names[2],3, pnr))
+                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],False,names[3],4))
                 else:
-                    players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],False,names[pnr],pnr+1, pnr))
+                    players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],False,names[pnr],pnr+1))
             pnr += 1
     return players
 
 
-def findNewTile(current,board,n):
+def findNewTile(board,n,player):
+    current = player.Tile
     X1 = current.Position.X - 1
     Y1 = current.Position.Y - 1
     if n > 0:
         if Y1 == 0: # upper line
             if X1+n >= 13: # hit upper-right corner, moving right then down
+                if player.Pnr == 2:
+                    player.Condition = 15
                 X2 = 13
                 Y2 = n - (13 - X1)
             else: # moving right
@@ -273,6 +276,8 @@ def findNewTile(current,board,n):
                 Y2 = Y1
         elif Y1 == 13: # lower line
             if X1-n <= 0:  # hit lower-left corner, moving left then up
+                if player.Pnr == 4:
+                    player.Condition = 15
                 X2 = 0
                 Y2 = 13 - (n-X1)
             else: # moving left
@@ -281,6 +286,8 @@ def findNewTile(current,board,n):
         elif 0<Y1<13: # sides
             if X1 == 0: # left side
                 if Y1-n <= 0: # hit upper-left corner, moving up then right
+                    if player.Pnr == 3:
+                        player.Condition = 15
                     Y2 = 0
                     X2 = n-Y1
                 else: # moving up
@@ -288,6 +295,8 @@ def findNewTile(current,board,n):
                     X2 = X1
             elif X1 == 13: # right side
                 if Y1+n >= 13: # hit lower-right corner, moving down then left
+                    if player.Pnr == 1:
+                        player.Condition = 15
                     Y2 = 13
                     X2 = 13 - (n - (13-Y1))
                 else:
@@ -304,11 +313,14 @@ def findNewTile(current,board,n):
             return tile
 
 
-def switchScreen(screen,optArg1 = None,optArg2 = None):
+def switchScreen(screen,optArg1 = None,optArg2 = None,optArg3 = None):
     if optArg1 is None:
         screen.run()
     else:
         if optArg2 is None:
             screen.run(optArg1)
         else:
-            screen.run(optArg1,optArg2)
+            if optArg3 is None:
+                screen.run(optArg1,optArg2)
+            else:
+                screen.run(optArg1,optArg2,optArg3)
