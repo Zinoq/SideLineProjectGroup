@@ -167,6 +167,7 @@ class game:
 
         # <rect> = (x, y, w, h)
         current_turn = 0
+        instructions = 0
 
         def turn(current_turn):
             rolling_dice = True
@@ -262,6 +263,8 @@ class game:
             screen.blit(text3Surf, text3Position)
 
 
+
+
             button7.DrawButton(main_surface)
 
             # EXIT BUTTON
@@ -272,10 +275,35 @@ class game:
             else:
                 button7.DrawButton(main_surface, RED)
 
+            button20.DrawButton(main_surface, BLUE)
+            if button20.Rect.collidepoint(mouse):
+                button20.DrawButton(main_surface, BRIGHTBLUE)
+                if pygame.mouse.get_pressed()[0]:
+                    instructions += 1
+            if instructions == 1:
+                button21.DrawButton(main_surface, WHITE)
+                button22.DrawButton(main_surface, BLUE)
+                if button22.Rect.collidepoint(mouse):
+                    button22.DrawButton(main_surface, BRIGHTBLUE)
+                    if pygame.mouse.get_pressed()[0]:
+                        instructions += -1
+
+                button7.DrawButton(main_surface, RED)
+                if button7.Rect.collidepoint(mouse):
+                      button7.DrawButton(main_surface, BRIGHTRED)
+                textColor = BLACK
+
+                for i in range(0, len(text)):  # this prints out the tekst list in a readable order
+                    textSurf, textRect = text_objects(text[i], smallText, textColor)
+                    textPosition = ((10), (30 + (20 * i)))
+                    screen.blit(textSurf, textPosition)
+
+
+
+
             pygame.event.wait()  # fixes it immediately appearing for 0.1sec and then quitting
             # EXIT CONFIRMATION
             if displayConfirmation == 1 or displayConfirmation == 2:
-                mouse = pygame.mouse.get_pos()
                 button9.DrawButton(main_surface, WHITE)
                 button10.DrawButton(main_surface, GREEN)
                 button11.DrawButton(main_surface, RED)
@@ -290,30 +318,11 @@ class game:
             pygame.display.flip()
 
 
+
 class Instructions:
     def run(self):
         screen = pygame.display.set_mode(size)
-        text = [
-            "Diegene die het hoogst gooit begint met het spel.",
-            "Elke speler heeft zijn eigen hoek (3 vakjes) en start vanaf die hoek met de klok mee.",
-            "Elke speler begint met 100 Levenspunten en 15 Conditiepunten.",
-            "Elke speler heeft een Scorekaart van zijn Character en een bijpassende pion",
-            "Er wordt gedobbeld om voort te bewegen over het bordspel.",
-            "Wanneer een speler op een vakje ‘Fight’ terechtkomt moet deze vechten tegen de Superfighter ongeacht of er een speler ook op dat vakje staat.",
-            "De Superfighter wordt bepaald door een Superfighter-kaart van de stapel op het bordspel te pakken. Leg deze hierna weer onderaan de stapel.",
-            "Dobbelen geeft, aan de hand van de Scorekaart, een schade aan met de bijbehorende Conditiepunten.",
-            "Wanneer men geen Conditiepunten meer heeft kan er géén schade aan de tegenstander worden gedaan!",
-            "Wanneer er gevochten moet worden en beide spelers geen Conditiepunten hebben ontvangt de verdediger 15 schade.",
-            "De hoogste schade - de laagste schade = schade aan de speler met de laagste schade.",
-            "Wanneer 2 spelers op hetzelfde vak komen wordt er tegen elkaar gevochten.",
-            "Meer dan 2 spelers op één vak? Dan kiest de diegene die als laatste op het vak terecht is gekomen een tegenstander die ook op het vak staat.",
-            "Wanneer je beide op een ‘Fight!’ vak terechtkomt wordt er alleen gevochten met de Superfighter en niet met elkaar.",
-            "Je ontvangt 15 Conditiepunten als je langs je eigen hoek komt(max = 15 Conditiepunten).",
-            "Je ontvangt 10 Levenspunten als je op je eigen hoek komt.",
-            "Wanneer een hoek leeg is wordt er -10 Levenspunten gerekend. Met 2 of 3 spelers heb je dus een lege hoek.",
-            "Ook wanneer iemand af is heb je een lege hoek.",
-            "Verwijder je pion wanneer je geen Levenspunten meer hebt. Je hebt verloren."
-        ]
+
         while True:
             ev = pygame.event.poll()
             if ev.type == pygame.QUIT:
