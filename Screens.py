@@ -184,7 +184,7 @@ class whostarts:
                     screen.blit(textSurf,textPosition)
 
             textColor = BLACK
-            textSurf, textRect = text_objects("ENTER A NAME, OR NOT", largeText, textColor)
+            textSurf, textRect = text_objects("ENTER A NAME, OR DON'T", largeText, textColor)
             textPosition = (width/2-textRect.w/2,height/12)
             screen.blit(textSurf, textPosition)
 
@@ -245,7 +245,6 @@ class game:
                     button8.DrawButton(main_surface, BLUE)
                     a = None
             return current_turn, playerindex, a
-            return current_turn, playerindex, None, None
 
         def superFight(p1): #TODO
             opponent = SuperFighters[random.randint(0, len(SuperFighters)-1)]
