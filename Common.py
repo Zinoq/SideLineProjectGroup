@@ -58,9 +58,9 @@ TileColors = [LIGHTGRAY,GRAY]
 # Spelerplaatjes in doorloopbare lijst
 pimg = player_images = [
         pygame.transform.scale(pygame.image.load("assets\\player1.png"),(int(unit/2), int(unit/2))),
+        pygame.transform.scale(pygame.image.load("assets\\player4.png"),(int(unit/2), int(unit/2))),
         pygame.transform.scale(pygame.image.load("assets\\player2.png"),(int(unit/2), int(unit/2))),
-        pygame.transform.scale(pygame.image.load("assets\\player3.png"),(int(unit/2), int(unit/2))),
-        pygame.transform.scale(pygame.image.load("assets\\player4.png"),(int(unit/2), int(unit/2)))
+        pygame.transform.scale(pygame.image.load("assets\\player3.png"),(int(unit/2), int(unit/2)))
         ]
 
 
