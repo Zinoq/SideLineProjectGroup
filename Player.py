@@ -11,10 +11,7 @@ class Player:
         self.rect = self.image.get_rect()
         self.Position = position
         self.Pnr = pnr
-        if self.IsHuman:
-            self.Name = "[Human] " + name
-        else:
-            self.Name = "[CPU] " + name
+        self.Name = name
         self.Damage = 0
 
     def draw(self,screen):

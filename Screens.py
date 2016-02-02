@@ -183,6 +183,11 @@ class whostarts:
                     textPosition = (buttons[name].Rect.centerx-textRect.w/2,buttons[name].Rect.centery-40)
                     screen.blit(textSurf,textPosition)
 
+            textColor = BLACK
+            textSurf, textRect = text_objects("ENTER A NAME, OR NOT", largeText, textColor)
+            textPosition = (width/2-textRect.w/2,height/12)
+            screen.blit(textSurf, textPosition)
+
             pygame.display.flip()
 
 
@@ -209,11 +214,7 @@ class game:
                     button8.DrawButton(main_surface, BRIGHTBLUE)
                     if pygame.mouse.get_pressed()[0]:
                         a = current_player.rollDice()
-                        textColor = BLACK
-                        textSurf, textRect = text_objects("You rolled: " + str(a), smallText, textColor)
-                        textPosition = (10,30)
-                        screen.blit(textSurf, textPosition)
-                        current_player.moveToTile(findNewTile(current_player.Tile,board,a))
+                        current_player.moveToTile(findNewTile(board,a,current_player))
 
                         #start checking if actions should happen based on current tile or passed tiles
                         if current_player.Tile == current_player.SpawnTile:
@@ -239,6 +240,12 @@ class game:
 
                         current_turn += 1 #Next player starts
                         playerindex += 1
+                    else:
+                        a = None
+                else:
+                    button8.DrawButton(main_surface, BLUE)
+                    a = None
+            return current_turn, playerindex, a
             return current_turn, playerindex, None, None
 
         def superFight(p1): #TODO
@@ -265,11 +272,18 @@ class game:
                     switchScreen(title1())
             main_surface.fill(WHITE)
             # Update your game objects and data structures here...
-            current_turn, playerindex, textSurf, textPosition = turn(current_turn,playerindex)
-            if textSurf is not None and textPosition is not None:
-                screen.blit(textSurf,textPosition)
+            current_turn, playerindex,Rolled = turn(current_turn,playerindex)
+            if Rolled is not None:
+                textColor = BLACK
+                textSurf, textRect = text_objects("The last player: %s" % players[playerindex%4].Name, smallText, textColor)
+                textPosition = (10,height-120)
+                main_surface.blit(textSurf, textPosition)
+                textColor = BLACK
+                textSurf, textRect = text_objects("Rolled: " + str(Rolled), smallText, textColor)
+                textPosition = (10,height-100)
+                main_surface.blit(textSurf, textPosition)
 
-            button8.DrawButton(main_surface, BLUE)
+
 
             # Drawing the game's Tiles
             for tile in board:
@@ -283,28 +297,45 @@ class game:
                 player.draw(screen)
 
             textColor = BLACK
+            textColor0 = RED
+            textColor1 = GREEN
+            textColor2 = YELLOW
+            textColor3 = BLUE
             text1Surf, text1Rect = text_objects("Current player is ", smallText, textColor)
             text1Position = (10, 10)
-            text2Surf, text2Rect = text_objects(str(players[current_turn%4].Name), smallText, textColor)
+            text2Surf, text2Rect = text_objects(str(players[playerindex%4].Name), smallText, textColor)
             text2Position = (10,30)
-            text3Surf, text3Rect = text_objects("Turn %s" %current_turn, smallText, textColor)
+            text3Surf, text3Rect = text_objects("Turn %s" % current_turn, smallText, textColor)
             text3Position = (10,50)
-            text4Surf, text4Rect = text_objects("%f has %s" %(players[0].Name, players[0].Health) + " Health", smallText, textColor)
+            text4Surf, text4Rect = text_objects("%s has:"  %(players[0].Name), smallText, textColor0)
             text4Position = (10, 100)
-            text5Surf, text5Rect = text_objects("%fr has %s" %(players[1].Name, players[1].Health) + " Health", smallText, textColor)
-            text5Position = (10, 120)
-            text6Surf, text6Rect = text_objects("%f has %s" %(players[2].Name, players[2].Health) + " Health", smallText, textColor)
-            text6Position = (10, 140)
-            text7Surf, text7Rect = text_objects("%f has %s" %(players[3].Name, players[3].Health) + " Health", smallText, textColor)
-            text7Position = (10, 160)
+            text4v2Surf, text4v2Rect = text_objects("%s Health; %s Condition"  %(players[0].Health, players[0].Condition), smallText, textColor)
+            text4v2Position = (10, 120)
+            text5Surf, text5Rect = text_objects("%s has:" %(players[1].Name), smallText, textColor1)
+            text5Position = (10, 150)
+            text5v2Surf, text5v2Rect = text_objects("%s Health; %s Condition" %(players[1].Health, players[1].Condition), smallText, textColor)
+            text5v2Position = (10, 170)
+            text6Surf, text6Rect = text_objects("%s has:" %(players[2].Name), smallText, textColor2)
+            text6Position = (10, 200)
+            text6v2Surf, text6v2Rect = text_objects("%s Health; %s Condition" %(players[2].Health, players[2].Condition), smallText, textColor)
+            text6v2Position = (10, 220)
+            text7Surf, text7Rect = text_objects("%s has:" %(players[3].Name), smallText, textColor3)
+            text7Position = (10, 250)
+            text7v2Surf, text7v2Rect = text_objects("%s Health; %s Condition" %(players[3].Health, players[3].Condition), smallText, textColor)
+            text7v2Position = (10, 270)
+
+
             screen.blit(text1Surf, text1Position)
             screen.blit(text2Surf, text2Position)
             screen.blit(text3Surf, text3Position)
             screen.blit(text4Surf, text4Position)
+            screen.blit(text4v2Surf, text4v2Position)
             screen.blit(text5Surf, text5Position)
+            screen.blit(text5v2Surf, text5v2Position)
             screen.blit(text6Surf, text6Position)
+            screen.blit(text6v2Surf, text6v2Position)
             screen.blit(text7Surf, text7Position)
-
+            screen.blit(text7v2Surf, text7v2Position)
 
 
 
