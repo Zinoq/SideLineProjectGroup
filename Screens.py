@@ -205,6 +205,7 @@ class game:
         current_turn = 0
         playerindex = starting_player
 
+        current_player = players[playerindex%(len(players))]
         def turn(current_turn,playerindex):
             rolling_dice = True
             current_player = players[playerindex%4]
@@ -219,7 +220,7 @@ class game:
                         if current_player.Tile == current_player.SpawnTile:
                             current_player.Health += 15
                             if current_player.Health > 100:
-                                current_player.Health = 100
+                                current_player.Health = 0
 
                         if current_player.Tile.Type is "fight":
                             superFight(current_player)
@@ -235,7 +236,7 @@ class game:
                                 normalFight(current_player, players[3])
 
                         if current_player.Health < 1:
-                            die(current_player)
+                            players.remove(current_player)
 
                         current_turn += 1 #Next player starts
                         playerindex += 1
@@ -249,14 +250,13 @@ class game:
         def superFight(p1): #TODO
             opponent = SuperFighters[random.randint(0, len(SuperFighters)-1)]
             opponent.A = p1.rollDice()
+            dmg = 5 #p1.calculateDamage(p1.rollDice())
             if opponent.Damage > p1.Damage: #player needs a damage attribute
-                pass
-
+                p1.Health = p1.Health - (opponent.Damage - dmg)
+            else: #if player does more damage than superfighter, the attacks gets blocked therefor no damage will be taken
+                pass #Should make it display that attack of superfighter got blocked #TODO
 
         def normalFight(p1, p2): #TODO
-            pass
-
-        def die(p1): #TODO
             pass
 
         displayConfirmation = 0
@@ -322,18 +322,22 @@ class game:
             text7v2Surf, text7v2Rect = text_objects("%s Health; %s Condition" %(players[3].Health, players[3].Condition), smallText, textColor)
             text7v2Position = (10, 270)
 
-
-            screen.blit(text1Surf, text1Position)
-            screen.blit(text2Surf, text2Position)
-            screen.blit(text3Surf, text3Position)
-            screen.blit(text4Surf, text4Position)
-            screen.blit(text4v2Surf, text4v2Position)
-            screen.blit(text5Surf, text5Position)
-            screen.blit(text5v2Surf, text5v2Position)
-            screen.blit(text6Surf, text6Position)
-            screen.blit(text6v2Surf, text6v2Position)
-            screen.blit(text7Surf, text7Position)
-            screen.blit(text7v2Surf, text7v2Position)
+            try:
+                screen.blit(text1Surf, text1Position)
+                screen.blit(text2Surf, text2Position)
+                screen.blit(text3Surf, text3Position)
+                screen.blit(text4Surf, text4Position)
+                screen.blit(text4v2Surf, text4v2Position)
+                screen.blit(text5Surf, text5Position)
+                screen.blit(text5v2Surf, text5v2Position)
+                screen.blit(text6Surf, text6Position)
+                screen.blit(text6v2Surf, text6v2Position)
+                screen.blit(text7Surf, text7Position)
+                screen.blit(text7v2Surf, text7v2Position)
+            except IndexError:
+                text8Surf, text8Rect = text_objects("%s Health; %s Condition" %(0, 0), smallText, textColor)
+                text8Position = (10, 290)
+                screen.blit(text8Surf, text8Position)
 
             button7.DrawButton(main_surface)
 
