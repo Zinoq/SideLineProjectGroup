@@ -3,6 +3,7 @@ from Common import *
 pygame.display.set_caption("Super Fight Punch")
 
 
+
 class title1:
     def run(self):
         screen = pygame.display.set_mode(size)
@@ -299,9 +300,21 @@ class game:
             text2Position = (10,30)
             text3Surf, text3Rect = text_objects("Turn %s" % current_turn, smallText, textColor)
             text3Position = (10,50)
+            text4Surf, text4Rect = text_objects("%f has %s" %(players[0].Name, players[0].Health) + " Health", smallText, textColor)
+            text4Position = (10, 100)
+            text5Surf, text5Rect = text_objects("%fr has %s" %(players[1].Name, players[1].Health) + " Health", smallText, textColor)
+            text5Position = (10, 120)
+            text6Surf, text6Rect = text_objects("%f has %s" %(players[2].Name, players[2].Health) + " Health", smallText, textColor)
+            text6Position = (10, 140)
+            text7Surf, text7Rect = text_objects("%f has %s" %(players[3].Name, players[3].Health) + " Health", smallText, textColor)
+            text7Position = (10, 160)
             screen.blit(text1Surf, text1Position)
             screen.blit(text2Surf, text2Position)
             screen.blit(text3Surf, text3Position)
+            screen.blit(text4Surf, text4Position)
+            screen.blit(text5Surf, text5Position)
+            screen.blit(text6Surf, text6Position)
+            screen.blit(text7Surf, text7Position)
 
 
             button7.DrawButton(main_surface)
