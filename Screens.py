@@ -117,6 +117,8 @@ class whostarts:
         buttons = [button15,button16,button17,button18]
         selected = [False,False,False,False]
         playerNames = {0 : "",1 : "",2 : "",3 : ""}
+        switching = False
+        counter = 30
 
         def choosestarter(players):
             highest = {}
@@ -152,11 +154,11 @@ class whostarts:
                 screen.blit(pimg[i],buttons[i].Size)
 
             button19.DrawButton(screen,GREEN,BLACK)
-            if button19.Rect.collidepoint(mouse):
+            if button19.Rect.collidepoint(mouse) and not switching:
                 button19.DrawButton(screen, button19.lighten())
                 if pygame.mouse.get_pressed()[0]:
                     starting_player = choosestarter(playerNames)
-                    switchScreen(game(),numberOfPlayers,starting_player,playerNames)
+                    switching = True
                 else:
                     button19.DrawButton(screen, button19.initColor)
 
@@ -178,15 +180,37 @@ class whostarts:
                     playerNames[typingName] += str(chr(inKey))
 
             for name in playerNames:
-                if name != "":
+                if playerNames[name] != "":
                     textSurf, textRect = text_objects(playerNames[name], smallText, BLACK)
-                    textPosition = (buttons[name].Rect.centerx-textRect.w/2,buttons[name].Rect.centery-40)
+                    textPosition = (buttons[name].Rect.centerx-textRect.w/2,buttons[name].Rect.centery)
                     screen.blit(textSurf,textPosition)
+                textSurf, textRect = text_objects("Player %s" % (name+1), smallText, BLACK)
+                textPosition = (buttons[name].Rect.centerx-textRect.w/2,buttons[name].Rect.centery-40)
+                screen.blit(textSurf,textPosition)
 
             textColor = BLACK
-            textSurf, textRect = text_objects("ENTER A NAME, OR NOT", largeText, textColor)
+            textSurf, textRect = text_objects("ENTER A NAME, OR DON'T", largeText, textColor)
             textPosition = (width/2-textRect.w/2,height/12)
+            text2Surf, text2Rect = text_objects("Press enter after typing your name.", smallText, textColor)
+            text2Position = (width/2-textRect.w/3,height/12*11)
             screen.blit(textSurf, textPosition)
+            screen.blit(text2Surf, text2Position)
+
+            if switching:
+                counter -= 1
+                if counter == 0:
+                    text3Surf, text3Rect = text_objects(" First Player ", largeText, textColor)
+                    text3Position = (buttons[starting_player].Rect.x,buttons[starting_player].Rect.centery+height/3)
+                    screen.blit(text3Surf,text3Position)
+                    pygame.display.flip()
+                    time.sleep(2)
+                    switchScreen(game(),numberOfPlayers,starting_player,playerNames)
+                else:
+                    text3Surf, text3Rect = text_objects(" First Player ", largeText, textColor)
+                    text3Position = (buttons[random.randint(0,3)].Rect.x,buttons[random.randint(0,3)].Rect.centery+height/3)
+                    screen.blit(text3Surf,text3Position)
+                    time.sleep(0.1)
+
 
             pygame.display.flip()
 
@@ -204,6 +228,7 @@ class game:
         # <rect> = (x, y, w, h)
         current_turn = 0
         playerindex = starting_player
+        showRolled = False
 
         def turn(current_turn,playerindex):
             rolling_dice = True
@@ -245,7 +270,6 @@ class game:
                     button8.DrawButton(main_surface, BLUE)
                     a = None
             return current_turn, playerindex, a
-            return current_turn, playerindex, None, None
 
         def superFight(p1): #TODO
             opponent = SuperFighters[random.randint(0, len(SuperFighters)-1)]
@@ -271,8 +295,11 @@ class game:
                     switchScreen(title1())
             main_surface.fill(WHITE)
             # Update your game objects and data structures here...
-            current_turn, playerindex,Rolled = turn(current_turn,playerindex)
-            if Rolled is not None:
+            current_turn, playerindex, playerroll = turn(current_turn,playerindex)
+            if playerroll is not None:
+                Rolled = playerroll
+                showRolled = True
+            if showRolled:
                 textColor = BLACK
                 textSurf, textRect = text_objects("The last player: %s" % players[playerindex%4].Name, smallText, textColor)
                 textPosition = (10,height-120)
