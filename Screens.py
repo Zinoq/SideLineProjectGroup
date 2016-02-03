@@ -350,8 +350,8 @@ class game:
             #Should make it display something if attack of superfighter got blocked TODO
             #Take off Condition Points TODO
             opponent = SuperFighters[random.randint(0, len(SuperFighters)-1)]
-            opponent.A = p1.rollDice()
-            dmg = 5 #p1.calculateDamage(p1.rollDice())
+            opponent.A = random.randint(1,6)
+            dmg = p1.calculateDamage(p1.rollDice())
             if opponent.Damage > p1.Damage: #player needs a damage attribute
                 p1.Health = p1.Health - (opponent.Damage - dmg)
             else: #if player does more damage than superfighter, the attacks gets blocked therefor no damage will be taken
