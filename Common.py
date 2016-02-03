@@ -151,6 +151,12 @@ button22 = Button("Return to game", GREEN,(390, 640, 500, 75), ((390+250), (640+
 #Settings menu
 button23 = Button("Settings", YELLOW, (490, 450, 300, 75), ((490+150), (450+75/2)))
 
+#Volume buttons
+button24 = Button("Mute", RED, (490, 500, 300, 75), ((490+150), (500+75/2)))
+button25 = Button("Decrease Volume", YELLOW, (320, 600, 300, 75), ((320+150), (600+75/2)))
+button26 = Button("Restore Volume", GREEN, (660, 600, 300, 75), ((660+150), (600+75/2)))
+
+
 #CARDS, SuperFighters
 SuperFighters = [
     Card("Agua Man", 12, 15, 9, 7, 7, 13),

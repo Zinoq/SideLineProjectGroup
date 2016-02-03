@@ -56,6 +56,12 @@ class title1:
 
 class settings:
     def run(self):
+        def stopMusic(self):
+            pygame.mixer.music.set_volume(0,0)
+        def decreaseVolume(self):
+            pygame.mixer.music.set_volume(0,5)
+        def restoreVolume(self):
+            pygame.mixer.music.set_volume(1,0)
         while True:
             ev = pygame.event.poll()
             if ev.type == pygame.QUIT:
@@ -63,12 +69,11 @@ class settings:
             elif ev.type == pygame.KEYDOWN:
                 if ev.key == pygame.K_ESCAPE:
                     switchScreen(title1())
-        def stopMusic(self):
-            pygame.mixer.music.set_volume(0,0)
-        def decreaseVolume(self):
-            pygame.mixer.music.set_volume(0,5)
-        def restoreVolume(self):
-            pygame.mixer.music.set_volume(1,0)
+            screen.blit(bg, (0, 0))
+            button24.DrawButton(screen, RED)
+            button25.DrawButton(screen, YELLOW)
+            button26.DrawButton(screen, GREEN)
+            pygame.display.flip()
 
 
 class title2:
