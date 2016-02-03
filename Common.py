@@ -124,6 +124,13 @@ button10 = Button("Keep playing", GREEN,(350,425,250,50),((350+125),(425+25)))
 # Exit anyway
 button11 = Button("Quit", RED,(680,425,250,50),((680+125),(425+25)))
 
+# Fight 'Screen'
+# choice1
+button27 = Button("1", BLUE,(width/2 - unit * 2, height*0.6,unit,unit),(width/2-unit*1.5,height*0.6+unit/2))
+button28 = Button("2", BLUE,(width/2 - unit/2, height*0.6,unit,unit),(width/2,height*0.6+unit/2))
+button29 = Button("3", BLUE,(width/2 + unit, height*0.6,unit,unit),(width/2+unit*1.5,height*0.6+unit/2))
+button30 = Button("ROLL", BLUE,(width/2 - unit*1.5, height*0.4,unit*3,unit*2),(width/2,height*0.4+unit))
+
 #instructionscreen
 #start
 button13 = Button("START!", GREEN, (180, 550, 250, 75),((180+125), (550+(75/2))))
@@ -225,6 +232,12 @@ def build_board():
 
 
 def playerInit(humans,startTiles,names = None): #give names as a list, in order of players
+    names = [
+        "Badr Heri",
+        "Rocky Belboa",
+        "Mike Tysen",
+        "Manny Pecquiao"
+    ]
     players = []
     pnr = 0
     if names is None:
@@ -319,7 +332,7 @@ def findNewTile(board,n,player):
             return tile
 
 
-def switchScreen(screen,optArg1 = None,optArg2 = None,optArg3 = None):
+def switchScreen(screen,optArg1 = None,optArg2 = None,optArg3 = None,optArg4=None):
     if optArg1 is None:
         screen.run()
     else:
@@ -329,4 +342,7 @@ def switchScreen(screen,optArg1 = None,optArg2 = None,optArg3 = None):
             if optArg3 is None:
                 screen.run(optArg1,optArg2)
             else:
-                screen.run(optArg1,optArg2,optArg3)
+                if optArg4 is None:
+                    screen.run(optArg1,optArg2,optArg3)
+                else:
+                    screen.run(optArg1,optArg2,optArg3,optArg4)
