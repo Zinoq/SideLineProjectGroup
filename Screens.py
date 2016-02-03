@@ -1,4 +1,3 @@
-import os
 from Common import *
 
 pygame.display.set_caption("Super Fight Punch by SideLine")

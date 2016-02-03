@@ -1,5 +1,3 @@
-import pygame
-import time
 from Tile import *
 from Player import *
 from Button import *
