@@ -8,6 +8,8 @@ from Cards import *
 
 pygame.init()
 
+# sound = pygame.mixer.Sound("BoxBell.wav")
+
 # surface_sz = width = height = 480   # Desired physical surface size, in pixels.
 width = 1280
 height = 720
@@ -26,6 +28,8 @@ unit = int(height/16)
 #Background 1
 unscaled_bg = pygame.image.load("assets\\title4.png")
 bg = pygame.transform.scale(unscaled_bg,size)
+startbutton = pygame.image.load("assets\\buttons\\START-BUTTON.png")
+startbuttonlight = pygame.image.load("assets\\buttons\\START-BUTTON-LIGHT.png")
 
 #Background 2
 unscaled_bg2 = pygame.image.load("assets\\title2.png")
