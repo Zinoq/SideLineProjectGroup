@@ -34,25 +34,32 @@ class title1:
             # Exit button
             if button2.Rect.collidepoint(mouse):
                 button2.DrawButton(screen, BRIGHTRED)
+                screen.blit(exitbuttonlight,button2.Rect)
                 if pygame.mouse.get_pressed()[0]:
                     exit()
             else:
                 button2.DrawButton(screen, RED)
+                screen.blit(exitbutton,button2.Rect)
 
             # Instructions button
             if button12.Rect.collidepoint(mouse):
                 button12.DrawButton(screen, BRIGHTBLUE)
+                screen.blit(instructionsbuttonlight,button12.Rect)
                 if pygame.mouse.get_pressed()[0]:
                     switchScreen(Instructions())
             else:
                 button12.DrawButton(screen, BLUE)
+                screen.blit(instructionsbutton,button12.Rect)
 
+            # Settings button
             if button23.Rect.collidepoint(mouse):
                 button23.DrawButton(screen, YELLOW)
+                screen.blit(settingsbuttonlight,button23.Rect)
                 if pygame.mouse.get_pressed()[0]:
                     switchScreen(settings())
             else:
                 button23.DrawButton(screen, DARKYELLOW)
+                screen.blit(settingsbutton,button23.Rect)
 
             pygame.display.flip()
 
@@ -107,7 +114,6 @@ class settings:
 
             pygame.display.flip()
 
-
 class title2:
     def run(self):
         while True:
@@ -131,8 +137,8 @@ class title2:
                 button3.DrawButton(screen, PINK)
                 if pygame.mouse.get_pressed()[0]:
                     numberOfPlayers = 1
-                    # switchScreen(game(),numberOfPlayers)
-                    switchScreen(whostarts(),numberOfPlayers)
+                    switchScreen(game(),numberOfPlayers,0)
+                    # switchScreen(whostarts(),numberOfPlayers)
             else:
                 button3.DrawButton(screen, RED)
 
@@ -141,8 +147,8 @@ class title2:
                 button4.DrawButton(screen, PINK)
                 if pygame.mouse.get_pressed()[0]:
                     numberOfPlayers = 2
-                    # switchScreen(game(),numberOfPlayers)
-                    switchScreen(whostarts(),numberOfPlayers)
+                    switchScreen(game(),numberOfPlayers,0)
+                    # switchScreen(whostarts(),numberOfPlayers)
             else:
                 button4.DrawButton(screen, RED)
 
@@ -151,8 +157,8 @@ class title2:
                 button5.DrawButton(screen, PINK)
                 if pygame.mouse.get_pressed()[0]:
                     numberOfPlayers = 3
-                    # switchScreen(game(),numberOfPlayers)
-                    switchScreen(whostarts(),numberOfPlayers)
+                    switchScreen(game(),numberOfPlayers,0)
+                    # switchScreen(whostarts(),numberOfPlayers)
             else:
                 button5.DrawButton(screen, RED)
 
@@ -161,13 +167,12 @@ class title2:
                 button6.DrawButton(screen, PINK)
                 if pygame.mouse.get_pressed()[0]:
                     numberOfPlayers = 4
-                    # switchScreen(game(),numberOfPlayers)
-                    switchScreen(whostarts(),numberOfPlayers)
+                    switchScreen(game(),numberOfPlayers,0)
+                    # switchScreen(whostarts(),numberOfPlayers)
             else:
                 button6.DrawButton(screen, RED)
 
             pygame.display.flip()
-
 
 class whostarts:
     def run(self,numberOfPlayers):
@@ -276,7 +281,6 @@ class whostarts:
 
             pygame.display.flip()
 
-
 class game:
     def run(self,numberOfPlayers,starting_player,playerNames = None):
         """ Set up the game and run the main game loop """
@@ -314,17 +318,17 @@ class game:
                                 current_player.Health = 100
 
                         if current_player.Tile.Type is "fight":
-                            superFight(current_player)
+                            switchScreen(fight(),players,playerindex,"super")
 
                         if (current_player.Tile.Type is "spawn" or current_player.Tile.Type is "spawn2") and not current_player.SpawnTile:
                             if current_player.Tile.image == RED: #Red spawn tile = Player 1
-                                normalFight(current_player, players[0])
+                                switchScreen(fight(),players,playerindex,"normal",0)
                             elif current_player.Tile.image == GREEN: #Green spawn tile = Player 2
-                                normalFight(current_player, players[1])
+                                switchScreen(fight(),players,playerindex,"normal",1)
                             elif current_player.Tile.image == YELLOW: #Yellow spawn tile = PLayer 3
-                                normalFight(current_player, players[2])
+                                switchScreen(fight(),players,playerindex,"normal",2)
                             elif current_player.Tile.image == BLUE: #Blue spawn tile = Player 4
-                                normalFight(current_player, players[3])
+                                switchScreen(fight(),players,playerindex,"normal",3)
 
                         if current_player.Health < 1:
                             pass
@@ -345,30 +349,6 @@ class game:
                 a = None
 
             return current_turn, playerindex, a
-
-        def superFight(p1): #TODO
-            #Should make it display something if attack of superfighter got blocked TODO
-            #Take off Condition Points TODO
-            opponent = SuperFighters[random.randint(0, len(SuperFighters)-1)]
-            opponent.A = random.randint(1,6)
-            dmg = p1.calculateDamage(p1.rollDice())
-            if opponent.Damage > p1.Damage: #player needs a damage attribute
-                p1.Health = p1.Health - (opponent.Damage - dmg)
-            else: #if player does more damage than superfighter, the attacks gets blocked therefor no damage will be taken
-                pass
-
-        def normalFight(p1, p2): #TODO
-            #display a fancy button which shows the 'fight' TODO
-            #Take off Condition Points TODO
-            numb = random.randint(1,6)
-            damageP1 = p1.calculateDamage(numb)
-            damageP2 = p2.calculateDamage(numb)
-            if damageP1 > damageP2:
-                p2.Health = p2.Health - (damageP1 - damageP2)
-            elif damageP2 > damageP1:
-                p1.Health = p1.Health - (damageP2 - damageP1)
-            else:
-                pass
 
         instructions = 0
         displayConfirmation = 0
@@ -511,8 +491,8 @@ class game:
                     button11.DrawButton(main_surface, BRIGHTRED)
                     if pygame.mouse.get_pressed(button11.Rect)[0]:
                         switchScreen(title1())
-            pygame.display.flip()
 
+            pygame.display.flip()
 
 class Instructions:
     def run(self):
@@ -554,6 +534,95 @@ class Instructions:
             pygame.display.flip()
 
         pygame.quit()  # Once we leave the loop, close the window.
+
+class fight:
+    def run(self,players,playerindex,type,opponent=SuperFighters[random.randint(0, len(SuperFighters)-1)]):
+
+        def superFight(p1,sf): #TODO
+            #Should make it display something if attack of superfighter got blocked TODO
+            #Take off Condition Points TODO
+            sf.A = p1.rollDice()
+            dmg = 5 #p1.calculateDamage(p1.rollDice())
+            if sf.Damage > p1.Damage: #player needs a damage attribute
+                p1.Health = p1.Health - (sf.Damage - dmg)
+            else: #if player does more damage than superfighter, the attacks gets blocked therefor no damage will be taken
+                pass
+
+        def normalFight(p1, p2): #TODO
+            #display a fancy button which shows the 'fight' TODO
+            #Take off Condition Points TODO
+            numb = random.randint(1,6)
+            damageP1 = p1.calculateDamage(numb)
+            damageP2 = p2.calculateDamage(numb)
+            if damageP1 > damageP2:
+                p2.Health = p2.Health - (damageP1 - damageP2)
+            elif damageP2 > damageP1:
+                p1.Health = p1.Health - (damageP2 - damageP1)
+            else:
+                pass
+
+        count = 6
+        if type is "super":
+            p2card = pygame.transform.scale(pygame.image.load("assets//cards//" + opponent.Name + ".png"),(500,650))
+            p2rect = p2card.get_rect()
+        elif type is "player":
+            p2card = pygame.transform.scale(pygame.image.load("assets//scorecards//sc"+str(players[opponent].Pnr)+".png"),(500,650))
+            p2rect = p2card.get_rect()
+        p1card = pygame.transform.scale(pygame.image.load("assets//scorecards//sc"+str(players[playerindex%4].Pnr)+".png"),(500,650))
+        p1rect = p1card.get_rect()
+        while count > 0:
+            ev = pygame.event.poll()  # Look for any event
+            if ev.type == pygame.QUIT:  # Window close button clicked?
+                exit()
+            mouse = pygame.mouse.get_pos()
+            screen.blit(bg, (0, 0))
+            button27.DrawButton(screen,DARKBLUE)
+            button28.DrawButton(screen,DARKBLUE)
+            button29.DrawButton(screen,DARKBLUE)
+            button30.DrawButton(screen,DARKBLUE)
+
+            textSurf, textRect = text_objects(type,largeText, WHITE)
+            textPosition = (width/2-textRect.w/2,height/6)
+            screen.blit(textSurf,textPosition)
+            if count <= 6:
+                screen.blit(p2card,(width - p1rect.w*1.08, p1rect.h/16))
+                screen.blit(p1card,(width/2 - p1rect.w*1.2, p1rect.h/16))
+                if count == 4: count -= 1
+            if count == 6 or count == 3:
+                if button30.Rect.collidepoint(mouse):
+                    button30.DrawButton(screen, BRIGHTBLUE)
+                    if pygame.mouse.get_pressed()[0]:
+                        count -= 1
+            if count <= 5:
+                text1Surf, text1rect = text_objects()
+            if count == 1 or count == 4:
+                if button27.Rect.collidepoint(mouse):
+                    button27.DrawButton(screen, BRIGHTBLUE)
+                    if pygame.mouse.get_pressed()[0]:
+                        count -= 1
+                else:
+                    button27.DrawButton(screen,BLUE)
+                if button28.Rect.collidepoint(mouse):
+                    button28.DrawButton(screen, BRIGHTBLUE)
+                    if pygame.mouse.get_pressed()[0]:
+                        count -= 1
+                else:
+                    button28.DrawButton(screen,BLUE)
+                if button29.Rect.collidepoint(mouse):
+                    button29.DrawButton(screen, BRIGHTBLUE)
+                    if pygame.mouse.get_pressed()[0]:
+                        count -= 1
+                else:
+                    button29.DrawButton(screen,BLUE)
+
+            if type is "super" and count == 2:
+                superFight(players[playerindex%4],opponent)
+                count -= 1
+            elif type is "player" and count == 2:
+                normalFight(players[playerindex%4],opponent)
+                count -= 1
+
+            pygame.display.flip()
 
 
 title1().run()

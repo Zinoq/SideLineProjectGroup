@@ -1,5 +1,3 @@
-import pygame
-import time
 from Tile import *
 from Player import *
 from Button import *
@@ -30,6 +28,13 @@ unscaled_bg = pygame.image.load("assets\\title4.png")
 bg = pygame.transform.scale(unscaled_bg,size)
 startbutton = pygame.image.load("assets\\buttons\\START-BUTTON.png")
 startbuttonlight = pygame.image.load("assets\\buttons\\START-BUTTON-LIGHT.png")
+instructionsbutton = pygame.image.load("assets\\buttons\\INSTRUCTIONS-BUTTON.png")
+instructionsbuttonlight = pygame.image.load("assets\\buttons\\INSTRUCTIONS-BUTTON-LIGHT.png")
+exitbutton = pygame.image.load("assets\\buttons\\EXIT-BUTTON.png")
+exitbuttonlight = pygame.image.load("assets\\buttons\\EXIT-BUTTON-LIGHT.png")
+settingsbutton = pygame.image.load("assets\\buttons\\SETTINGS-BUTTON.png")
+settingsbuttonlight = pygame.image.load("assets\\buttons\\SETTINGS-BUTTON-LIGHT.png")
+
 
 #Background 2
 unscaled_bg2 = pygame.image.load("assets\\title2.png")
@@ -125,6 +130,13 @@ button10 = Button("Keep playing", GREEN,(350,425,250,50),((350+125),(425+25)))
 
 # Exit anyway
 button11 = Button("Quit", RED,(680,425,250,50),((680+125),(425+25)))
+
+# Fight 'Screen'
+# choice1
+button27 = Button("1", BLUE,(width/2 - unit * 2, height*0.6,unit,unit),(width/2-unit*1.5,height*0.6+unit/2))
+button28 = Button("2", BLUE,(width/2 - unit/2, height*0.6,unit,unit),(width/2,height*0.6+unit/2))
+button29 = Button("3", BLUE,(width/2 + unit, height*0.6,unit,unit),(width/2+unit*1.5,height*0.6+unit/2))
+button30 = Button("ROLL", BLUE,(width/2 - unit*1.5, height*0.4,unit*3,unit*2),(width/2,height*0.4+unit))
 
 #instructionscreen
 #start
@@ -234,6 +246,12 @@ def build_board():
 
 
 def playerInit(humans,startTiles,names = None): #give names as a list, in order of players
+    names = [
+        "Badr Heri",
+        "Rocky Belboa",
+        "Mike Tysen",
+        "Manny Pecquiao"
+    ]
     players = []
     pnr = 0
     if names is None:
@@ -328,7 +346,7 @@ def findNewTile(board,n,player):
             return tile
 
 
-def switchScreen(screen,optArg1 = None,optArg2 = None,optArg3 = None):
+def switchScreen(screen,optArg1 = None,optArg2 = None,optArg3 = None,optArg4=None):
     if optArg1 is None:
         screen.run()
     else:
@@ -338,4 +356,7 @@ def switchScreen(screen,optArg1 = None,optArg2 = None,optArg3 = None):
             if optArg3 is None:
                 screen.run(optArg1,optArg2)
             else:
-                screen.run(optArg1,optArg2,optArg3)
+                if optArg4 is None:
+                    screen.run(optArg1,optArg2,optArg3)
+                else:
+                    screen.run(optArg1,optArg2,optArg3,optArg4)

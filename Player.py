@@ -1,7 +1,8 @@
-import random
+import random,pygame
 
 class Player:
     def __init__(self, health, position, condition, spawntile, texture, is_human, name, pnr):
+        pygame.init()
         self.Health = health
         self.Condition = condition
         self.SpawnTile = spawntile #has to be a Point(x,y)
@@ -13,6 +14,7 @@ class Player:
         self.Pnr = pnr
         self.Name = name
         self.Damage = 0
+        self.ScoreCard = pygame.image.load("assets//scorecards//sc"+str(self.Pnr)+".png")
 
     def draw(self,screen):
         screen.blit(self.image,(self.Tile.rect.centerx- self.rect.w/2, self.Tile.rect.centery- self.rect.h/2))
