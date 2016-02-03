@@ -8,6 +8,8 @@ from Cards import *
 
 pygame.init()
 
+# sound = pygame.mixer.Sound("BoxBell.wav")
+
 # surface_sz = width = height = 480   # Desired physical surface size, in pixels.
 width = 1280
 height = 720
@@ -26,6 +28,8 @@ unit = int(height/16)
 #Background 1
 unscaled_bg = pygame.image.load("assets\\title4.png")
 bg = pygame.transform.scale(unscaled_bg,size)
+startbutton = pygame.image.load("assets\\buttons\\START-BUTTON.png")
+startbuttonlight = pygame.image.load("assets\\buttons\\START-BUTTON-LIGHT.png")
 
 #Background 2
 unscaled_bg2 = pygame.image.load("assets\\title2.png")
@@ -63,10 +67,8 @@ pimg = player_images = [
         pygame.transform.scale(pygame.image.load("assets\\player3.png"),(int(unit/2), int(unit/2)))
         ]
 text = [
-            "Diegene die het hoogst gooit begint met het spel.",
-            "Elke speler heeft zijn eigen hoek (3 vakjes) en start vanaf die hoek met de klok mee.",
-            "Elke speler begint met 100 Levenspunten en 15 Conditiepunten.",
-            "Elke speler heeft een Scorekaart van zijn Character en een bijpassende pion",
+            "Diegene die het hoogst gooit begint met het spel, elke speler heeft zijn eigen hoek (3 vakjes) en start vanaf die hoek met de klok mee.",
+            "Elke speler begint met 100 Levenspunten en 15 Conditiepunten en heeft een Scorekaart van zijn Character en een bijpassende pion",
             "Er wordt gedobbeld om voort te bewegen over het bordspel.",
             "Wanneer een speler op een vakje ‘Fight’ terechtkomt moet deze vechten tegen de Superfighter ongeacht of er een speler ook op dat vakje staat.",
             "De Superfighter wordt bepaald door een Superfighter-kaart van de stapel op het bordspel te pakken. Leg deze hierna weer onderaan de stapel.",
@@ -133,10 +135,10 @@ button30 = Button("ROLL", BLUE,(width/2 - unit*1.5, height*0.4,unit*3,unit*2),(w
 
 #instructionscreen
 #start
-button13 = Button("START!", GREEN, (180, 550, 250, 75),((180+125), (550+(75/2))))
+button13 = Button("START!", GREEN, (210, 620, 250, 75),((210+125), (620+(75/2))))
 
 #back
-button14 = Button("BACK", RED,(850, 550, 250, 75), ((850+125), (550+(75/2))))
+button14 = Button("BACK", RED,(820, 620, 250, 75), ((820+125), (620+(75/2))))
 
 # PlayerOrder screen
 button15 = Button("", PlayerColors[0],(width/2-width/3,height/5,width/6,height/5),((width/12*3)+175,(height/3*2)+125))
@@ -157,6 +159,13 @@ button22 = Button("Return to game", GREEN,(390, 640, 500, 75), ((390+250), (640+
 
 #Settings menu
 button23 = Button("Settings", YELLOW, (490, 450, 300, 75), ((490+150), (450+75/2)))
+
+#Volume buttons
+button24 = Button("Mute", RED, (490, 400, 300, 75), ((490+150), (400+75/2)))
+button25 = Button("Decrease Volume", YELLOW, (320, 500, 300, 75), ((320+150), (500+75/2)))
+button26 = Button("Restore Volume", GREEN, (660, 500, 300, 75), ((660+150), (500+75/2)))
+button27 = Button("Return to menu", BLUE, (490, 600, 300, 75), ((490+150), (600+75/2)))
+
 
 #CARDS, SuperFighters
 SuperFighters = [
