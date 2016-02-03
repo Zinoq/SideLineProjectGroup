@@ -2,7 +2,7 @@ from Common import *
 
 pygame.display.set_caption("Super Fight Punch")
 
-
+volume = pygame.mixer.music.set_volume
 
 class title1:
     def run(self):
@@ -46,13 +46,29 @@ class title1:
                 button12.DrawButton(screen, BLUE)
 
             if button23.Rect.collidepoint(mouse):
-                button23.DrawButton(screen, DARKYELLOW)
-                if pygame.mouse.get_pressed()[0]:
-                    switchScreen()
-            else:
                 button23.DrawButton(screen, YELLOW)
+                if pygame.mouse.get_pressed()[0]:
+                    switchScreen(settings())
+            else:
+                button23.DrawButton(screen, DARKYELLOW)
 
             pygame.display.flip()
+
+class settings:
+    def run(self):
+        while True:
+            ev = pygame.event.poll()
+            if ev.type == pygame.QUIT:
+                exit()
+            elif ev.type == pygame.KEYDOWN:
+                if ev.key == pygame.K_ESCAPE:
+                    switchScreen(title1())
+        def stopMusic(self):
+            pygame.mixer.music.set_volume(0,0)
+        def decreaseVolume(self):
+            pygame.mixer.music.set_volume(0,5)
+        def restoreVolume(self):
+            pygame.mixer.music.set_volume(1,0)
 
 
 class title2:

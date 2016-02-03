@@ -149,7 +149,7 @@ button21 = Button("", WHITE, (0, 0, 1280, 720), (640, 360))
 button22 = Button("Return to game", GREEN,(390, 640, 500, 75), ((390+250), (640+75/2)))
 
 #Settings menu
-button23 = Button("Settings", YELLOW, (490, 450, 250, 75), ((490+125), (450+75/2)))
+button23 = Button("Settings", YELLOW, (490, 450, 300, 75), ((490+150), (450+75/2)))
 
 #CARDS, SuperFighters
 SuperFighters = [
