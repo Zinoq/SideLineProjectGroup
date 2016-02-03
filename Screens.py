@@ -139,7 +139,7 @@ class whostarts:
         selected = [False,False,False,False]
         playerNames = {0 : "",1 : "",3 : "",2 : ""}
         switching = False
-        counter = 1
+        counter = 10
 
         def choosestarter(players):
             highest = {}
@@ -181,12 +181,12 @@ class whostarts:
 
             button19.DrawButton(screen,GREEN,BLACK)
             if button19.Rect.collidepoint(mouse) and not switching:
-                button19.DrawButton(screen, button19.lighten())
+                button19.DrawButton(screen, BRIGHTGREEN)
                 if pygame.mouse.get_pressed()[0]:
                     starting_player = choosestarter(playerNames)
                     switching = True
                 else:
-                    button19.DrawButton(screen, button19.initColor)
+                    button19.DrawButton(screen, GREEN)
 
             if typingName is not None:
                 while 1:
@@ -267,34 +267,35 @@ class game:
                             a = current_player.rollDice()
                             current_player.moveToTile(findNewTile(board,a,current_player))
 
-                            #start checking if actions should happen based on current tile or passed tiles
-                            if current_player.Tile == current_player.SpawnTile:
-                                current_player.Health += 15
-                                if current_player.Health > 100:
-                                    current_player.Health = 0
+                        #start checking if actions should happen based on current tile or passed tiles
+                        if current_player.Tile.Type is "spawn" and current_player.Tile.image == PlayerColors[current_player.Pnr-1]:
+                            current_player.Health += 15
+                            if current_player.Health > 100:
+                                current_player.Health = 100
 
-                            if current_player.Tile.Type is "fight":
-                                superFight(current_player)
+                        if current_player.Tile.Type is "fight":
+                            superFight(current_player)
 
-                            if current_player.Tile.Type is "spawn" and not current_player.SpawnTile:
-                                if current_player.Tile.Image == RED: #Red spawn tile = Player 1
-                                    normalFight(current_player, players[0])
-                                elif current_player.Tile.Image == GREEN: #Green spawn tile = Player 2
-                                    normalFight(current_player, players[1])
-                                elif current_player.Tile.Image == YELLOW: #Yellow spawn tile = PLayer 3
-                                    normalFight(current_player, players[2])
-                                elif current_player.Tile.Image == BLUE: #Blue spawn tile = Player 4
-                                    normalFight(current_player, players[3])
+                        if (current_player.Tile.Type is "spawn" or current_player.Tile.Type is "spawn2") and not current_player.SpawnTile:
+                            if current_player.Tile.image == RED: #Red spawn tile = Player 1
+                                normalFight(current_player, players[0])
+                            elif current_player.Tile.image == GREEN: #Green spawn tile = Player 2
+                                normalFight(current_player, players[1])
+                            elif current_player.Tile.image == YELLOW: #Yellow spawn tile = PLayer 3
+                                normalFight(current_player, players[2])
+                            elif current_player.Tile.image == BLUE: #Blue spawn tile = Player 4
+                                normalFight(current_player, players[3])
 
+                        if current_player.Health < 1:
+                            pass
 
-
-                            current_turn += 1 #Next player starts
-                            playerindex += 1
-                        else:
-                            a = None
+                        current_turn += 1 #Next player starts
+                        playerindex += 1
                     else:
-                        button8.DrawButton(main_surface, BLUE)
                         a = None
+                else:
+                    button8.DrawButton(main_surface, BLUE)
+                    a = None
             else: #if the player is dead
                 current_turn += 1
                 playerindex += 1
@@ -369,7 +370,7 @@ class game:
             textColor3 = BLUE
             text1Surf, text1Rect = text_objects("Current player is ", smallText, textColor)
             text1Position = (10, 10)
-            text2Surf, text2Rect = text_objects(str(players[playerindex%4].Name), smallText, textColor)
+            text2Surf, text2Rect = text_objects(str(players[playerindex%4].Name), smallText, PlayerColors[playerindex%4])
             text2Position = (10,30)
             text3Surf, text3Rect = text_objects("Turn %s" % current_turn, smallText, textColor)
             text3Position = (10,50)
@@ -413,7 +414,7 @@ class game:
 
             # EXIT BUTTON
             if button7.Rect.collidepoint(mouse):
-                button7.DrawButton(main_surface, BRIGHTRED)
+                button7.DrawButton(main_surface, PINK)
                 if pygame.mouse.get_pressed()[0]:
                     displayConfirmation = 1
             else:
@@ -448,6 +449,7 @@ class game:
             pygame.event.wait()  # fixes it immediately appearing for 0.1sec and then quitting
             # EXIT CONFIRMATION
             if displayConfirmation == 1 or displayConfirmation == 2:
+                mouse = pygame.mouse.get_pos()
                 button9.DrawButton(main_surface, WHITE)
                 button10.DrawButton(main_surface, GREEN)
                 button11.DrawButton(main_surface, RED)
@@ -460,7 +462,6 @@ class game:
                     if pygame.mouse.get_pressed(button11.Rect)[0]:
                         switchScreen(title1())
             pygame.display.flip()
-
 
 
 class Instructions:

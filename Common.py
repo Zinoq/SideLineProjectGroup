@@ -37,7 +37,7 @@ WHITE = (255,255,255)
 BLACK = (0,0,0)
 GRAY = (100,100,100)
 LIGHTGRAY = (200,200,200)
-RED = (200,80,80)
+RED = (200,60,60)
 DARKRED = (160,80,80)
 BRIGHTRED = (255,0,0)
 GREEN = (80,200,80)
@@ -93,20 +93,20 @@ button1 = Button("START!", GREEN, (180, 350, 250, 75),((180+125), (350+(75/2))))
 button2 = Button("EXIT", RED,(850, 350, 250, 75), ((850+125), (350+(75/2))))
 
 #Instructions
-button12 = Button("Instructions", PINK,(490, 350, 300, 75), ((490+150), (350+(75/2)))) #changed size
+button12 = Button("INSTRUCTIONS", BLUE,(490, 350, 300, 75), ((490+150), (350+(75/2)))) #changed size
 
 #Player amount selection screen
 #1 Player
-button3 = Button("1 PLAYER", WHITE, (180, 250, 250, 75),((180+125), (250+(75/2))))
+button3 = Button("1 PLAYER", PINK, (180, 250, 250, 75),((180+125), (250+(75/2))))
 
 #2 Players
-button4 = Button("2 PLAYERS", WHITE, (515, 250, 250, 75),((515+125), (250+(75/2))))
+button4 = Button("2 PLAYERS", PINK, (515, 250, 250, 75),((515+125), (250+(75/2))))
 
 #3 Players
-button5 = Button("3 PLAYERS", WHITE, (850, 250, 250, 75),((850+125), (250+(75/2))))
+button5 = Button("3 PLAYERS", PINK, (850, 250, 250, 75),((850+125), (250+(75/2))))
 
 #4 Players
-button6 = Button("4 PLAYERS", WHITE, (515, 350, 250, 75), ((515+125), (350+(75/2))))
+button6 = Button("4 PLAYERS", PINK, (515, 350, 250, 75), ((515+125), (350+(75/2))))
 
 # GAME SCREEN
 # Exitbutton game
