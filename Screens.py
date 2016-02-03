@@ -468,7 +468,7 @@ class game:
                 if pygame.mouse.get_pressed()[0]:
                     instructions += 1
             if instructions == 1:
-                button21.DrawButton(main_surface, WHITE)
+                screen.blit(bg, (0,0))
                 button22.DrawButton(main_surface, BLUE)
                 if button22.Rect.collidepoint(mouse):
                     button22.DrawButton(main_surface, BRIGHTBLUE)
@@ -478,11 +478,11 @@ class game:
                 button7.DrawButton(main_surface, RED)
                 if button7.Rect.collidepoint(mouse):
                       button7.DrawButton(main_surface, BRIGHTRED)
-                textColor = BLACK
+                textColor = WHITE
 
                 for i in range(0, len(text)):  # this prints out the tekst list in a readable order
                     textSurf, textRect = text_objects(text[i], smallText, textColor)
-                    textPosition = ((10), (30 + (20 * i)))
+                    textPosition = ((10), (250 + (20 * i)))
                     screen.blit(textSurf, textPosition)
 
 
@@ -518,15 +518,15 @@ class Instructions:
                 if ev.key == pygame.K_ESCAPE:
                     switchScreen(title1())
             mouse = pygame.mouse.get_pos()
-
-            pygame.Surface.fill(screen, WHITE)
+            screen.blit(bg, (0, 0))
+            #pygame.Surface.fill(screen, WHITE)
 
             # Display some text
-            textColor = BLACK
+            textColor = WHITE
 
             for i in range(0, len(text)):  # this prints out the tekst list in a readable order
                 textSurf, textRect = text_objects(text[i], smallText, textColor)
-                textPosition = ((10), (30 + (20 * i)))
+                textPosition = ((10), (250 + (20 * i)))
                 screen.blit(textSurf, textPosition)
 
             button13.DrawButton(screen, GREEN)

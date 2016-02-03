@@ -63,10 +63,8 @@ pimg = player_images = [
         pygame.transform.scale(pygame.image.load("assets\\player3.png"),(int(unit/2), int(unit/2)))
         ]
 text = [
-            "Diegene die het hoogst gooit begint met het spel.",
-            "Elke speler heeft zijn eigen hoek (3 vakjes) en start vanaf die hoek met de klok mee.",
-            "Elke speler begint met 100 Levenspunten en 15 Conditiepunten.",
-            "Elke speler heeft een Scorekaart van zijn Character en een bijpassende pion",
+            "Diegene die het hoogst gooit begint met het spel, elke speler heeft zijn eigen hoek (3 vakjes) en start vanaf die hoek met de klok mee.",
+            "Elke speler begint met 100 Levenspunten en 15 Conditiepunten en heeft een Scorekaart van zijn Character en een bijpassende pion",
             "Er wordt gedobbeld om voort te bewegen over het bordspel.",
             "Wanneer een speler op een vakje ‘Fight’ terechtkomt moet deze vechten tegen de Superfighter ongeacht of er een speler ook op dat vakje staat.",
             "De Superfighter wordt bepaald door een Superfighter-kaart van de stapel op het bordspel te pakken. Leg deze hierna weer onderaan de stapel.",
@@ -126,10 +124,10 @@ button11 = Button("Quit", RED,(680,425,250,50),((680+125),(425+25)))
 
 #instructionscreen
 #start
-button13 = Button("START!", GREEN, (180, 550, 250, 75),((180+125), (550+(75/2))))
+button13 = Button("START!", GREEN, (210, 620, 250, 75),((210+125), (620+(75/2))))
 
 #back
-button14 = Button("BACK", RED,(850, 550, 250, 75), ((850+125), (550+(75/2))))
+button14 = Button("BACK", RED,(820, 620, 250, 75), ((820+125), (620+(75/2))))
 
 # PlayerOrder screen
 button15 = Button("", PlayerColors[0],(width/2-width/3,height/5,width/6,height/5),((width/12*3)+175,(height/3*2)+125))
