@@ -139,7 +139,7 @@ class whostarts:
         selected = [False,False,False,False]
         playerNames = {0 : "",1 : "",3 : "",2 : ""}
         switching = False
-        counter = 10
+        counter = 1
 
         def choosestarter(players):
             highest = {}
@@ -245,7 +245,7 @@ class game:
         """ Set up the game and run the main game loop """
         # Prepare the pygame module for use
         # Create surface of (width, height), and its window.
-        main_surface = screen
+        main_surface = pygame.display.set_mode(size)
 
         board, startTiles = build_board()
         players = playerInit(numberOfPlayers,startTiles,playerNames)
@@ -253,12 +253,13 @@ class game:
         # <rect> = (x, y, w, h)
         current_turn = 0
         playerindex = starting_player
-        showRolled = False
 
         # current_player = players[playerindex%(len(players))]
         def turn(current_turn,playerindex):
             rolling_dice = True
             current_player = players[playerindex%4]
+            if current_player.Pnr == 2 and current_player.Health < 1:
+                print("lol")
             if current_player.Health >= 1:
                 if rolling_dice:
                     if button8.Rect.collidepoint(mouse):
@@ -266,6 +267,8 @@ class game:
                         if pygame.mouse.get_pressed()[0]:
                             a = current_player.rollDice()
                             current_player.moveToTile(findNewTile(board,a,current_player))
+                        else:
+                            a = None
 
                         #start checking if actions should happen based on current tile or passed tiles
                         if current_player.Tile.Type is "spawn" and current_player.Tile.image == PlayerColors[current_player.Pnr-1]:
@@ -289,14 +292,17 @@ class game:
                         if current_player.Health < 1:
                             pass
 
-                        current_turn += 1 #Next player starts
-                        playerindex += 1
+                        if a is not None:
+                            current_turn += 1 #Next player starts
+                            playerindex += 1
                     else:
                         a = None
+                        button8.DrawButton(main_surface, BLUE)
                 else:
-                    button8.DrawButton(main_surface, BLUE)
                     a = None
+                    button8.DrawButton(main_surface, BLUE)
             else: #if the player is dead
+                button8.DrawButton(main_surface, BLUE)
                 current_turn += 1
                 playerindex += 1
                 a = None
@@ -329,6 +335,8 @@ class game:
 
         instructions = 0
         displayConfirmation = 0
+        fighting = 0
+        showroll = 0
         while True:
             mouse = pygame.mouse.get_pos()
             ev = pygame.event.poll()  # Look for any event
@@ -342,10 +350,10 @@ class game:
             current_turn, playerindex, playerroll = turn(current_turn,playerindex)
             if playerroll is not None:
                 Rolled = playerroll
-                showRolled = True
-            if showRolled:
+                showroll = 1
+            if showroll:
                 textColor = BLACK
-                textSurf, textRect = text_objects("The last player: %s" % players[playerindex%4].Name, smallText, textColor)
+                textSurf, textRect = text_objects("The last player: %s" % players[playerindex%4-1].Name, smallText, textColor)
                 textPosition = (10,height-120)
                 main_surface.blit(textSurf, textPosition)
                 textColor = BLACK
@@ -370,7 +378,12 @@ class game:
             textColor3 = BLUE
             text1Surf, text1Rect = text_objects("Current player is ", smallText, textColor)
             text1Position = (10, 10)
-            text2Surf, text2Rect = text_objects(str(players[playerindex%4].Name), smallText, PlayerColors[playerindex%4])
+            if playerindex % 4 == 3:
+                text2Surf, text2Rect = text_objects(str(players[3].Name), smallText, PlayerColors[2])
+            elif playerindex % 4 == 2:
+                text2Surf, text2Rect = text_objects(str(players[2].Name), smallText, PlayerColors[3])
+            else:
+                text2Surf, text2Rect = text_objects(str(players[playerindex%4].Name), smallText, PlayerColors[playerindex%4])
             text2Position = (10,30)
             text3Surf, text3Rect = text_objects("Turn %s" % current_turn, smallText, textColor)
             text3Position = (10,50)
@@ -431,7 +444,7 @@ class game:
                 if button22.Rect.collidepoint(mouse):
                     button22.DrawButton(main_surface, BRIGHTBLUE)
                     if pygame.mouse.get_pressed()[0]:
-                        instructions += -1
+                        instructions -= 1
 
                 button7.DrawButton(main_surface, RED)
                 if button7.Rect.collidepoint(mouse):
