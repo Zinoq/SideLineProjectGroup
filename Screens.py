@@ -23,11 +23,13 @@ class title1:
             # Start button
             if button1.Rect.collidepoint(mouse):
                 button1.DrawButton(screen, BRIGHTGREEN)
+                screen.blit(startbuttonlight,button1.Rect)
                 if pygame.mouse.get_pressed()[0]:
                     screen.blit(bg2, (0, 0))
                     switchScreen(title2())
             else:
                 button1.DrawButton(screen, GREEN)
+                screen.blit(startbutton,button1.Rect)
 
             # Exit button
             if button2.Rect.collidepoint(mouse):
