@@ -71,22 +71,28 @@ class settings:
                 if ev.key == pygame.K_ESCAPE:
                     switchScreen(title1())
             screen.blit(bg, (0, 0))
+
             button24.DrawButton(screen)
             if button24.Rect.collidepoint(mouse):
                 button24.DrawButton(screen, BRIGHTRED)
-
+                # if pygame.mouse.get_pressed()[0]:
+                #     stopMusic(self)
             else:
                 button24.DrawButton(screen, RED)
 
             button25.DrawButton(screen)
             if button25.Rect.collidepoint(mouse):
                 button25.DrawButton(screen, YELLOW)
+                # if pygame.mouse.get_pressed()[0]:
+                #     decreaseVolume(self)
             else:
                 button25.DrawButton(screen, DARKYELLOW)
 
             button26.DrawButton(screen)
             if button26.Rect.collidepoint(mouse):
                 button26.DrawButton(screen, BRIGHTGREEN)
+                # if pygame.mouse.get_pressed()[0]:
+                #     restoreVolume(self)
             else:
                 button26.DrawButton(screen, GREEN)
 
