@@ -28,6 +28,13 @@ unscaled_bg = pygame.image.load("assets\\title4.png")
 bg = pygame.transform.scale(unscaled_bg,size)
 startbutton = pygame.image.load("assets\\buttons\\START-BUTTON.png")
 startbuttonlight = pygame.image.load("assets\\buttons\\START-BUTTON-LIGHT.png")
+instructionsbutton = pygame.image.load("assets\\buttons\\INSTRUCTIONS-BUTTON.png")
+instructionsbuttonlight = pygame.image.load("assets\\buttons\\INSTRUCTIONS-BUTTON-LIGHT.png")
+exitbutton = pygame.image.load("assets\\buttons\\EXIT-BUTTON.png")
+exitbuttonlight = pygame.image.load("assets\\buttons\\EXIT-BUTTON-LIGHT.png")
+settingsbutton = pygame.image.load("assets\\buttons\\SETTINGS-BUTTON.png")
+settingsbuttonlight = pygame.image.load("assets\\buttons\\SETTINGS-BUTTON-LIGHT.png")
+
 
 #Background 2
 unscaled_bg2 = pygame.image.load("assets\\title2.png")

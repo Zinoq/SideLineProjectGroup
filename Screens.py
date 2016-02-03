@@ -34,25 +34,32 @@ class title1:
             # Exit button
             if button2.Rect.collidepoint(mouse):
                 button2.DrawButton(screen, BRIGHTRED)
+                screen.blit(exitbuttonlight,button2.Rect)
                 if pygame.mouse.get_pressed()[0]:
                     exit()
             else:
                 button2.DrawButton(screen, RED)
+                screen.blit(exitbutton,button2.Rect)
 
             # Instructions button
             if button12.Rect.collidepoint(mouse):
                 button12.DrawButton(screen, BRIGHTBLUE)
+                screen.blit(instructionsbuttonlight,button12.Rect)
                 if pygame.mouse.get_pressed()[0]:
                     switchScreen(Instructions())
             else:
                 button12.DrawButton(screen, BLUE)
+                screen.blit(instructionsbutton,button12.Rect)
 
+            # Settings button
             if button23.Rect.collidepoint(mouse):
                 button23.DrawButton(screen, YELLOW)
+                screen.blit(settingsbuttonlight,button23.Rect)
                 if pygame.mouse.get_pressed()[0]:
                     switchScreen(settings())
             else:
                 button23.DrawButton(screen, DARKYELLOW)
+                screen.blit(settingsbutton,button23.Rect)
 
             pygame.display.flip()
 
@@ -106,7 +113,6 @@ class settings:
 
 
             pygame.display.flip()
-
 
 class title2:
     def run(self):
@@ -167,7 +173,6 @@ class title2:
                 button6.DrawButton(screen, RED)
 
             pygame.display.flip()
-
 
 class whostarts:
     def run(self,numberOfPlayers):
@@ -275,7 +280,6 @@ class whostarts:
                     time.sleep(0.1)
 
             pygame.display.flip()
-
 
 class game:
     def run(self,numberOfPlayers,starting_player,playerNames = None):
@@ -490,7 +494,6 @@ class game:
 
             pygame.display.flip()
 
-
 class Instructions:
     def run(self):
         screen = pygame.display.set_mode(size)
@@ -620,8 +623,6 @@ class fight:
                 count -= 1
 
             pygame.display.flip()
-
-
 
 
 title1().run()
