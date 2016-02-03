@@ -58,11 +58,31 @@ TileColors = [LIGHTGRAY,GRAY]
 # Spelerplaatjes in doorloopbare lijst
 pimg = player_images = [
         pygame.transform.scale(pygame.image.load("assets\\player1.png"),(int(unit/2), int(unit/2))),
+        pygame.transform.scale(pygame.image.load("assets\\player4.png"),(int(unit/2), int(unit/2))),
         pygame.transform.scale(pygame.image.load("assets\\player2.png"),(int(unit/2), int(unit/2))),
-        pygame.transform.scale(pygame.image.load("assets\\player3.png"),(int(unit/2), int(unit/2))),
-        pygame.transform.scale(pygame.image.load("assets\\player4.png"),(int(unit/2), int(unit/2)))
+        pygame.transform.scale(pygame.image.load("assets\\player3.png"),(int(unit/2), int(unit/2)))
         ]
-
+text = [
+            "Diegene die het hoogst gooit begint met het spel.",
+            "Elke speler heeft zijn eigen hoek (3 vakjes) en start vanaf die hoek met de klok mee.",
+            "Elke speler begint met 100 Levenspunten en 15 Conditiepunten.",
+            "Elke speler heeft een Scorekaart van zijn Character en een bijpassende pion",
+            "Er wordt gedobbeld om voort te bewegen over het bordspel.",
+            "Wanneer een speler op een vakje ‘Fight’ terechtkomt moet deze vechten tegen de Superfighter ongeacht of er een speler ook op dat vakje staat.",
+            "De Superfighter wordt bepaald door een Superfighter-kaart van de stapel op het bordspel te pakken. Leg deze hierna weer onderaan de stapel.",
+            "Dobbelen geeft, aan de hand van de Scorekaart, een schade aan met de bijbehorende Conditiepunten.",
+            "Wanneer men geen Conditiepunten meer heeft kan er géén schade aan de tegenstander worden gedaan!",
+            "Wanneer er gevochten moet worden en beide spelers geen Conditiepunten hebben ontvangt de verdediger 15 schade.",
+            "De hoogste schade - de laagste schade = schade aan de speler met de laagste schade.",
+            "Wanneer 2 spelers op hetzelfde vak komen wordt er tegen elkaar gevochten.",
+            "Meer dan 2 spelers op één vak? Dan kiest de diegene die als laatste op het vak terecht is gekomen een tegenstander die ook op het vak staat.",
+            "Wanneer je beide op een ‘Fight!’ vak terechtkomt wordt er alleen gevochten met de Superfighter en niet met elkaar.",
+            "Je ontvangt 15 Conditiepunten als je langs je eigen hoek komt(max = 15 Conditiepunten).",
+            "Je ontvangt 10 Levenspunten als je op je eigen hoek komt.",
+            "Wanneer een hoek leeg is wordt er -10 Levenspunten gerekend. Met 2 of 3 spelers heb je dus een lege hoek.",
+            "Ook wanneer iemand af is heb je een lege hoek.",
+            "Verwijder je pion wanneer je geen Levenspunten meer hebt. Je hebt verloren."
+        ]
 
 # Alle Buttons:
 # TITLE SCREEN
@@ -119,7 +139,14 @@ button18 = Button("", PlayerColors[2],(width/2+width/6,height/5,width/6,height/5
 button19 = Button("START!", GREEN,(width/2-150,height/5*4,300,75),((width/2-150)+150,(height/5*4)+37))
 
 #SuperfightScreen
-button25 = Button("", WHITE, (20, 640, 500, 500), ((20+250),(640+(500/2))))
+# button25 = Button("", WHITE, (20, 500, 500, 500), ((20+250),(500+(500/2))))
+
+#ingame instructions button
+button20 = Button("Instructions", BLUE,(1020, 550, 250, 75), ((1020+125), (550+(75/2))))
+button21 = Button("", WHITE, (0, 0, 1280, 720), (640, 360))
+
+#instructions menu buttons
+button22 = Button("Return to game", GREEN,(390, 640, 500, 75), ((390+250), (640+75/2)))
 
 #CARDS, SuperFighters
 SuperFighters = [
