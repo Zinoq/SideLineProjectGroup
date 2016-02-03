@@ -1,6 +1,6 @@
 from Common import *
 
-pygame.display.set_caption("Super Fight Punch")
+pygame.display.set_caption("Super Fight Punch by SideLine")
 
 
 
@@ -281,7 +281,7 @@ class game:
             return current_turn, playerindex, a
 
         def superFight(p1): #TODO
-            #Should make it display that attack of superfighter got blocked TODO
+            #Should make it display something if attack of superfighter got blocked TODO
             #Take off Condition Points TODO
             opponent = SuperFighters[random.randint(0, len(SuperFighters)-1)]
             opponent.A = p1.rollDice()

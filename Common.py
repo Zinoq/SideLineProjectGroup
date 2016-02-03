@@ -24,7 +24,7 @@ else:
 unit = int(height/16)
 
 #Background 1
-unscaled_bg = pygame.image.load("assets\\title3.png")
+unscaled_bg = pygame.image.load("assets\\title4.png")
 bg = pygame.transform.scale(unscaled_bg,size)
 
 #Background 2
