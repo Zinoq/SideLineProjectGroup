@@ -96,6 +96,12 @@ class settings:
             else:
                 button26.DrawButton(screen, GREEN)
 
+            button27.DrawButton(screen, BLUE)
+            if button27.Rect.collidepoint(mouse):
+                button27.DrawButton(screen, BRIGHTBLUE)
+                if pygame.mouse.get_pressed()[0]:
+                    switchScreen(title1())
+
 
             pygame.display.flip()
 
