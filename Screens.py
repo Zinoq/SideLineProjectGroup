@@ -25,6 +25,7 @@ class title1:
                 button1.DrawButton(screen, BRIGHTGREEN)
                 screen.blit(startbuttonlight,button1.Rect)
                 if pygame.mouse.get_pressed()[0]:
+                    bell.play()
                     screen.blit(bg2, (0, 0))
                     switchScreen(title2())
             else:
@@ -72,6 +73,7 @@ class settings:
         def restoreVolume(self):
             pygame.mixer.music.set_volume(1,0)
         while True:
+            settingsmusic.play()
             mouse = pygame.mouse.get_pos()
             ev = pygame.event.poll()
             if ev.type == pygame.QUIT:
@@ -545,7 +547,7 @@ class fight:
             dmg = 5 #p1.calculateDamage(p1.rollDice())
             if sf.Damage > p1.Damage: #player needs a damage attribute
                 p1.Health = p1.Health - (sf.Damage - dmg)
-            else: #if player does more damage than superfighter, the attacks gets blocked therefor no damage will be taken
+            else: #if player does more damage than superfighter, the attacks gets blocked therefore no damage will be dealt
                 pass
 
         def normalFight(p1, p2): #TODO
