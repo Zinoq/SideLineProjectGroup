@@ -356,6 +356,7 @@ class game:
             game1.play()
         else:
             game2.play()
+
         """ Set up the game and run the main game loop """
         # Prepare the pygame module for use
         # Create surface of (width, height), and its window.
