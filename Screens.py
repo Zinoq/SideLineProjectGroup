@@ -86,38 +86,38 @@ class settings:
             screen.blit(bg, (0, 0))
 
 
-            if button24.Rect.collidepoint(mouse): #Mute
-                screen.blit(mutebuttonlight, button24.Rect)
-                # if pygame.mouse.get_pressed()[0]:
-                #     stopMusic(self)
-            else:
-                screen.blit(mutebutton, button24.Rect)
-
-
-            if button25.Rect.collidepoint(mouse): #Lower Volume
-                screen.blit(lowervolumebuttonlight, button25.Rect)
-                # if pygame.mouse.get_pressed()[0]:
-                #     decreaseVolume(self)
-            else:
-                screen.blit(lowervolumebutton, button25.Rect)
-
-
-            if button26.Rect.collidepoint(mouse): #Higher Volume
-                screen.blit(highervolumebuttonlight, button26.Rect)
-                # if pygame.mouse.get_pressed()[0]:
-                #     restoreVolume(self)
-            else:
-                screen.blit(highervolumebutton, button26.Rect)
-
-
-            if button27.Rect.collidepoint(mouse): #return to menu
-                # button27.DrawButton(screen, BRIGHTBLUE)
-                screen.blit(backbuttonlight, button27.Rect)
-                if pygame.mouse.get_pressed()[0]:
-                    switchScreen(title1())
-            else:
-                # button27.DrawButton(screen, BLUE)
-                screen.blit(backbutton, button27.Rect)
+            # if button24.Rect.collidepoint(mouse): #Mute
+            #     screen.blit(mutebuttonlight, button24.Rect)
+            #     # if pygame.mouse.get_pressed()[0]:
+            #     #     stopMusic(self)
+            # else:
+            #     screen.blit(mutebutton, button24.Rect)
+            #
+            #
+            # if button25.Rect.collidepoint(mouse): #Lower Volume
+            #     screen.blit(lowervolumebuttonlight, button25.Rect)
+            #     # if pygame.mouse.get_pressed()[0]:
+            #     #     decreaseVolume(self)
+            # else:
+            #     screen.blit(lowervolumebutton, button25.Rect)
+            #
+            #
+            # if button26.Rect.collidepoint(mouse): #Higher Volume
+            #     screen.blit(highervolumebuttonlight, button26.Rect)
+            #     # if pygame.mouse.get_pressed()[0]:
+            #     #     restoreVolume(self)
+            # else:
+            #     screen.blit(highervolumebutton, button26.Rect)
+            #
+            #
+            # if button27.Rect.collidepoint(mouse): #return to menu
+            #     # button27.DrawButton(screen, BRIGHTBLUE)
+            #     screen.blit(backbuttonlight, button27.Rect)
+            #     if pygame.mouse.get_pressed()[0]:
+            #         switchScreen(title1())
+            # else:
+            #     # button27.DrawButton(screen, BLUE)
+            #     screen.blit(backbutton, button27.Rect)
 
 
             pygame.display.flip()
