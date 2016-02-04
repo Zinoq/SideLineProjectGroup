@@ -306,7 +306,8 @@ class game:
             if current_player.Health >= 1:
                 if rolling_dice:
                     if button8.Rect.collidepoint(mouse):
-                        button8.DrawButton(main_surface, BRIGHTBLUE)
+                        # button8.DrawButton(main_surface, BRIGHTBLUE)
+                        screen.blit(rolldicebuttonlight,button8.Rect)
                         if pygame.mouse.get_pressed()[0]:
                             a = current_player.rollDice()
                             current_player.moveToTile(findNewTile(board,a,current_player))
@@ -340,10 +341,12 @@ class game:
                             playerindex += 1
                     else:
                         a = None
-                        button8.DrawButton(main_surface, BLUE)
+                        # button8.DrawButton(main_surface, BLUE)
+                        screen.blit(rolldicebutton,button8.Rect)
                 else:
                     a = None
-                    button8.DrawButton(main_surface, BLUE)
+                    # button8.DrawButton(main_surface, BLUE)
+                    screen.blit(rolldicebutton,button8.Rect) #Rolldice
             else: #if the player is dead
                 button8.DrawButton(main_surface, BLUE)
                 current_turn += 1
@@ -442,19 +445,24 @@ class game:
 
 
 
-            button7.DrawButton(main_surface)
+
 
             # EXIT BUTTON
             if button7.Rect.collidepoint(mouse):
-                button7.DrawButton(main_surface, PINK)
+                # button7.DrawButton(main_surface, PINK)
+                screen.blit(exitbuttonlight,button7.Rect)
                 if pygame.mouse.get_pressed()[0]:
                     displayConfirmation = 1
             else:
-                button7.DrawButton(main_surface, RED)
+                # button7.DrawButton(main_surface, RED)
+                screen.blit(exitbutton,button7.Rect)
 
+            #ingame Instructions
             button20.DrawButton(main_surface, BLUE)
+            # screen.blit(instructionsbutton,button20.Rect) #TODO make smaller instruction button for in game instructions
             if button20.Rect.collidepoint(mouse):
                 button20.DrawButton(main_surface, BRIGHTBLUE)
+                # screen.blit(instructionsbuttonlight,button20.Rect)
                 if pygame.mouse.get_pressed()[0]:
                     instructions += 1
             if instructions == 1:
@@ -465,9 +473,11 @@ class game:
                     if pygame.mouse.get_pressed()[0]:
                         instructions -= 1
 
-                button7.DrawButton(main_surface, RED)
+                # button7.DrawButton(main_surface, RED)
+                screen.blit(exitbutton,button7.Rect)
                 if button7.Rect.collidepoint(mouse):
-                      button7.DrawButton(main_surface, BRIGHTRED)
+                    # button7.DrawButton(main_surface, BRIGHTRED)
+                    screen.blit(exitbuttonlight,button7.Rect)
                 textColor = WHITE
 
                 for i in range(0, len(text)):  # this prints out the tekst list in a readable order
