@@ -4,6 +4,7 @@ pygame.display.set_caption("Super Fight Punch by SideLine")
 
 volume = pygame.mixer.music.set_volume
 
+
 class title1:
     intro.play()
     def run(self):
@@ -75,7 +76,7 @@ class settings:
             bell.get_volume()
             game1.get_volume()
             game2.get_volume()
-        def AutoVolume(self):
+        def Volume0(self):
             intro.set_volume(0.25)
             bell.set_volume(0.25)
             game1.set_volume(0.25)
@@ -132,7 +133,7 @@ class settings:
                         Mute(self)
                         pygame.event.wait()
                     if intro.get_volume() == 0.5:
-                        AutoVolume(self)
+                        Volume0(self)
                         pygame.event.wait()
                     if intro.get_volume() == 0.75:
                         Volume1(self)
@@ -158,7 +159,7 @@ class settings:
                         Volume1(self)
                         pygame.event.wait()
                     if intro.get_volume() == 0:
-                        AutoVolume(self)
+                        Volume0(self)
                         pygame.event.wait()
 
 
@@ -381,6 +382,7 @@ class game:
                         # button8.DrawButton(main_surface, BRIGHTBLUE)
                         screen.blit(rolldicebuttonlight,button8.Rect)
                         if pygame.mouse.get_pressed()[0]:
+                            dice.play()
                             a = current_player.rollDice()
                             current_player.moveToTile(findNewTile(board,a,current_player))
                         else:

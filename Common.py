@@ -12,6 +12,7 @@ intro = pygame.mixer.Sound("assets\\sounds\\Intro.wav")
 bell = pygame.mixer.Sound("assets\\sounds\\BoxBell.wav")
 game1 = pygame.mixer.Sound("assets\\sounds\\Game 1.wav")
 game2 = pygame.mixer.Sound("assets\\sounds\\Game 2.wav")
+dice = pygame.mixer.Sound("assets\\sounds\\Dice.wav")
 
 
 # surface_sz = width = height = 480   # Desired physical surface size, in pixels.
