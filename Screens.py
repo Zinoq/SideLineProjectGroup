@@ -83,35 +83,39 @@ class settings:
                     switchScreen(title1())
             screen.blit(bg, (0, 0))
 
-            button24.DrawButton(screen)
-            if button24.Rect.collidepoint(mouse):
-                button24.DrawButton(screen, BRIGHTRED)
+
+            if button24.Rect.collidepoint(mouse): #Mute
+                screen.blit(mutebuttonlight, button24.Rect)
                 # if pygame.mouse.get_pressed()[0]:
                 #     stopMusic(self)
             else:
-                button24.DrawButton(screen, RED)
+                screen.blit(mutebutton, button24.Rect)
 
-            button25.DrawButton(screen)
-            if button25.Rect.collidepoint(mouse):
-                button25.DrawButton(screen, YELLOW)
+
+            if button25.Rect.collidepoint(mouse): #Lower Volume
+                screen.blit(lowervolumebuttonlight, button25.Rect)
                 # if pygame.mouse.get_pressed()[0]:
                 #     decreaseVolume(self)
             else:
-                button25.DrawButton(screen, DARKYELLOW)
+                screen.blit(lowervolumebutton, button25.Rect)
 
-            button26.DrawButton(screen)
-            if button26.Rect.collidepoint(mouse):
-                button26.DrawButton(screen, BRIGHTGREEN)
+
+            if button26.Rect.collidepoint(mouse): #Higher Volume
+                screen.blit(highervolumebuttonlight, button26.Rect)
                 # if pygame.mouse.get_pressed()[0]:
                 #     restoreVolume(self)
             else:
-                button26.DrawButton(screen, GREEN)
+                screen.blit(highervolumebutton, button26.Rect)
 
-            button27.DrawButton(screen, BLUE)
-            if button27.Rect.collidepoint(mouse):
-                button27.DrawButton(screen, BRIGHTBLUE)
+
+            if button27.Rect.collidepoint(mouse): #return to menu
+                # button27.DrawButton(screen, BRIGHTBLUE)
+                screen.blit(backbuttonlight, button27.Rect)
                 if pygame.mouse.get_pressed()[0]:
                     switchScreen(title1())
+            else:
+                # button27.DrawButton(screen, BLUE)
+                screen.blit(backbutton, button27.Rect)
 
 
             pygame.display.flip()
