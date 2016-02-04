@@ -371,18 +371,19 @@ class game:
             elif ev.type == pygame.KEYDOWN:
                 if ev.key == pygame.K_ESCAPE:
                     switchScreen(title1())
-            main_surface.fill(WHITE)
+            # main_surface.fill(WHITE)
+            main_surface.blit(bg2, (0,0))
             # Update your game objects and data structures here...
             current_turn, playerindex, playerroll = turn(current_turn,playerindex)
             if playerroll is not None:
                 Rolled = playerroll
                 showroll = 1
             if showroll:
-                textColor = BLACK
+                textColor = WHITE
                 textSurf, textRect = text_objects("The last player: %s" % players[playerindex%4-1].Name, smallText, textColor)
                 textPosition = (10,height-120)
                 main_surface.blit(textSurf, textPosition)
-                textColor = BLACK
+                textColor = WHITE
                 textSurf, textRect = text_objects("Rolled: " + str(Rolled), smallText, textColor)
                 textPosition = (10,height-100)
                 main_surface.blit(textSurf, textPosition)
@@ -397,7 +398,7 @@ class game:
             for player in players:
                 player.draw(screen)
 
-            textColor = BLACK
+            textColor = WHITE
             textColor0 = RED
             textColor1 = GREEN
             textColor2 = YELLOW
