@@ -46,11 +46,12 @@ class Player:
                     }
                 # self.Condition += choice[number][*][1]
                 if self.Condition > 0:
-                    if self.Condition + choice[dice][selected][1] > 0:
+                    if self.Condition + choice[dice][selected][1] >= 0:
                         self.Condition = self.Condition + choice[dice][selected][1]
                         self.Damage = choice[dice][selected][0] #select damage of selected
                     else:
-                        return 0
+                        self.Condition = 0
+                        self.Damage = 0
                 else:
                     return 0
 
@@ -65,11 +66,12 @@ class Player:
                     }
                 # self.Condition += choice[number][*][1]
                 if self.Condition > 0:
-                    if self.Condition + choice[dice][selected][1] > 0:
+                    if self.Condition + choice[dice][selected][1] >= 0:
                         self.Condition = self.Condition + choice[dice][selected][1]
                         self.Damage = choice[dice][selected][0] #select damage of selected
                     else:
-                        return 0
+                        self.Condition = 0
+                        self.Damage = 0
                 else:
                     return 0
 
@@ -87,11 +89,12 @@ class Player:
                     }
                 # self.Condition += choice[number][*][1]
                 if self.Condition > 0:
-                     if self.Condition + choice[dice][selected][1] > 0:
+                     if self.Condition + choice[dice][selected][1] >= 0:
                          self.Condition = self.Condition + choice[dice][selected][1]
                          self.Damage = choice[dice][selected][0] #select damage of selected
                      else:
-                         return 0 #je kunt deze aanval niet uitvoeren
+                         self.Condition = 0
+                         self.Damage = 0 #je kunt deze aanval niet uitvoeren
                 else:
                     return 0
 
@@ -110,7 +113,8 @@ class Player:
                         self.Condition = self.Condition + choice[dice][selected][1]
                         self.Damage = choice[dice][selected][0] #select damage of selected
                     else:
-                        return 0
+                        self.Condition = 0
+                        self.Damage = 0
                 else:
                     return 0
         else:

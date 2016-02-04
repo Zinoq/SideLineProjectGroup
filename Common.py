@@ -113,6 +113,22 @@ text = [
             "Verwijder je pion wanneer je geen Levenspunten meer hebt. Je hebt verloren."
         ]
 
+_button_images = {
+    1 : [pygame.image.load("assets\\buttons\\1-BUTTON.png"),pygame.image.load("assets\\buttons\\1-BUTTON-PLAYER1.png"),pygame.image.load("assets\\buttons\\1-BUTTON-PLAYER2.png")],
+    2 : [pygame.image.load("assets\\buttons\\2-BUTTON.png"),pygame.image.load("assets\\buttons\\2-BUTTON-PLAYER1.png"),pygame.image.load("assets\\buttons\\2-BUTTON-PLAYER2.png")],
+    3 : [pygame.image.load("assets\\buttons\\3-BUTTON.png"),pygame.image.load("assets\\buttons\\3-BUTTON-PLAYER1.png"),pygame.image.load("assets\\buttons\\3-BUTTON-PLAYER2.png")]
+}
+
+roll_buttons = [pygame.image.load("assets\\buttons\\ROLL-BUTTON.png"),pygame.image.load("assets\\buttons\\ROLL-BUTTON-PLAYER1.png"),pygame.image.load("assets\\buttons\\ROLL-BUTTON-PLAYER2.png")]
+button_images = {}
+for i in range(len(_button_images)):
+    lst = []
+    for j in range(3):
+        lst.append(pygame.transform.scale(_button_images[i+1][j],(unit,unit)))
+    button_images[i+1] = lst
+
+
+
 # Alle Buttons:
 # TITLE SCREEN
 #Start
