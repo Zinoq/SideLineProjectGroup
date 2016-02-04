@@ -103,24 +103,24 @@ class settings:
 
             if button24.Rect.collidepoint(mouse): #Mute
                 screen.blit(mutebuttonlight, button24.Rect)
-                # if pygame.mouse.get_pressed()[0]:
-                #     stopMusic(self)
+                if pygame.mouse.get_pressed()[0]:
+                    Mute(self)
             else:
                 screen.blit(mutebutton, button24.Rect)
 
 
             if button25.Rect.collidepoint(mouse): #Lower Volume
                 screen.blit(lowervolumebuttonlight, button25.Rect)
-                # if pygame.mouse.get_pressed()[0]:
-                #     decreaseVolume(self)
+                if pygame.mouse.get_pressed()[0]:
+                    decreaseVolume(self)
             else:
                 screen.blit(lowervolumebutton, button25.Rect)
 
 
             if button26.Rect.collidepoint(mouse): #Higher Volume
                 screen.blit(highervolumebuttonlight, button26.Rect)
-                # if pygame.mouse.get_pressed()[0]:
-                #     restoreVolume(self)
+                if pygame.mouse.get_pressed()[0]:
+                    restoreVolume(self)
             else:
                 screen.blit(highervolumebutton, button26.Rect)
 
