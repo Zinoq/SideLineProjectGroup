@@ -10,7 +10,6 @@ pygame.init()
 #audio bestanden
 intro = pygame.mixer.Sound("assets\\sounds\\Intro.wav")
 bell = pygame.mixer.Sound("assets\\sounds\\BoxBell.wav")
-settingsmusic = pygame.mixer.Sound("assets\\sounds\\Settings.wav")
 game1 = pygame.mixer.Sound("assets\\sounds\\Game 1.wav")
 game2 = pygame.mixer.Sound("assets\\sounds\\Game 2.wav")
 
