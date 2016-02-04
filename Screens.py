@@ -325,8 +325,7 @@ class game:
                                 current_player.Health = 100
 
                         if current_player.Tile.Type is "fight":
-                            pass
-                            # switchScreen(fight(),players,playerindex,"super")
+                            switchScreen(fight(),players,playerindex,"super")
 
                         if (current_player.Tile.Type is "spawn" or current_player.Tile.Type is "spawn2") and not current_player.Tile.image == current_player.Color:
                             if current_player.Tile.image == RED: #Red spawn tile = Player 1
@@ -362,7 +361,6 @@ class game:
 
         instructions = 0
         displayConfirmation = 0
-        fighting = 0
         showroll = 0
         while True:
             mouse = pygame.mouse.get_pos()
@@ -554,7 +552,8 @@ class fight:
 
         def superFight(phase,sf,p1,roll=None,choice=None):
             if phase == 1:
-                sf.A = p1.rollDice()
+                sf.Dice = random.randint(1,6)
+                sf.calculateDamage()
             elif phase == 2:
                 roll = p1.rollDice()
                 return roll
@@ -572,7 +571,7 @@ class fight:
             elif phase == 2:
                 p2.calculateDamage(roll, choice)
             elif phase == 3:
-                roll == p1.rollDice()
+                roll = p1.rollDice()
                 return roll
             elif phase == 4:
                 p1.calculateDamage(roll,choice)
@@ -584,15 +583,20 @@ class fight:
                 else:
                     pass
 
+        text1Surf,text1Pos,text2Surf,text2Pos,text3Surf,text3Pos = None,None,None,None,None,None
+        text4Surf,text4Pos,text5Surf,text5Pos,text6Surf,text6Pos = None,None,None,None,None,None
         current_player = players[playerindex%4]
-        opponent = players[opponent]
+        if type is "normal":
+            opponent = players[opponent]
         phase = 6
+
         if type is "super":
             p2card = pygame.transform.scale(pygame.image.load("assets//cards//" + opponent.Name + ".png"),(500,650))
             p2rect = p2card.get_rect()
         elif type is "normal":
             p2card = pygame.transform.scale(pygame.image.load("assets//scorecards//sc"+str(opponent.Pnr)+".png"),(500,650))
             p2rect = p2card.get_rect()
+
         p1card = pygame.transform.scale(pygame.image.load("assets//scorecards//sc"+str(current_player.Pnr)+".png"),(500,650))
         p1rect = p1card.get_rect()
         while phase > 0:
@@ -625,11 +629,10 @@ class fight:
                             p2roll = normalFight(1,opponent,current_player)
                         phase -= 1
             if phase <= 5:
-                text1Surf,text1Pos,text2Surf,text2Pos,text3Surf,text3Pos = None,None,None,None,None,None
                 if type == "super":
                     text1Surf, text1rect = text_objects(opponent.Name,smallText,WHITE)
                     text1Pos = (width/2-text1rect.w/2,unit*5+10)
-                    text2Surf, text2rect = text_objects("Threw %s, and will do:" % opponent.A, smallText,WHITE)
+                    text2Surf, text2rect = text_objects("Threw %s, and will do:" % opponent.Dice, smallText,WHITE)
                     text2Pos = (width/2-text2rect.w/2,unit*5+30)
                     text3Surf, text3rect = text_objects("%s Damage" % opponent.Damage, largeText,WHITE)
                     text3Pos = (width/2-text3rect.w/2,unit*5+50)
@@ -641,10 +644,6 @@ class fight:
                     text2Pos = (width/2-text2rect.w/2,unit*5+30)
                     text3Surf, text3rect = text_objects(str(p2roll),largeText,WHITE)
                     text3Pos = (width/2-text3rect.w/2,unit*5+50)
-                if not None in [text1Surf,text1Pos,text2Surf,text2Pos,text3Surf,text3Pos]:
-                    screen.blit(text1Surf,text1Pos)
-                    screen.blit(text2Surf,text2Pos)
-                    screen.blit(text3Surf,text3Pos)
 
             if phase == 5:
                 if button34.Rect.collidepoint(mouse):
@@ -668,48 +667,87 @@ class fight:
                         phase -= 1
                 else:
                     button36.DrawButton(screen,RED)
+            if phase <= 4 and type is "normal":
+                text1Surf, text1rect = text_objects(opponent.Name, smallText,WHITE)
+                text1Pos = (width/2-text1rect.w/2,unit*5+10)
+                text2Surf, text2rect = text_objects("Will do:",smallText,WHITE)
+                text2Pos = (width/2-text2rect.w/2,unit*5+30)
+                text3Surf, text3rect = text_objects("%s Damage" % str(opponent.Damage),largeText,WHITE)
+                text3Pos = (width/2-text3rect.w/2,unit*5+50)
+                screen.blit(text1Surf,text1Pos)
+                screen.blit(text2Surf,text2Pos)
+                screen.blit(text3Surf,text3Pos)
 
-            if phase <= 4:
-                if type == "normal":
-                    text1Surf, text1rect = text_objects(opponent.Name, smallText,WHITE)
-                    text1Pos = (width/2-text1rect.w/2,unit*5+10)
-                    text2Surf, text2rect = text_objects("Will do:",smallText,WHITE)
-                    text2Pos = (width/2-text2rect.w/2,unit*5+30)
-                    text3Surf, text3rect = text_objects("%s Damage" % str(opponent.Damage),largeText,WHITE)
-                    text3Pos = (width/2-text3rect.w/2,unit*5+50)
-                    screen.blit(text1Surf,text1Pos)
-                    screen.blit(text2Surf,text2Pos)
-                    screen.blit(text3Surf,text3Pos)
+            if phase == 4:
+                if button33.Rect.collidepoint(mouse):
+                    button33.DrawButton(screen, BRIGHTBLUE)
+                    if pygame.mouse.get_pressed()[0]:
+                        if type is "super":
+                            p1roll = superFight(2,opponent,current_player)
+                            phase -= 1
+                        elif type is "normal":
+                            p1roll = normalFight(3,opponent,current_player)
+                            phase -= 1
+                else:
+                    button33.DrawButton(screen,BLUE)
+            if phase <= 3:
+                text4Surf, text4rect = text_objects("Choose one of three choices", smallText,WHITE)
+                text4Pos = (width/2-text4rect.w/2,height-(unit*5+70))
+                text5Surf, text5rect = text_objects("for your dice throw:",smallText,WHITE)
+                text5Pos = (width/2-text5rect.w/2,height-(unit*5+50))
+                text6Surf, text6rect = text_objects(str(p1roll),largeText,WHITE)
+                text6Pos = (width/2-text6rect.w/2,height-(unit*5+30))
 
-            if phase == 1:
+            if phase == 3:
                 if button30.Rect.collidepoint(mouse):
                     button30.DrawButton(screen, BRIGHTBLUE)
                     if pygame.mouse.get_pressed()[0]:
-                        normalFight(2,opponent,current_player,p1roll,1)
+                        if type is "super":
+                            superFight(3,opponent,current_player,p1roll,1)
+                        elif type is "normal":
+                            normalFight(4,opponent,current_player,p1roll,1)
                         phase -= 1
                 else:
                     button30.DrawButton(screen,BLUE)
                 if button31.Rect.collidepoint(mouse):
                     button31.DrawButton(screen, BRIGHTBLUE)
                     if pygame.mouse.get_pressed()[0]:
-                        normalFight(2,opponent,current_player,p1roll,1)
+                        if type is "super":
+                            superFight(3,opponent,current_player,p1roll,2)
+                        elif type is "normal":
+                            normalFight(4,opponent,current_player,p1roll,2)
                         phase -= 1
                 else:
                     button31.DrawButton(screen,BLUE)
                 if button32.Rect.collidepoint(mouse):
                     button32.DrawButton(screen, BRIGHTBLUE)
                     if pygame.mouse.get_pressed()[0]:
-                        normalFight(2,opponent,current_player,p1roll,1)
+                        if type is "super":
+                            superFight(3,opponent,current_player,p1roll,3)
+                        elif type is "normal":
+                            normalFight(4,opponent,current_player,p1roll,3)
                         phase -= 1
                 else:
                     button32.DrawButton(screen,BLUE)
 
-            # if type is "super" and phase == 2:
-            #     superFight(players[playerindex%4],opponent,2)
-            #     phase -= 1
-            # elif type is "normal" and phase == 2:
-            #     normalFight(players[playerindex%4],opponent,2)
-            #     phase -= 1
+            if phase <= 2:
+                text4Surf, text4rect = text_objects(current_player.Name, smallText,WHITE)
+                text4Pos = (width/2-text4rect.w/2,height-(unit*5+70))
+                text5Surf, text5rect = text_objects("Will do:",smallText,WHITE)
+                text5Pos = (width/2-text5rect.w/2,height-(unit*5+50))
+                text6Surf, text6rect = text_objects("%s Damage" % str(current_player.Damage),largeText,WHITE)
+                text6Pos = (width/2-text6rect.w/2,height-(unit*5+30))
+
+
+            if not None in [text1Surf,text1Pos,text2Surf,text2Pos,text3Surf,text3Pos]:
+                screen.blit(text1Surf,text1Pos)
+                screen.blit(text2Surf,text2Pos)
+                screen.blit(text3Surf,text3Pos)
+            if not None in [text4Surf,text4Pos,text5Surf,text5Pos,text6Surf,text6Pos]:
+                screen.blit(text4Surf,text4Pos)
+                screen.blit(text5Surf,text5Pos)
+                screen.blit(text6Surf,text6Pos)
+
 
             pygame.display.flip()
 
