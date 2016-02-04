@@ -207,9 +207,8 @@ class game:
         def turn(current_turn,playerindex):
             rolling_dice = True
             moved = False
+            gotcondition = False
             current_player = players[playerindex%4]
-            if current_player.Pnr == 2 and current_player.Health < 1:
-                print("lol")
             if current_player.Health >= 1:
                 if rolling_dice:
                     if button8.Rect.collidepoint(mouse):
@@ -217,12 +216,15 @@ class game:
                         if pygame.mouse.get_pressed()[0]:
                             dice.play()
                             a = current_player.rollDice()
-                            current_player.moveToTile(findNewTile(board,a,current_player))
+                            gotcondition = current_player.moveToTile(findNewTile(board,a,current_player))
                             moved = True
                         else:
                             a = None
 
                         #start checking if actions should happen based on current tile or passed tiles
+                        if gotcondition:
+                            current_player.condition = 15
+
                         if current_player.Tile.Type is "spawn" and current_player.Tile.image == current_player.Color and moved:
                             current_player.Health += 15
                             if current_player.Health > 100:
@@ -232,18 +234,17 @@ class game:
                             switchScreen(fight(),players,playerindex,"super",SuperFighters[random.randint(0, len(SuperFighters)-1)])
 
                         if (current_player.Tile.Type is "spawn" or current_player.Tile.Type is "spawn2") and not current_player.Tile.image == current_player.Color and moved:
-                            if current_player.Tile.image == RED: #Red spawn tile = Player 1
+                            if current_player.Tile.image == RED and players[0].Health > 0: #Red spawn tile = Player 1
                                 switchScreen(fight(),players,playerindex,"normal",players[0])
-                            elif current_player.Tile.image == GREEN: #Green spawn tile = Player 2
+                            elif current_player.Tile.image == GREEN and players[1].Health > 0: #Green spawn tile = Player 2
                                 switchScreen(fight(),players,playerindex,"normal",players[1])
-                            elif current_player.Tile.image == YELLOW: #Yellow spawn tile = PLayer 3
+                            elif current_player.Tile.image == YELLOW and players[2].Health > 0: #Yellow spawn tile = PLayer 3
                                 switchScreen(fight(),players,playerindex,"normal",players[2])
-                            elif current_player.Tile.image == BLUE: #Blue spawn tile = Player 4
+                            elif current_player.Tile.image == BLUE and players[3].Health > 0: #Blue spawn tile = Player 4
                                 switchScreen(fight(),players,playerindex,"normal",players[3])
-
-                        if current_player.Health < 1:
-                            pass
-
+                        for i in players:
+                            if current_player.Tile == i.Tile and not current_player == i and i.Health > 0:
+                                switchScreen(fight(),players,playerindex,"normal",players[i])
                         if a is not None:
                             current_turn += 1 #Next player starts
                             playerindex += 1

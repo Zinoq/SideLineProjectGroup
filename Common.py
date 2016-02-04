@@ -342,11 +342,12 @@ def findNewTile(board,n,player):
     current = player.Tile
     X1 = current.Position.X - 1
     Y1 = current.Position.Y - 1
+    gotcondition = False
     if n > 0:
         if Y1 == 0: # upper line
             if X1+n >= 13: # hit upper-right corner, moving right then down
                 if player.Pnr == 2:
-                    player.Condition = 15
+                    gotcondition = True
                 X2 = 13
                 Y2 = n - (13 - X1)
             else: # moving right
@@ -355,7 +356,7 @@ def findNewTile(board,n,player):
         elif Y1 == 13: # lower line
             if X1-n <= 0:  # hit lower-left corner, moving left then up
                 if player.Pnr == 4:
-                    player.Condition = 15
+                    gotcondition = True
                 X2 = 0
                 Y2 = 13 - (n-X1)
             else: # moving left
@@ -365,7 +366,7 @@ def findNewTile(board,n,player):
             if X1 == 0: # left side
                 if Y1-n <= 0: # hit upper-left corner, moving up then right
                     if player.Pnr == 3:
-                        player.Condition = 15
+                        gotcondition = True
                     Y2 = 0
                     X2 = n-Y1
                 else: # moving up
@@ -374,7 +375,7 @@ def findNewTile(board,n,player):
             elif X1 == 13: # right side
                 if Y1+n >= 13: # hit lower-right corner, moving down then left
                     if player.Pnr == 1:
-                        player.Condition = 15
+                        gotcondition = True
                     Y2 = 13
                     X2 = 13 - (n - (13-Y1))
                 else:
