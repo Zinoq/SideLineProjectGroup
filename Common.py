@@ -38,6 +38,8 @@ exitbutton = pygame.image.load("assets\\buttons\\EXIT-BUTTON.png")
 exitbuttonlight = pygame.image.load("assets\\buttons\\EXIT-BUTTON-LIGHT.png")
 settingsbutton = pygame.image.load("assets\\buttons\\SETTINGS-BUTTON.png")
 settingsbuttonlight = pygame.image.load("assets\\buttons\\SETTINGS-BUTTON-LIGHT.png")
+rolldicebutton = pygame.image.load("assets\\buttons\\ROLLDICE-BUTTON.png")
+rolldicebuttonlight = pygame.image.load("assets\\buttons\\ROLLDICE-BUTTON-LIGHT.png")
 
 
 #Background 2
