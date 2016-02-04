@@ -17,6 +17,7 @@ class Player:
         self.ScoreCard = pygame.image.load("assets//scorecards//sc"+str(self.Pnr)+".png")
         self.Color = color
         self.hasWon = False
+        self.IsDead = False
 
     def draw(self,screen):
         screen.blit(self.image,(self.Tile.rect.centerx- self.rect.w/2, self.Tile.rect.centery- self.rect.h/2))
@@ -46,15 +47,11 @@ class Player:
                     6: {1:[10, -2], 2:[20, -5], 3:[30, -8]}
                     }
                 # self.Condition += choice[number][*][1]
-                if self.Condition > 0:
-                    if self.Condition + choice[dice][selected][1] >= 0:
-                        self.Condition = self.Condition + choice[dice][selected][1]
-                        self.Damage = choice[dice][selected][0] #select damage of selected
-                    else:
-                        self.Condition = 0
-                        self.Damage = 0
+                if self.Condition + choice[dice][selected][1] >= 0:
+                    self.Condition = self.Condition + choice[dice][selected][1]
+                    self.Damage = choice[dice][selected][0] #select damage of selected
                 else:
-                    return 0
+                    self.Damage = 0
 
             elif self.Pnr is 2:
                 choice = {
@@ -66,15 +63,11 @@ class Player:
                     6: {1:[2, -1], 2:[4, -2], 3:[6, -3]}
                     }
                 # self.Condition += choice[number][*][1]
-                if self.Condition > 0:
-                    if self.Condition + choice[dice][selected][1] >= 0:
-                        self.Condition = self.Condition + choice[dice][selected][1]
-                        self.Damage = choice[dice][selected][0] #select damage of selected
-                    else:
-                        self.Condition = 0
-                        self.Damage = 0
+                if self.Condition + choice[dice][selected][1] >= 0:
+                    self.Condition = self.Condition + choice[dice][selected][1]
+                    self.Damage = choice[dice][selected][0] #select damage of selected
                 else:
-                    return 0
+                    self.Damage = 0
 
             elif self.Pnr is 3:
                 choice = {
@@ -89,15 +82,11 @@ class Player:
                     6: {1:[8, -3], 2:[13, -4], 3:[17, -5]}
                     }
                 # self.Condition += choice[number][*][1]
-                if self.Condition > 0:
-                     if self.Condition + choice[dice][selected][1] >= 0:
-                         self.Condition = self.Condition + choice[dice][selected][1]
-                         self.Damage = choice[dice][selected][0] #select damage of selected
-                     else:
-                         self.Condition = 0
-                         self.Damage = 0 #je kunt deze aanval niet uitvoeren
+                if self.Condition + choice[dice][selected][1] >= 0:
+                    self.Condition = self.Condition + choice[dice][selected][1]
+                    self.Damage = choice[dice][selected][0] #select damage of selected
                 else:
-                    return 0
+                    self.Damage = 0 #je kunt deze aanval niet uitvoeren
 
             elif self.Pnr is 4:
                 choice = {
@@ -109,17 +98,13 @@ class Player:
                     6: {1:[7, -2], 2:[12, -3], 3:[16, -4]}
                     }
                 # self.Condition += choice[number][*][1]
-                if self.Condition > 0:
-                    if self.Condition + choice[dice][selected][1] >= 0:
-                        self.Condition = self.Condition + choice[dice][selected][1]
-                        self.Damage = choice[dice][selected][0] #select damage of selected
-                    else:
-                        self.Condition = 0
-                        self.Damage = 0
+                if self.Condition + choice[dice][selected][1] >= 0:
+                    self.Condition = self.Condition + choice[dice][selected][1]
+                    self.Damage = choice[dice][selected][0] #select damage of selected
                 else:
-                    return 0
+                    self.Damage = 0
         else:
-            return 0
+            self.Damage = 0
 
 
 

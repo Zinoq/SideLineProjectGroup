@@ -190,40 +190,34 @@ class game:
             game1.play()
         else:
             game2.play()
-
-        """ Set up the game and run the main game loop """
-        # Prepare the pygame module for use
-        # Create surface of (width, height), and its window.
         main_surface = pygame.display.set_mode(size)
-
         board, startTiles = build_board()
         players = playerInit(numberOfPlayers,startTiles,playerNames)
-
-        # <rect> = (x, y, w, h)
         current_turn = 0
         playerindex = starting_player
-
-        # current_player = players[playerindex%(len(players))]
         def turn(current_turn,playerindex):
             rolling_dice = True
             moved = False
             gotcondition = False
             current_player = players[playerindex%4]
-            if current_player.Health >= 1:
+            if not current_player.Health >= 1:
+                current_player.IsDead = True
+            if not current_player.IsDead:
                 if rolling_dice:
                     if button8.Rect.collidepoint(mouse):
                         screen.blit(rolldicebuttonlight,button8.Rect)
                         if pygame.mouse.get_pressed()[0]:
                             dice.play()
                             a = current_player.rollDice()
-                            gotcondition = current_player.moveToTile(findNewTile(board,a,current_player))
+                            newTile, gotcondition = findNewTile(board,a,current_player)
+                            current_player.moveToTile(newTile)
                             moved = True
                         else:
                             a = None
 
                         #start checking if actions should happen based on current tile or passed tiles
-                        if gotcondition:
-                            current_player.condition = 15
+                        if gotcondition and current_turn > 3:
+                            current_player.Condition += 15
 
                         if current_player.Tile.Type is "spawn" and current_player.Tile.image == current_player.Color and moved:
                             current_player.Health += 15
@@ -234,22 +228,23 @@ class game:
                             switchScreen(fight(),players,playerindex,"super",SuperFighters[random.randint(0, len(SuperFighters)-1)])
 
                         if (current_player.Tile.Type is "spawn" or current_player.Tile.Type is "spawn2") and not current_player.Tile.image == current_player.Color and moved:
-                            if current_player.Tile.image == RED and players[0].Health > 0: #Red spawn tile = Player 1
+                            if current_player.Tile.image == RED and not players[0].IsDead: #Red spawn tile = Player 1
                                 switchScreen(fight(),players,playerindex,"normal",players[0])
-                            elif current_player.Tile.image == GREEN and players[1].Health > 0: #Green spawn tile = Player 2
+                            elif current_player.Tile.image == GREEN and not players[1].IsDead: #Green spawn tile = Player 2
                                 switchScreen(fight(),players,playerindex,"normal",players[1])
-                            elif current_player.Tile.image == YELLOW and players[2].Health > 0: #Yellow spawn tile = PLayer 3
+                            elif current_player.Tile.image == YELLOW and not players[2].IsDead: #Yellow spawn tile = PLayer 3
                                 switchScreen(fight(),players,playerindex,"normal",players[2])
-                            elif current_player.Tile.image == BLUE and players[3].Health > 0: #Blue spawn tile = Player 4
+                            elif current_player.Tile.image == BLUE and not players[3].IsDead: #Blue spawn tile = Player 4
                                 switchScreen(fight(),players,playerindex,"normal",players[3])
-                        for i in players:
-                            if current_player.Tile == i.Tile and not current_player == i and i.Health > 0:
-                                switchScreen(fight(),players,playerindex,"normal",players[i])
+                        else:
+                            for i in players:
+                                if current_player.Tile == i.Tile and not current_player == i and not i.IsDead and moved:
+                                    switchScreen(fight(),players,playerindex,"normal",i)
                         #check if it's the last man standing
                         deadcounter = 0
-                        if current_player.Health > 0:
+                        if not current_player.IsDead:
                             for i in players:
-                                if i.Health < 1:
+                                if i.IsDead:
                                     deadcounter += 1
 
                         if deadcounter >= 3:
@@ -257,7 +252,8 @@ class game:
 
                         if current_player.hasWon:
                             switchScreen(WIN(),current_player)
-
+                        if current_player.Health < 1:
+                            current_player.IsDead = True
                         if a is not None:
                             current_turn += 1 #Next player starts
                             playerindex += 1
@@ -268,7 +264,7 @@ class game:
                     a = None
                     screen.blit(rolldicebutton,button8.Rect) #Rolldice
             else: #if the player is dead
-                button8.DrawButton(main_surface, BLUE)
+                screen.blit(rolldicebutton,button8.Rect)
                 current_turn += 1
                 playerindex += 1
                 a = None
@@ -323,22 +319,46 @@ class game:
             text2Position = (10,30)
             text3Surf, text3Rect = text_objects("Turn %s" % current_turn, smallText, textColor)
             text3Position = (10,50)
-            text4Surf, text4Rect = text_objects("%s has:"  %(players[0].Name), smallText, textColor0)
-            text4Position = (10, 100)
-            text4v2Surf, text4v2Rect = text_objects("%s Health; %s Condition"  %(players[0].Health, players[0].Condition), smallText, textColor)
-            text4v2Position = (10, 120)
-            text5Surf, text5Rect = text_objects("%s has:" %(players[1].Name), smallText, textColor1)
-            text5Position = (10, 150)
-            text5v2Surf, text5v2Rect = text_objects("%s Health; %s Condition" %(players[1].Health, players[1].Condition), smallText, textColor)
-            text5v2Position = (10, 170)
-            text6Surf, text6Rect = text_objects("%s has:" %(players[2].Name), smallText, textColor2)
-            text6Position = (10, 200)
-            text6v2Surf, text6v2Rect = text_objects("%s Health; %s Condition" %(players[2].Health, players[2].Condition), smallText, textColor)
-            text6v2Position = (10, 220)
-            text7Surf, text7Rect = text_objects("%s has:" %(players[3].Name), smallText, textColor3)
-            text7Position = (10, 250)
-            text7v2Surf, text7v2Rect = text_objects("%s Health; %s Condition" %(players[3].Health, players[3].Condition), smallText, textColor)
-            text7v2Position = (10, 270)
+            if not players[0].IsDead:
+                text4Surf, text4Rect = text_objects("%s has:"  %(players[0].Name), smallText, textColor0)
+                text4Position = (10, 100)
+                text4v2Surf, text4v2Rect = text_objects("%s Health; %s Condition"  %(players[0].Health, players[0].Condition), smallText, textColor)
+                text4v2Position = (10, 120)
+            else:
+                text4Surf, text4Rect = text_objects("%s is:"  %(players[0].Name), smallText, textColor0)
+                text4Position = (10, 100)
+                text4v2Surf, text4v2Rect = text_objects("---DEAD---", smallText, textColor)
+                text4v2Position = (10, 120)
+            if not players[1].IsDead:
+                text5Surf, text5Rect = text_objects("%s is:" %(players[1].Name), smallText, textColor1)
+                text5Position = (10, 150)
+                text5v2Surf, text5v2Rect = text_objects("%s Health; %s Condition" %(players[1].Health, players[1].Condition), smallText, textColor)
+                text5v2Position = (10, 170)
+            else:
+                text5Surf, text5Rect = text_objects("%s is:" %(players[1].Name), smallText, textColor1)
+                text5Position = (10, 150)
+                text5v2Surf, text5v2Rect = text_objects("---DEAD---", smallText, textColor)
+                text5v2Position = (10, 170)
+            if not players[2].IsDead:
+                text6Surf, text6Rect = text_objects("%s has:" %(players[2].Name), smallText, textColor2)
+                text6Position = (10, 200)
+                text6v2Surf, text6v2Rect = text_objects("%s Health; %s Condition" %(players[2].Health, players[2].Condition), smallText, textColor)
+                text6v2Position = (10, 220)
+            else:
+                text6Surf, text6Rect = text_objects("%s is:" %(players[2].Name), smallText, textColor1)
+                text6Position = (10, 200)
+                text6v2Surf, text6v2Rect = text_objects("---DEAD---", smallText, textColor)
+                text6v2Position = (10, 220)
+            if not players[3].IsDead:
+                text7Surf, text7Rect = text_objects("%s has:" %(players[3].Name), smallText, textColor3)
+                text7Position = (10, 250)
+                text7v2Surf, text7v2Rect = text_objects("%s Health; %s Condition" %(players[3].Health, players[3].Condition), smallText, textColor)
+                text7v2Position = (10, 270)
+            else:
+                text7Surf, text7Rect = text_objects("%s is:" %(players[3].Name), smallText, textColor1)
+                text7Position = (10, 250)
+                text7v2Surf, text7v2Rect = text_objects("---DEAD---", smallText, textColor)
+                text7v2Position = (10, 270)
 
             try:
                 screen.blit(text1Surf, text1Position)
@@ -717,10 +737,17 @@ class fight:
 
 class WIN:
     def run(self,player):
+        screen = pygame.display.set_mode(size)
         while True:
-            screen.blit(pygame.image.load("assets\\WIN.png",(0,0)))
-            text1Surf,text1rect = text_objects(str(player.name),largeText,WHITE)
-            text1Pos = (width/2-text1rect.w/2,height/2-text1rect.h)
+            ev = pygame.event.poll()
+            if ev.type == pygame.QUIT:
+                exit()
+            if ev.type == pygame.KEYDOWN:
+                if ev.key == pygame.K_ESCAPE:
+                    switchScreen(title1())
+            screen.blit(pygame.transform.scale(unscaled_win,size),(0,0))
+            text1Surf,text1rect = text_objects(str(player.Name),largeText,WHITE)
+            text1Pos = (width/2-text1rect.w/2,height/2-text1rect.h/2)
             screen.blit(text1Surf,text1Pos)
             pygame.display.flip()
 

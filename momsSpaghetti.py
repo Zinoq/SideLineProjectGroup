@@ -34,10 +34,12 @@ unit = int(height/16)
 unscaled_bg = pygame.image.load("assets\\title4.png")
 bg = pygame.transform.scale(unscaled_bg,size)
 
-#Background 2
+# Background 2
 unscaled_bg2 = pygame.image.load("assets\\notextbg.png")
 bg2 = pygame.transform.scale(unscaled_bg2,size)
 
+# WIN screen background
+unscaled_win = pygame.image.load("assets\\WIN.png")
 
 #buttonImages
 startbutton = pygame.image.load("assets\\buttons\\START-BUTTON.png")
@@ -128,8 +130,6 @@ for i in range(len(_button_images)):
     for j in range(3):
         lst.append(pygame.transform.scale(_button_images[i+1][j],(unit,unit)))
     button_images[i+1] = lst
-
-
 
 # Alle Buttons:
 # TITLE SCREEN
@@ -346,7 +346,7 @@ def findNewTile(board,n,player):
     if n > 0:
         if Y1 == 0: # upper line
             if X1+n >= 13: # hit upper-right corner, moving right then down
-                if player.Pnr == 2:
+                if player.Pnr == 2 and X1 != 13:
                     gotcondition = True
                 X2 = 13
                 Y2 = n - (13 - X1)
@@ -355,7 +355,7 @@ def findNewTile(board,n,player):
                 Y2 = Y1
         elif Y1 == 13: # lower line
             if X1-n <= 0:  # hit lower-left corner, moving left then up
-                if player.Pnr == 4:
+                if player.Pnr == 4 and X1 != 0:
                     gotcondition = True
                 X2 = 0
                 Y2 = 13 - (n-X1)
@@ -365,7 +365,7 @@ def findNewTile(board,n,player):
         elif 0<Y1<13: # sides
             if X1 == 0: # left side
                 if Y1-n <= 0: # hit upper-left corner, moving up then right
-                    if player.Pnr == 3:
+                    if player.Pnr == 1 and Y1 != 0:
                         gotcondition = True
                     Y2 = 0
                     X2 = n-Y1
@@ -374,7 +374,7 @@ def findNewTile(board,n,player):
                     X2 = X1
             elif X1 == 13: # right side
                 if Y1+n >= 13: # hit lower-right corner, moving down then left
-                    if player.Pnr == 1:
+                    if player.Pnr == 3 and Y1 != 13:
                         gotcondition = True
                     Y2 = 13
                     X2 = 13 - (n - (13-Y1))
@@ -389,7 +389,7 @@ def findNewTile(board,n,player):
         Y2 += 1
     for tile in board:
         if tile.Position.X == X2 and tile.Position.Y == Y2:
-            return tile
+            return tile,gotcondition
 
 
 def switchScreen(screen,optArg1 = None,optArg2 = None,optArg3 = None,optArg4=None):
