@@ -1,4 +1,4 @@
-from Common import *
+from momsSpaghetti import *
 
 pygame.display.set_caption("Super Fight Punch by SideLine")
 
@@ -256,7 +256,7 @@ class game:
                             current_player.hasWon = True
 
                         if current_player.hasWon:
-                            exit()
+                            switchScreen(WIN(),current_player)
 
                         if a is not None:
                             current_turn += 1 #Next player starts
@@ -286,9 +286,9 @@ class game:
             elif ev.type == pygame.KEYDOWN:
                 if ev.key == pygame.K_ESCAPE:
                     switchScreen(title1())
+            screen.blit(bg2, (0,0))
             # Update your game objects and data structures here...
             current_turn, playerindex, playerroll = turn(current_turn,playerindex)
-            main_surface.blit(bg2, (0,0))
             if playerroll is not None:
                 Rolled = playerroll
                 showroll = 1
@@ -715,5 +715,13 @@ class fight:
                 time.sleep(2)
                 phase = 0
 
+class WIN:
+    def run(self,player):
+        while True:
+            screen.blit(pygame.image.load("assets\\WIN.png",(0,0)))
+            text1Surf,text1rect = text_objects(str(player.name),largeText,WHITE)
+            text1Pos = (width/2-text1rect.w/2,height/2-text1rect.h)
+            screen.blit(text1Surf,text1Pos)
+            pygame.display.flip()
 
 title1().run()
