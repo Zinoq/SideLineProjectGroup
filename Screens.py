@@ -5,6 +5,7 @@ pygame.display.set_caption("Super Fight Punch by SideLine")
 volume = pygame.mixer.music.set_volume
 
 class title1:
+    intro.play()
     def run(self):
         screen = pygame.display.set_mode(size)
         while True:
@@ -16,20 +17,22 @@ class title1:
                     exit()
             mouse = pygame.mouse.get_pos()
 
-            button1.DrawButton(screen)
-            button2.DrawButton(screen)
+
+            # button1.DrawButton(screen)
+            # button2.DrawButton(screen)
             screen.blit(bg, (0, 0))
 
             # Start button
             if button1.Rect.collidepoint(mouse):
-                button1.DrawButton(screen, BRIGHTGREEN)
+                # button1.DrawButton(screen, BRIGHTGREEN)
                 screen.blit(startbuttonlight,button1.Rect)
                 if pygame.mouse.get_pressed()[0]:
+                    intro.stop()
                     bell.play()
                     screen.blit(bg2, (0, 0))
                     switchScreen(title2())
             else:
-                button1.DrawButton(screen, GREEN)
+                # button1.DrawButton(screen, GREEN)
                 screen.blit(startbutton,button1.Rect)
 
             # Exit button
@@ -39,41 +42,54 @@ class title1:
                 if pygame.mouse.get_pressed()[0]:
                     exit()
             else:
-                button2.DrawButton(screen, RED)
+                # button2.DrawButton(screen, RED)
                 screen.blit(exitbutton,button2.Rect)
 
             # Instructions button
             if button12.Rect.collidepoint(mouse):
-                button12.DrawButton(screen, BRIGHTBLUE)
+                # button12.DrawButton(screen, BRIGHTBLUE)
                 screen.blit(instructionsbuttonlight,button12.Rect)
                 if pygame.mouse.get_pressed()[0]:
                     switchScreen(Instructions())
             else:
-                button12.DrawButton(screen, BLUE)
+                # button12.DrawButton(screen, BLUE)
                 screen.blit(instructionsbutton,button12.Rect)
 
             # Settings button
             if button23.Rect.collidepoint(mouse):
-                button23.DrawButton(screen, YELLOW)
+                # button23.DrawButton(screen, YELLOW)
                 screen.blit(settingsbuttonlight,button23.Rect)
                 if pygame.mouse.get_pressed()[0]:
                     switchScreen(settings())
             else:
-                button23.DrawButton(screen, DARKYELLOW)
+                # button23.DrawButton(screen, DARKYELLOW)
                 screen.blit(settingsbutton,button23.Rect)
 
             pygame.display.flip()
 
 class settings:
     def run(self):
-        def stopMusic(self):
-            pygame.mixer.music.set_volume(0,0)
+        def Mute(self):
+            intro.set_volume(0.0)
+            bell.set_volume(0.0)
+            settingsmusic.set_volume(0.0)
+            game1.set_volume(0.0)
+            game2.set_volume(0.0)
         def decreaseVolume(self):
-            pygame.mixer.music.set_volume(0,5)
+            intro.set_volume(0.5)
+            bell.set_volume(0.5)
+            settingsmusic.set_volume(0.5)
+            game1.set_volume(0.5)
+            game2.set_volume(0.5)
         def restoreVolume(self):
-            pygame.mixer.music.set_volume(1,0)
+            intro.set_volume(1.0)
+            bell.set_volume(1.0)
+            settingsmusic.set_volume(1.0)
+            game1.set_volume(1.0)
+            game2.set_volume(1.0)
+        time.sleep(0.1)
         while True:
-            settingsmusic.play()
+            # settingsmusic.play()
             mouse = pygame.mouse.get_pos()
             ev = pygame.event.poll()
             if ev.type == pygame.QUIT:
@@ -86,24 +102,24 @@ class settings:
 
             if button24.Rect.collidepoint(mouse): #Mute
                 screen.blit(mutebuttonlight, button24.Rect)
-                # if pygame.mouse.get_pressed()[0]:
-                #     stopMusic(self)
+                if pygame.mouse.get_pressed()[0]:
+                    Mute(self)
             else:
                 screen.blit(mutebutton, button24.Rect)
 
 
             if button25.Rect.collidepoint(mouse): #Lower Volume
                 screen.blit(lowervolumebuttonlight, button25.Rect)
-                # if pygame.mouse.get_pressed()[0]:
-                #     decreaseVolume(self)
+                if pygame.mouse.get_pressed()[0]:
+                    decreaseVolume(self)
             else:
                 screen.blit(lowervolumebutton, button25.Rect)
 
 
             if button26.Rect.collidepoint(mouse): #Higher Volume
                 screen.blit(highervolumebuttonlight, button26.Rect)
-                # if pygame.mouse.get_pressed()[0]:
-                #     restoreVolume(self)
+                if pygame.mouse.get_pressed()[0]:
+                    restoreVolume(self)
             else:
                 screen.blit(highervolumebutton, button26.Rect)
 
@@ -128,6 +144,7 @@ class title2:
                 exit()
             elif ev.type == pygame.KEYDOWN:
                 if ev.key == pygame.K_ESCAPE:
+                    intro.play()
                     switchScreen(title1())
 
             mouse = pygame.mouse.get_pos()
@@ -142,6 +159,11 @@ class title2:
             if button3.Rect.collidepoint(mouse):
                 button3.DrawButton(screen, PINK)
                 if pygame.mouse.get_pressed()[0]:
+                    b = random.randint(1,2)
+                    if b == 1:
+                        game1.play()
+                    if b == 2:
+                        game2.play()
                     numberOfPlayers = 1
                     switchScreen(game(),numberOfPlayers,0)
                     # switchScreen(whostarts(),numberOfPlayers)
@@ -152,6 +174,11 @@ class title2:
             if button4.Rect.collidepoint(mouse):
                 button4.DrawButton(screen, PINK)
                 if pygame.mouse.get_pressed()[0]:
+                    b = random.randint(1,2)
+                    if b == 1:
+                        game1.play()
+                    if b == 2:
+                        game2.play()
                     numberOfPlayers = 2
                     switchScreen(game(),numberOfPlayers,0)
                     # switchScreen(whostarts(),numberOfPlayers)
@@ -162,6 +189,11 @@ class title2:
             if button5.Rect.collidepoint(mouse):
                 button5.DrawButton(screen, PINK)
                 if pygame.mouse.get_pressed()[0]:
+                    b = random.randint(1,2)
+                    if b == 1:
+                        game1.play()
+                    if b == 2:
+                        game2.play()
                     numberOfPlayers = 3
                     switchScreen(game(),numberOfPlayers,0)
                     # switchScreen(whostarts(),numberOfPlayers)
@@ -172,6 +204,11 @@ class title2:
             if button6.Rect.collidepoint(mouse):
                 button6.DrawButton(screen, PINK)
                 if pygame.mouse.get_pressed()[0]:
+                    b = random.randint(1,2)
+                    if b == 1:
+                        game1.play()
+                    if b == 2:
+                        game2.play()
                     numberOfPlayers = 4
                     switchScreen(game(),numberOfPlayers,0)
                     # switchScreen(whostarts(),numberOfPlayers)
@@ -370,18 +407,19 @@ class game:
             elif ev.type == pygame.KEYDOWN:
                 if ev.key == pygame.K_ESCAPE:
                     switchScreen(title1())
-            main_surface.fill(WHITE)
+            # main_surface.fill(WHITE)
+            main_surface.blit(bg2, (0,0))
             # Update your game objects and data structures here...
             current_turn, playerindex, playerroll = turn(current_turn,playerindex)
             if playerroll is not None:
                 Rolled = playerroll
                 showroll = 1
             if showroll:
-                textColor = BLACK
+                textColor = WHITE
                 textSurf, textRect = text_objects("The last player: %s" % players[playerindex%4-1].Name, smallText, textColor)
                 textPosition = (10,height-120)
                 main_surface.blit(textSurf, textPosition)
-                textColor = BLACK
+                textColor = WHITE
                 textSurf, textRect = text_objects("Rolled: " + str(Rolled), smallText, textColor)
                 textPosition = (10,height-100)
                 main_surface.blit(textSurf, textPosition)
@@ -396,7 +434,7 @@ class game:
             for player in players:
                 player.draw(screen)
 
-            textColor = BLACK
+            textColor = WHITE
             textColor0 = RED
             textColor1 = GREEN
             textColor2 = YELLOW
@@ -502,6 +540,9 @@ class game:
                     button11.DrawButton(main_surface, BRIGHTRED)
 
                     if pygame.mouse.get_pressed(button11.Rect)[0]:
+                        game1.stop()
+                        game2.stop()
+                        intro.play()
                         switchScreen(title1())
 
             pygame.display.flip()
@@ -535,6 +576,8 @@ class Instructions:
             if button13.Rect.collidepoint(mouse):
                 button13.DrawButton(screen, BRIGHTGREEN)
                 if pygame.mouse.get_pressed()[0]:
+                    intro.stop()
+                    bell.play()
                     switchScreen(title2())
 
             if button14.Rect.collidepoint(mouse):
