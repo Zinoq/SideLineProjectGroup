@@ -245,6 +245,19 @@ class game:
                         for i in players:
                             if current_player.Tile == i.Tile and not current_player == i and i.Health > 0:
                                 switchScreen(fight(),players,playerindex,"normal",players[i])
+                        #check if it's the last man standing
+                        deadcounter = 0
+                        if current_player.Health > 0:
+                            for i in players:
+                                if i.Health < 1:
+                                    deadcounter += 1
+
+                        if deadcounter >= 3:
+                            current_player.hasWon = True
+
+                        if current_player.hasWon:
+                            exit()
+
                         if a is not None:
                             current_turn += 1 #Next player starts
                             playerindex += 1
@@ -273,10 +286,9 @@ class game:
             elif ev.type == pygame.KEYDOWN:
                 if ev.key == pygame.K_ESCAPE:
                     switchScreen(title1())
-            # main_surface.fill(WHITE)
-            main_surface.blit(bg2, (0,0))
             # Update your game objects and data structures here...
             current_turn, playerindex, playerroll = turn(current_turn,playerindex)
+            main_surface.blit(bg2, (0,0))
             if playerroll is not None:
                 Rolled = playerroll
                 showroll = 1
@@ -410,6 +422,7 @@ class game:
                         game2.stop()
                         intro.play()
                         switchScreen(title1())
+
 
             pygame.display.flip()
 
