@@ -4,6 +4,7 @@ pygame.display.set_caption("Super Fight Punch by SideLine")
 
 volume = pygame.mixer.music.set_volume
 
+
 class title1:
     intro.play()
     def run(self):
@@ -70,24 +71,36 @@ class title1:
 
 class settings:
     def run(self):
+        def getVolume(self):
+            intro.get_volume()
+            bell.get_volume()
+            game1.get_volume()
+            game2.get_volume()
+        def Volume0(self):
+            intro.set_volume(0.25)
+            bell.set_volume(0.25)
+            game1.set_volume(0.25)
+            game2.set_volume(0.25)
+        def Volume1(self):
+            intro.set_volume(0.5)
+            bell.set_volume(0.5)
+            game1.set_volume(0.5)
+            game2.set_volume(0.5)
+        def Volume2(self):
+            intro.set_volume(0.75)
+            bell.set_volume(0.75)
+            game1.set_volume(0.75)
+            game2.set_volume(0.75)
+        def Volume3(self):
+            intro.set_volume(1)
+            bell.set_volume(1)
+            game1.set_volume(1)
+            game2.set_volume(1)
         def Mute(self):
             intro.set_volume(0.0)
             bell.set_volume(0.0)
-            settingsmusic.set_volume(0.0)
             game1.set_volume(0.0)
             game2.set_volume(0.0)
-        def decreaseVolume(self):
-            intro.set_volume(0.5)
-            bell.set_volume(0.5)
-            settingsmusic.set_volume(0.5)
-            game1.set_volume(0.5)
-            game2.set_volume(0.5)
-        def restoreVolume(self):
-            intro.set_volume(1.0)
-            bell.set_volume(1.0)
-            settingsmusic.set_volume(1.0)
-            game1.set_volume(1.0)
-            game2.set_volume(1.0)
         time.sleep(0.1)
         while True:
             # settingsmusic.play()
@@ -104,7 +117,10 @@ class settings:
             if button24.Rect.collidepoint(mouse): #Mute
                 screen.blit(mutebuttonlight, button24.Rect)
                 if pygame.mouse.get_pressed()[0]:
-                    Mute(self)
+                    getVolume(self)
+                    if intro.get_volume() > 0:
+                        Mute(self)
+                        pygame.event.wait()
             else:
                 screen.blit(mutebutton, button24.Rect)
 
@@ -112,7 +128,20 @@ class settings:
             if button25.Rect.collidepoint(mouse): #Lower Volume
                 screen.blit(lowervolumebuttonlight, button25.Rect)
                 if pygame.mouse.get_pressed()[0]:
-                    decreaseVolume(self)
+                    getVolume(self)
+                    if intro.get_volume() == 0.25:
+                        Mute(self)
+                        pygame.event.wait()
+                    if intro.get_volume() == 0.5:
+                        Volume0(self)
+                        pygame.event.wait()
+                    if intro.get_volume() == 0.75:
+                        Volume1(self)
+                        pygame.event.wait()
+                    if intro.get_volume() == 1:
+                        Volume2(self)
+                        pygame.event.wait()
+
             else:
                 screen.blit(lowervolumebutton, button25.Rect)
 
@@ -120,7 +149,23 @@ class settings:
             if button26.Rect.collidepoint(mouse): #Higher Volume
                 screen.blit(highervolumebuttonlight, button26.Rect)
                 if pygame.mouse.get_pressed()[0]:
-                    restoreVolume(self)
+                    if intro.get_volume() == 0.75:
+                        Volume3(self)
+                        pygame.event.wait()
+                    if intro.get_volume() == 0.5:
+                        Volume2(self)
+                        pygame.event.wait()
+                    if intro.get_volume() == 0.25:
+                        Volume1(self)
+                        pygame.event.wait()
+                    if intro.get_volume() == 0:
+                        Volume0(self)
+                        pygame.event.wait()
+
+
+
+
+
             else:
                 screen.blit(highervolumebutton, button26.Rect)
 
@@ -140,6 +185,12 @@ class settings:
 
 class game:
     def run(self,numberOfPlayers,starting_player,playerNames = None):
+        time.sleep(1)
+        if random.randint(0,1) == 0:
+            game1.play()
+        else:
+            game2.play()
+
         """ Set up the game and run the main game loop """
         # Prepare the pygame module for use
         # Create surface of (width, height), and its window.
@@ -164,6 +215,7 @@ class game:
                     if button8.Rect.collidepoint(mouse):
                         screen.blit(rolldicebuttonlight,button8.Rect)
                         if pygame.mouse.get_pressed()[0]:
+                            dice.play()
                             a = current_player.rollDice()
                             current_player.moveToTile(findNewTile(board,a,current_player))
                             moved = True
@@ -383,20 +435,24 @@ class Instructions:
                 textPosition = ((10), (250 + (20 * i)))
                 screen.blit(textSurf, textPosition)
 
-            button13.DrawButton(screen, GREEN)
-            button14.DrawButton(screen, RED)
+
 
             if button13.Rect.collidepoint(mouse):
-                button13.DrawButton(screen, BRIGHTGREEN)
+                screen.blit(startbuttonlight, button13.Rect)
                 if pygame.mouse.get_pressed()[0]:
                     intro.stop()
                     bell.play()
                     switchScreen(game(),4,0)
+            else:
+                screen.blit(startbutton, button13.Rect)
 
             if button14.Rect.collidepoint(mouse):
-                button14.DrawButton(screen, BRIGHTRED)
+                # button14.DrawButton(screen, BRIGHTRED)
+                screen.blit(smallbackbuttonlight, button14.Rect)
                 if pygame.mouse.get_pressed()[0]:
                     switchScreen(title1())
+            else:
+                screen.blit(smallbackbutton, button14.Rect)
 
             # Now the surface is ready, tell pygame to display it!
             pygame.display.flip()

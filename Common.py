@@ -10,9 +10,9 @@ pygame.init()
 #audio bestanden
 intro = pygame.mixer.Sound("assets\\sounds\\Intro.wav")
 bell = pygame.mixer.Sound("assets\\sounds\\BoxBell.wav")
-settingsmusic = pygame.mixer.Sound("assets\\sounds\\Settings.wav")
 game1 = pygame.mixer.Sound("assets\\sounds\\Game 1.wav")
 game2 = pygame.mixer.Sound("assets\\sounds\\Game 2.wav")
+dice = pygame.mixer.Sound("assets\\sounds\\Dice.wav")
 
 
 # surface_sz = width = height = 480   # Desired physical surface size, in pixels.
@@ -60,6 +60,8 @@ mutebutton = pygame.image.load("assets\\buttons\\MUTE-BUTTON.png")
 mutebuttonlight = pygame.image.load("assets\\buttons\\MUTE-BUTTON-LIGHT.png")
 backbutton = pygame.image.load("assets\\buttons\\BACK-BUTTON.png")
 backbuttonlight = pygame.image.load("assets\\buttons\\BACK-BUTTON-LIGHT.png")
+smallbackbutton = pygame.image.load("assets\\buttons\\SMALL-BACK-BUTTON.png")
+smallbackbuttonlight = pygame.image.load("assets\\buttons\\SMALL-BACK-BUTTON-LIGHT.png")
 
 
 # A color is a mix of (Red, Green, Blue)
@@ -170,12 +172,12 @@ button10 = Button("Keep playing", GREEN,(350,425,250,50),((350+125),(425+25)))
 button11 = Button("Quit", RED,(680,425,250,50),((680+125),(425+25)))
 
 # Fight 'Screen'
-# choice1
+# Player 2 in SuperFighter en Normal Fights
 button30 = Button("1", BLUE,(width/2 - unit * 2, height-unit*2,unit,unit),(width/2-unit*1.5,height-unit*1.5))
 button31 = Button("2", BLUE,(width/2 - unit/2, height-unit*2,unit,unit),(width/2,height-unit*1.5))
 button32 = Button("3", BLUE,(width/2 + unit, height-unit*2,unit,unit),(width/2+unit*1.5,height-unit*1.5))
 button33 = Button("ROLL", BLUE,(width/2 - unit*1.5, height-unit*5,unit*3,unit*2),(width/2,height-unit*4))
-
+#Player 1 in normalFights
 button34 = Button("1", RED,(width/2 - unit * 2, unit*1,unit,unit),(width/2-unit*1.5,unit*1.5))
 button35 = Button("2", RED,(width/2 - unit/2, unit*1,unit,unit),(width/2,unit*1.5))
 button36 = Button("3", RED,(width/2 + unit, unit*1,unit,unit),(width/2+unit*1.5,unit*1.5))
