@@ -615,20 +615,24 @@ class Instructions:
                 textPosition = ((10), (250 + (20 * i)))
                 screen.blit(textSurf, textPosition)
 
-            button13.DrawButton(screen, GREEN)
-            button14.DrawButton(screen, RED)
+
 
             if button13.Rect.collidepoint(mouse):
-                button13.DrawButton(screen, BRIGHTGREEN)
+                screen.blit(startbuttonlight, button13.Rect)
                 if pygame.mouse.get_pressed()[0]:
                     intro.stop()
                     bell.play()
                     switchScreen(title2())
+            else:
+                screen.blit(startbutton, button13.Rect)
 
             if button14.Rect.collidepoint(mouse):
-                button14.DrawButton(screen, BRIGHTRED)
+                # button14.DrawButton(screen, BRIGHTRED)
+                screen.blit(smallbackbuttonlight, button14.Rect)
                 if pygame.mouse.get_pressed()[0]:
                     switchScreen(title1())
+            else:
+                screen.blit(smallbackbutton, button14.Rect)
 
             # Now the surface is ready, tell pygame to display it!
             pygame.display.flip()
