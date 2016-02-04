@@ -208,8 +208,6 @@ class game:
             rolling_dice = True
             moved = False
             current_player = players[playerindex%4]
-            if current_player.Pnr == 2 and current_player.Health < 1:
-                print("lol")
             if current_player.Health >= 1:
                 if rolling_dice:
                     if button8.Rect.collidepoint(mouse):
@@ -240,9 +238,18 @@ class game:
                                 switchScreen(fight(),players,playerindex,"normal",players[2])
                             elif current_player.Tile.image == BLUE: #Blue spawn tile = Player 4
                                 switchScreen(fight(),players,playerindex,"normal",players[3])
+                        #check if it's the last man standing
+                        deadcounter = 0
+                        if current_player.Health > 0:
+                            for i in players:
+                                if i.Health < 1:
+                                    deadcounter += 1
 
-                        if current_player.Health < 1:
-                            pass
+                        if deadcounter >= 3:
+                            current_player.hasWon = True
+
+                        if current_player.hasWon:
+                            exit()
 
                         if a is not None:
                             current_turn += 1 #Next player starts
@@ -272,10 +279,9 @@ class game:
             elif ev.type == pygame.KEYDOWN:
                 if ev.key == pygame.K_ESCAPE:
                     switchScreen(title1())
-            # main_surface.fill(WHITE)
-            main_surface.blit(bg2, (0,0))
             # Update your game objects and data structures here...
             current_turn, playerindex, playerroll = turn(current_turn,playerindex)
+            main_surface.blit(bg2, (0,0))
             if playerroll is not None:
                 Rolled = playerroll
                 showroll = 1
@@ -409,6 +415,7 @@ class game:
                         game2.stop()
                         intro.play()
                         switchScreen(title1())
+
 
             pygame.display.flip()
 

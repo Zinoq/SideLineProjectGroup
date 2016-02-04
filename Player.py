@@ -16,6 +16,7 @@ class Player:
         self.Damage = 0
         self.ScoreCard = pygame.image.load("assets//scorecards//sc"+str(self.Pnr)+".png")
         self.Color = color
+        self.hasWon = False
 
     def draw(self,screen):
         screen.blit(self.image,(self.Tile.rect.centerx- self.rect.w/2, self.Tile.rect.centery- self.rect.h/2))
