@@ -458,11 +458,11 @@ class game:
                 screen.blit(exitbutton,button7.Rect)
 
             #ingame Instructions
-            button20.DrawButton(main_surface, BLUE)
-            # screen.blit(instructionsbutton,button20.Rect) #TODO make smaller instruction button for in game instructions
+            # button20.DrawButton(main_surface, BLUE)
+            screen.blit(ingameinstructionsbutton,button20.Rect) #Instructions
             if button20.Rect.collidepoint(mouse):
-                button20.DrawButton(main_surface, BRIGHTBLUE)
-                # screen.blit(instructionsbuttonlight,button20.Rect)
+                # button20.DrawButton(main_surface, BRIGHTBLUE)
+                screen.blit(ingameinstructionsbuttonlight,button20.Rect) #Instructions
                 if pygame.mouse.get_pressed()[0]:
                     instructions += 1
             if instructions == 1:
@@ -493,14 +493,16 @@ class game:
             if displayConfirmation == 1 or displayConfirmation == 2:
                 mouse = pygame.mouse.get_pos()
                 button9.DrawButton(main_surface, WHITE)
-                button10.DrawButton(main_surface, GREEN)
-                button11.DrawButton(main_surface, RED)
-                if button10.Rect.collidepoint(mouse):
+                button10.DrawButton(main_surface, GREEN) #keep playing
+                button11.DrawButton(main_surface, RED) #exit button
+                # screen.blit(exitbutton,button11.Rect) #exit button
+                if button10.Rect.collidepoint(mouse): #Keep playing
                     button10.DrawButton(main_surface, BRIGHTGREEN)
                     if pygame.mouse.get_pressed(button10.Rect)[0]:
                         displayConfirmation = 0
-                if button11.Rect.collidepoint(mouse):
+                if button11.Rect.collidepoint(mouse): #exit button
                     button11.DrawButton(main_surface, BRIGHTRED)
+
                     if pygame.mouse.get_pressed(button11.Rect)[0]:
                         switchScreen(title1())
 
