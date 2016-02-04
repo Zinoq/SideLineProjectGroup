@@ -6,9 +6,11 @@ from Cards import *
 
 pygame.init()
 
+#audio bestanden
 intro = pygame.mixer.Sound("assets\\sounds\\Intro.wav")
 bell = pygame.mixer.Sound("assets\\sounds\\BoxBell.wav")
 settingsmusic = pygame.mixer.Sound("assets\\sounds\\Settings.wav")
+
 
 # surface_sz = width = height = 480   # Desired physical surface size, in pixels.
 width = 1280
