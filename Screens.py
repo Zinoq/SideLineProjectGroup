@@ -25,6 +25,7 @@ class title1:
                 button1.DrawButton(screen, BRIGHTGREEN)
                 screen.blit(startbuttonlight,button1.Rect)
                 if pygame.mouse.get_pressed()[0]:
+                    bell.play()
                     screen.blit(bg2, (0, 0))
                     switchScreen(title2())
             else:
@@ -72,6 +73,7 @@ class settings:
         def restoreVolume(self):
             pygame.mixer.music.set_volume(1,0)
         while True:
+            settingsmusic.play()
             mouse = pygame.mouse.get_pos()
             ev = pygame.event.poll()
             if ev.type == pygame.QUIT:
@@ -81,35 +83,39 @@ class settings:
                     switchScreen(title1())
             screen.blit(bg, (0, 0))
 
-            button24.DrawButton(screen)
-            if button24.Rect.collidepoint(mouse):
-                button24.DrawButton(screen, BRIGHTRED)
+
+            if button24.Rect.collidepoint(mouse): #Mute
+                screen.blit(mutebuttonlight, button24.Rect)
                 # if pygame.mouse.get_pressed()[0]:
                 #     stopMusic(self)
             else:
-                button24.DrawButton(screen, RED)
+                screen.blit(mutebutton, button24.Rect)
 
-            button25.DrawButton(screen)
-            if button25.Rect.collidepoint(mouse):
-                button25.DrawButton(screen, YELLOW)
+
+            if button25.Rect.collidepoint(mouse): #Lower Volume
+                screen.blit(lowervolumebuttonlight, button25.Rect)
                 # if pygame.mouse.get_pressed()[0]:
                 #     decreaseVolume(self)
             else:
-                button25.DrawButton(screen, DARKYELLOW)
+                screen.blit(lowervolumebutton, button25.Rect)
 
-            button26.DrawButton(screen)
-            if button26.Rect.collidepoint(mouse):
-                button26.DrawButton(screen, BRIGHTGREEN)
+
+            if button26.Rect.collidepoint(mouse): #Higher Volume
+                screen.blit(highervolumebuttonlight, button26.Rect)
                 # if pygame.mouse.get_pressed()[0]:
                 #     restoreVolume(self)
             else:
-                button26.DrawButton(screen, GREEN)
+                screen.blit(highervolumebutton, button26.Rect)
 
-            button27.DrawButton(screen, BLUE)
-            if button27.Rect.collidepoint(mouse):
-                button27.DrawButton(screen, BRIGHTBLUE)
+
+            if button27.Rect.collidepoint(mouse): #return to menu
+                # button27.DrawButton(screen, BRIGHTBLUE)
+                screen.blit(backbuttonlight, button27.Rect)
                 if pygame.mouse.get_pressed()[0]:
                     switchScreen(title1())
+            else:
+                # button27.DrawButton(screen, BLUE)
+                screen.blit(backbutton, button27.Rect)
 
 
             pygame.display.flip()
@@ -304,7 +310,8 @@ class game:
             if current_player.Health >= 1:
                 if rolling_dice:
                     if button8.Rect.collidepoint(mouse):
-                        button8.DrawButton(main_surface, BRIGHTBLUE)
+                        # button8.DrawButton(main_surface, BRIGHTBLUE)
+                        screen.blit(rolldicebuttonlight,button8.Rect)
                         if pygame.mouse.get_pressed()[0]:
                             a = current_player.rollDice()
                             current_player.moveToTile(findNewTile(board,a,current_player))
@@ -339,10 +346,12 @@ class game:
                             playerindex += 1
                     else:
                         a = None
-                        button8.DrawButton(main_surface, BLUE)
+                        # button8.DrawButton(main_surface, BLUE)
+                        screen.blit(rolldicebutton,button8.Rect)
                 else:
                     a = None
-                    button8.DrawButton(main_surface, BLUE)
+                    # button8.DrawButton(main_surface, BLUE)
+                    screen.blit(rolldicebutton,button8.Rect) #Rolldice
             else: #if the player is dead
                 button8.DrawButton(main_surface, BLUE)
                 current_turn += 1
@@ -436,19 +445,24 @@ class game:
 
 
 
-            button7.DrawButton(main_surface)
+
 
             # EXIT BUTTON
             if button7.Rect.collidepoint(mouse):
-                button7.DrawButton(main_surface, PINK)
+                # button7.DrawButton(main_surface, PINK)
+                screen.blit(exitbuttonlight,button7.Rect)
                 if pygame.mouse.get_pressed()[0]:
                     displayConfirmation = 1
             else:
-                button7.DrawButton(main_surface, RED)
+                # button7.DrawButton(main_surface, RED)
+                screen.blit(exitbutton,button7.Rect)
 
-            button20.DrawButton(main_surface, BLUE)
+            #ingame Instructions
+            # button20.DrawButton(main_surface, BLUE)
+            screen.blit(ingameinstructionsbutton,button20.Rect) #Instructions
             if button20.Rect.collidepoint(mouse):
-                button20.DrawButton(main_surface, BRIGHTBLUE)
+                # button20.DrawButton(main_surface, BRIGHTBLUE)
+                screen.blit(ingameinstructionsbuttonlight,button20.Rect) #Instructions
                 if pygame.mouse.get_pressed()[0]:
                     instructions += 1
             if instructions == 1:
@@ -459,9 +473,11 @@ class game:
                     if pygame.mouse.get_pressed()[0]:
                         instructions -= 1
 
-                button7.DrawButton(main_surface, RED)
+                # button7.DrawButton(main_surface, RED)
+                screen.blit(exitbutton,button7.Rect)
                 if button7.Rect.collidepoint(mouse):
-                      button7.DrawButton(main_surface, BRIGHTRED)
+                    # button7.DrawButton(main_surface, BRIGHTRED)
+                    screen.blit(exitbuttonlight,button7.Rect)
                 textColor = WHITE
 
                 for i in range(0, len(text)):  # this prints out the tekst list in a readable order
@@ -477,14 +493,16 @@ class game:
             if displayConfirmation == 1 or displayConfirmation == 2:
                 mouse = pygame.mouse.get_pos()
                 button9.DrawButton(main_surface, WHITE)
-                button10.DrawButton(main_surface, GREEN)
-                button11.DrawButton(main_surface, RED)
-                if button10.Rect.collidepoint(mouse):
+                button10.DrawButton(main_surface, GREEN) #keep playing
+                button11.DrawButton(main_surface, RED) #exit button
+                # screen.blit(exitbutton,button11.Rect) #exit button
+                if button10.Rect.collidepoint(mouse): #Keep playing
                     button10.DrawButton(main_surface, BRIGHTGREEN)
                     if pygame.mouse.get_pressed(button10.Rect)[0]:
                         displayConfirmation = 0
-                if button11.Rect.collidepoint(mouse):
+                if button11.Rect.collidepoint(mouse): #exit button
                     button11.DrawButton(main_surface, BRIGHTRED)
+
                     if pygame.mouse.get_pressed(button11.Rect)[0]:
                         switchScreen(title1())
 
@@ -582,7 +600,7 @@ class fight:
             if ev.type == pygame.QUIT:  # Window close button clicked?
                 exit()
             mouse = pygame.mouse.get_pos()
-            screen.blit(bg3, (0, 0))
+            screen.blit(bg2, (0, 0))
             button30.DrawButton(screen,DARKBLUE)
             button31.DrawButton(screen,DARKBLUE)
             button32.DrawButton(screen,DARKBLUE)

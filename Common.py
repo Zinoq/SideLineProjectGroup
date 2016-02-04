@@ -6,7 +6,13 @@ from Cards import *
 
 pygame.init()
 
-# sound = pygame.mixer.Sound("BoxBell.wav")
+#audio bestanden
+intro = pygame.mixer.Sound("assets\\sounds\\Intro.wav")
+bell = pygame.mixer.Sound("assets\\sounds\\BoxBell.wav")
+settingsmusic = pygame.mixer.Sound("assets\\sounds\\Settings.wav")
+game1 = pygame.mixer.Sound("assets\\sounds\\Game 1.wav")
+game2 = pygame.mixer.Sound("assets\\sounds\\Game 2.wav")
+
 
 # surface_sz = width = height = 480   # Desired physical surface size, in pixels.
 width = 1280
@@ -26,6 +32,13 @@ unit = int(height/16)
 # Background 1
 unscaled_bg = pygame.image.load("assets\\title4.png")
 bg = pygame.transform.scale(unscaled_bg,size)
+
+#Background 2
+unscaled_bg2 = pygame.image.load("assets\\notextbg.png")
+bg2 = pygame.transform.scale(unscaled_bg2,size)
+
+
+#buttonImages
 startbutton = pygame.image.load("assets\\buttons\\START-BUTTON.png")
 startbuttonlight = pygame.image.load("assets\\buttons\\START-BUTTON-LIGHT.png")
 instructionsbutton = pygame.image.load("assets\\buttons\\INSTRUCTIONS-BUTTON.png")
@@ -34,15 +47,19 @@ exitbutton = pygame.image.load("assets\\buttons\\EXIT-BUTTON.png")
 exitbuttonlight = pygame.image.load("assets\\buttons\\EXIT-BUTTON-LIGHT.png")
 settingsbutton = pygame.image.load("assets\\buttons\\SETTINGS-BUTTON.png")
 settingsbuttonlight = pygame.image.load("assets\\buttons\\SETTINGS-BUTTON-LIGHT.png")
+rolldicebutton = pygame.image.load("assets\\buttons\\ROLLDICE-BUTTON.png")
+rolldicebuttonlight = pygame.image.load("assets\\buttons\\ROLLDICE-BUTTON-LIGHT.png")
+ingameinstructionsbutton = pygame.image.load("assets\\buttons\\INSTRUCTIONS-BUTTON-INGAME.png")
+ingameinstructionsbuttonlight = pygame.image.load("assets\\buttons\\INSTRUCTIONS-BUTTON-INGAME-LIGHT.png")
+lowervolumebutton = pygame.image.load("assets\\buttons\\LOWERVOLUME-BUTTON.png") #button25
+lowervolumebuttonlight = pygame.image.load("assets\\buttons\\LOWERVOLUME-BUTTON-LIGHT.png")
+highervolumebutton = pygame.image.load("assets\\buttons\\HIGHERVOLUME-BUTTON.png") #button26
+highervolumebuttonlight = pygame.image.load("assets\\buttons\\HIGHERVOLUME-BUTTON-LIGHT.png")
+mutebutton = pygame.image.load("assets\\buttons\\MUTE-BUTTON.png")
+mutebuttonlight = pygame.image.load("assets\\buttons\\MUTE-BUTTON-LIGHT.png")
+backbutton = pygame.image.load("assets\\buttons\\BACK-BUTTON.png")
+backbuttonlight = pygame.image.load("assets\\buttons\\BACK-BUTTON-LIGHT.png")
 
-
-# Background 2
-unscaled_bg2 = pygame.image.load("assets\\title2.png")
-bg2 = pygame.transform.scale(unscaled_bg2,size)
-
-# Background 3 (no text)
-unscaled_bg3 = pygame.image.load("assets\\notextbg.png")
-bg3 = pygame.transform.scale(unscaled_bg3,size)
 
 # A color is a mix of (Red, Green, Blue)
 # <color> = (r, g, b)
