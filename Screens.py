@@ -4,8 +4,6 @@ pygame.display.set_caption("Super Fight Punch by SideLine")
 
 volume = pygame.mixer.music.set_volume
 
-hendrik = True
-
 class title1:
     intro.play()
     def run(self):
