@@ -49,16 +49,16 @@ settingsbutton = pygame.image.load("assets\\buttons\\SETTINGS-BUTTON.png")
 settingsbuttonlight = pygame.image.load("assets\\buttons\\SETTINGS-BUTTON-LIGHT.png")
 rolldicebutton = pygame.image.load("assets\\buttons\\ROLLDICE-BUTTON.png")
 rolldicebuttonlight = pygame.image.load("assets\\buttons\\ROLLDICE-BUTTON-LIGHT.png")
-# ingameinstructionsbutton = pygame.image.load("assets\\buttons\\INSTRUCTIONS-BUTTON-INGAME.png")
-# ingameinstructionsbuttonlight = pygame.image.load("assets\\buttons\\INSTRUCTIONS-BUTTON-INGAME-LIGHT.png")
-# lowervolumebutton = pygame.image.load("assets\\buttons\\LOWERVOLUME-BUTTON.png") #button25
-# lowervolumebuttonlight = pygame.image.load("assets\\buttons\\LOWERVOLUME-BUTTON-LIGHT.png")
-# highervolumebutton = pygame.image.load("assets\\buttons\\HIGHERVOLUME-BUTTON.png") #button26
-# highervolumebuttonlight = pygame.image.load("assets\\buttons\\HIGHERVOLUME-BUTTON-LIGHT.png")
-# mutebutton = pygame.image.load("assets\\buttons\\MUTE-BUTTON.png")
-# mutebuttonlight = pygame.image.load("assets\\buttons\\MUTE-BUTTON-LIGHT.png")
-# backbutton = pygame.image.load("assets\\buttons\\BACK-BUTTON.png")
-# backbuttonlight = pygame.image.load("assets\\buttons\\BACK-BUTTON-LIGHT.png")
+ingameinstructionsbutton = pygame.image.load("assets\\buttons\\INSTRUCTIONS-BUTTON-INGAME.png")
+ingameinstructionsbuttonlight = pygame.image.load("assets\\buttons\\INSTRUCTIONS-BUTTON-INGAME-LIGHT.png")
+lowervolumebutton = pygame.image.load("assets\\buttons\\LOWERVOLUME-BUTTON.png") #button25
+lowervolumebuttonlight = pygame.image.load("assets\\buttons\\LOWERVOLUME-BUTTON-LIGHT.png")
+highervolumebutton = pygame.image.load("assets\\buttons\\HIGHERVOLUME-BUTTON.png") #button26
+highervolumebuttonlight = pygame.image.load("assets\\buttons\\HIGHERVOLUME-BUTTON-LIGHT.png")
+mutebutton = pygame.image.load("assets\\buttons\\MUTE-BUTTON.png")
+mutebuttonlight = pygame.image.load("assets\\buttons\\MUTE-BUTTON-LIGHT.png")
+backbutton = pygame.image.load("assets\\buttons\\BACK-BUTTON.png")
+backbuttonlight = pygame.image.load("assets\\buttons\\BACK-BUTTON-LIGHT.png")
 
 
 # A color is a mix of (Red, Green, Blue)
