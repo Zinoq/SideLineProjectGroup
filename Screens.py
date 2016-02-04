@@ -30,7 +30,8 @@ class title1:
                     intro.stop()
                     bell.play()
                     screen.blit(bg2, (0, 0))
-                    switchScreen(title2())
+                    switchScreen(game(),4,0)
+                    # switchScreen(title2())
             else:
                 # button1.DrawButton(screen, GREEN)
                 screen.blit(startbutton,button1.Rect)
