@@ -23,7 +23,7 @@ else:
     offset = 0
 unit = int(height/16)
 
-#Background 1
+# Background 1
 unscaled_bg = pygame.image.load("assets\\title4.png")
 bg = pygame.transform.scale(unscaled_bg,size)
 startbutton = pygame.image.load("assets\\buttons\\START-BUTTON.png")
@@ -36,9 +36,13 @@ settingsbutton = pygame.image.load("assets\\buttons\\SETTINGS-BUTTON.png")
 settingsbuttonlight = pygame.image.load("assets\\buttons\\SETTINGS-BUTTON-LIGHT.png")
 
 
-#Background 2
+# Background 2
 unscaled_bg2 = pygame.image.load("assets\\title2.png")
 bg2 = pygame.transform.scale(unscaled_bg2,size)
+
+# Background 3 (no text)
+unscaled_bg3 = pygame.image.load("assets\\notextbg.png")
+bg3 = pygame.transform.scale(unscaled_bg3,size)
 
 # A color is a mix of (Red, Green, Blue)
 # <color> = (r, g, b)
@@ -133,10 +137,15 @@ button11 = Button("Quit", RED,(680,425,250,50),((680+125),(425+25)))
 
 # Fight 'Screen'
 # choice1
-button27 = Button("1", BLUE,(width/2 - unit * 2, height*0.6,unit,unit),(width/2-unit*1.5,height*0.6+unit/2))
-button28 = Button("2", BLUE,(width/2 - unit/2, height*0.6,unit,unit),(width/2,height*0.6+unit/2))
-button29 = Button("3", BLUE,(width/2 + unit, height*0.6,unit,unit),(width/2+unit*1.5,height*0.6+unit/2))
-button30 = Button("ROLL", BLUE,(width/2 - unit*1.5, height*0.4,unit*3,unit*2),(width/2,height*0.4+unit))
+button30 = Button("1", BLUE,(width/2 - unit * 2, height-unit*2,unit,unit),(width/2-unit*1.5,height-unit*1.5))
+button31 = Button("2", BLUE,(width/2 - unit/2, height-unit*2,unit,unit),(width/2,height-unit*1.5))
+button32 = Button("3", BLUE,(width/2 + unit, height-unit*2,unit,unit),(width/2+unit*1.5,height-unit*1.5))
+button33 = Button("ROLL", BLUE,(width/2 - unit*1.5, height-unit*5,unit*3,unit*2),(width/2,height-unit*4))
+
+button34 = Button("1", RED,(width/2 - unit * 2, unit*1,unit,unit),(width/2-unit*1.5,unit*1.5))
+button35 = Button("2", RED,(width/2 - unit/2, unit*1,unit,unit),(width/2,unit*1.5))
+button36 = Button("3", RED,(width/2 + unit, unit*1,unit,unit),(width/2+unit*1.5,unit*1.5))
+button37 = Button("ROLL", RED,(width/2 - unit*1.5, unit*3,unit*3,unit*2),(width/2,unit*4))
 
 #instructionscreen
 #start
@@ -258,18 +267,18 @@ def playerInit(humans,startTiles,names = None): #give names as a list, in order 
         while pnr < 4:
             if pnr < humans:
                 if pnr == 2:
-                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],True,"Player %s" % (3),3))
+                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],True,"Player %s" % (3),3,PlayerColors[3]))
                 elif pnr == 3:
-                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],True,"Player %s" % (4),4))
+                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],True,"Player %s" % (4),4,PlayerColors[2]))
                 else:
-                    players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],True,"Player %s" % (pnr+1),pnr+1))
+                    players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],True,"Player %s" % (pnr+1),pnr+1,PlayerColors[pnr]))
             else:
                 if pnr == 2:
-                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],False,"Player %s" % (3),3))
+                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],False,"Player %s" % (3),3,PlayerColors[3]))
                 elif pnr == 3:
-                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],False,"Player %s" % (4),4))
+                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],False,"Player %s" % (4),4,PlayerColors[2]))
                 else:
-                    players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],False,"Player %s" % (pnr+1),pnr+1))
+                    players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],False,"Player %s" % (pnr+1),pnr+1,PlayerColors[pnr]))
             pnr += 1
     else:
         while pnr < 4:
@@ -277,18 +286,18 @@ def playerInit(humans,startTiles,names = None): #give names as a list, in order 
                 names[pnr] = "Player %s" % (pnr+1)
             if pnr < humans:
                 if pnr == 2:
-                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],True,names[2],3))
+                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],True,names[2],3,PlayerColors[3]))
                 elif pnr == 3:
-                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],True,names[3],4))
+                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],True,names[3],4,PlayerColors[2]))
                 else:
-                    players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],True,names[pnr],pnr+1))
+                    players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],True,names[pnr],pnr+1,PlayerColors[pnr]))
             else:
                 if pnr == 2:
-                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],False,names[2],3))
+                    players.append(Player(100,startTiles[3],15,startTiles[3],pimg[3],False,names[2],3,PlayerColors[3]))
                 elif pnr == 3:
-                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],False,names[3],4))
+                    players.append(Player(100,startTiles[2],15,startTiles[2],pimg[2],False,names[3],4,PlayerColors[2]))
                 else:
-                    players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],False,names[pnr],pnr+1))
+                    players.append(Player(100,startTiles[pnr],15,startTiles[pnr],pimg[pnr],False,names[pnr],pnr+1,PlayerColors[pnr]))
             pnr += 1
     return players
 

@@ -1,7 +1,7 @@
 import random,pygame
 
 class Player:
-    def __init__(self, health, position, condition, spawntile, texture, is_human, name, pnr):
+    def __init__(self, health, position, condition, spawntile, texture, is_human, name, pnr,color):
         pygame.init()
         self.Health = health
         self.Condition = condition
@@ -15,6 +15,7 @@ class Player:
         self.Name = name
         self.Damage = 0
         self.ScoreCard = pygame.image.load("assets//scorecards//sc"+str(self.Pnr)+".png")
+        self.Color = color
 
     def draw(self,screen):
         screen.blit(self.image,(self.Tile.rect.centerx- self.rect.w/2, self.Tile.rect.centery- self.rect.h/2))
@@ -31,11 +32,48 @@ class Player:
     def rollDice(self):                         #tested, works
         return random.randint(1,6)
 
-    def calculateDamage(self, number): #number is result of rolling the dice
-        #id 1 = Mike Tysen, 2 = Badr Heri, 3 = Rocky Belboa, 4 = Menny Pecquiao
-        selected = random.randint(1,3) #TODO maak dit een keuze ipv random
+    def calculateDamage(self, dice, selected): #number is result of rolling the dice
+        #id 1 = Badr Heri, 2 = Rocky Belboa, 3 = Mike Tysen, 4 = Menny Pecquiao
         if self.Condition > 0:
             if self.Pnr is 1:
+                choice = {
+                    1: {1:[5, -2], 2:[11, -3], 3:[15, -5]},
+                    2: {1:[3, -1], 2:[9, -2], 3:[19, -3]},
+                    3: {1:[2, -1], 2:[4, -2], 3:[6, -3]},
+                    4: {1:[7, -2], 2:[12, -3], 3:[16, -4]},
+                    5: {1:[8, -3], 2:[13, -4], 3:[17,-5]},
+                    6: {1:[10, -2], 2:[20, -5], 3:[30, -8]}
+                    }
+                # self.Condition += choice[number][*][1]
+                if self.Condition > 0:
+                    if self.Condition + choice[dice][selected][1] > 0:
+                        self.Condition = self.Condition + choice[dice][selected][1]
+                        self.Damage = choice[dice][selected][0] #select damage of selected
+                    else:
+                        return 0
+                else:
+                    return 0
+
+            elif self.Pnr is 2:
+                choice = {
+                    1: {1:[10, -2], 2:[20, -5], 3:[30, -8]},
+                    2: {1:[8, -3], 2:[13, -4], 3:[17, -5]},
+                    3: {1:[3, -1], 2:[9, -2], 3:[19, -3]},
+                    4: {1:[5, -2], 2:[11, -3], 3:[15, -4]},
+                    5: {1:[7, -2], 2:[12, -3], 3:[16,-4]},
+                    6: {1:[2, -1], 2:[4, -2], 3:[6, -3]}
+                    }
+                # self.Condition += choice[number][*][1]
+                if self.Condition > 0:
+                    if self.Condition + choice[dice][selected][1] > 0:
+                        self.Condition = self.Condition + choice[dice][selected][1]
+                        self.Damage = choice[dice][selected][0] #select damage of selected
+                    else:
+                        return 0
+                else:
+                    return 0
+
+            elif self.Pnr is 3:
                 choice = {
                     #ontleden van de aankomende code gaat als volgt:
                     #het eerste nummer is het nummer dat je dobbelt, en dan kan je 1 van de drie keuzes
@@ -49,49 +87,11 @@ class Player:
                     }
                 # self.Condition += choice[number][*][1]
                 if self.Condition > 0:
-                     if self.Condition + choice[number][selected][1] > 0:
-                         self.Condition = self.Condition + choice[number][selected][1]
-                         return choice[number][selected][0] #select damage of selected
+                     if self.Condition + choice[dice][selected][1] > 0:
+                         self.Condition = self.Condition + choice[dice][selected][1]
+                         self.Damage = choice[dice][selected][0] #select damage of selected
                      else:
                          return 0 #je kunt deze aanval niet uitvoeren
-                else:
-                    return 0
-
-            elif self.Pnr is 2:
-                choice = {
-                    1: {1:[5, -2], 2:[11, -3], 3:[15, -5]},
-                    2: {1:[3, -1], 2:[9, -2], 3:[19, -3]},
-                    3: {1:[2, -1], 2:[4, -2], 3:[6, -3]},
-                    4: {1:[7, -2], 2:[12, -3], 3:[16, -4]},
-                    5: {1:[8, -3], 2:[13, -4], 3:[17,-5]},
-                    6: {1:[10, -2], 2:[20, -5], 3:[30, -8]}
-                    }
-                # self.Condition += choice[number][*][1]
-                if self.Condition > 0:
-                    if self.Condition + choice[number][selected][1] > 0:
-                        self.Condition = self.Condition + choice[number][selected][1]
-                        return choice[number][selected][0] #select damage of selected
-                    else:
-                        return 0
-                else:
-                    return 0
-
-            elif self.Pnr is 3:
-                choice = {
-                    1: {1:[10, -2], 2:[20, -5], 3:[30, -8]},
-                    2: {1:[8, -3], 2:[13, -4], 3:[17, -5]},
-                    3: {1:[3, -1], 2:[9, -2], 3:[19, -3]},
-                    4: {1:[5, -2], 2:[11, -3], 3:[15, -4]},
-                    5: {1:[7, -2], 2:[12, -3], 3:[16,-4]},
-                    6: {1:[2, -1], 2:[4, -2], 3:[6, -3]}
-                    }
-                # self.Condition += choice[number][*][1]
-                if self.Condition > 0:
-                    if self.Condition + choice[number][selected][1] > 0:
-                        self.Condition = self.Condition + choice[number][selected][1]
-                        return choice[number][selected][0] #select damage of selected
-                    else:
-                        return 0
                 else:
                     return 0
 
@@ -106,9 +106,9 @@ class Player:
                     }
                 # self.Condition += choice[number][*][1]
                 if self.Condition > 0:
-                    if self.Condition + choice[number][selected][1] >= 0:
-                        self.Condition = self.Condition + choice[number][selected][1]
-                        return choice[number][selected][0] #select damage of selected
+                    if self.Condition + choice[dice][selected][1] >= 0:
+                        self.Condition = self.Condition + choice[dice][selected][1]
+                        self.Damage = choice[dice][selected][0] #select damage of selected
                     else:
                         return 0
                 else:
