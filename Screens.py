@@ -204,11 +204,6 @@ class title2:
             if button3.Rect.collidepoint(mouse):
                 button3.DrawButton(screen, PINK)
                 if pygame.mouse.get_pressed()[0]:
-                    b = random.randint(1,2)
-                    if b == 1:
-                        game1.play()
-                    if b == 2:
-                        game2.play()
                     numberOfPlayers = 1
                     switchScreen(game(),numberOfPlayers,0)
                     # switchScreen(whostarts(),numberOfPlayers)
@@ -219,11 +214,6 @@ class title2:
             if button4.Rect.collidepoint(mouse):
                 button4.DrawButton(screen, PINK)
                 if pygame.mouse.get_pressed()[0]:
-                    b = random.randint(1,2)
-                    if b == 1:
-                        game1.play()
-                    if b == 2:
-                        game2.play()
                     numberOfPlayers = 2
                     switchScreen(game(),numberOfPlayers,0)
                     # switchScreen(whostarts(),numberOfPlayers)
@@ -234,11 +224,6 @@ class title2:
             if button5.Rect.collidepoint(mouse):
                 button5.DrawButton(screen, PINK)
                 if pygame.mouse.get_pressed()[0]:
-                    b = random.randint(1,2)
-                    if b == 1:
-                        game1.play()
-                    if b == 2:
-                        game2.play()
                     numberOfPlayers = 3
                     switchScreen(game(),numberOfPlayers,0)
                     # switchScreen(whostarts(),numberOfPlayers)
@@ -249,11 +234,6 @@ class title2:
             if button6.Rect.collidepoint(mouse):
                 button6.DrawButton(screen, PINK)
                 if pygame.mouse.get_pressed()[0]:
-                    b = random.randint(1,2)
-                    if b == 1:
-                        game1.play()
-                    if b == 2:
-                        game2.play()
                     numberOfPlayers = 4
                     switchScreen(game(),numberOfPlayers,0)
                     # switchScreen(whostarts(),numberOfPlayers)
@@ -371,6 +351,11 @@ class whostarts:
 
 class game:
     def run(self,numberOfPlayers,starting_player,playerNames = None):
+        time.sleep(1)
+        if random.randint(0,1) == 0:
+            game1.play()
+        else:
+            game2.play()
         """ Set up the game and run the main game loop """
         # Prepare the pygame module for use
         # Create surface of (width, height), and its window.
