@@ -87,6 +87,7 @@ class settings:
             settingsmusic.set_volume(1.0)
             game1.set_volume(1.0)
             game2.set_volume(1.0)
+        time.sleep(0.1)
         while True:
             # settingsmusic.play()
             mouse = pygame.mouse.get_pos()
